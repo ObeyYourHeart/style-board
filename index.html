@@ -1,0 +1,498 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="zhuhong">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>动画风格选片台</title>
+<meta name="description" content="从 Opus 5.5 动画案例里整理的 11 种画风，每种附抽帧样张、主色、适合的系列和做法。">
+<meta property="og:title" content="动画风格选片台">
+<meta property="og:description" content="11 种代码动画画风，挑一种做下一部片子。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='2' y='2' width='28' height='28' rx='3' fill='none' stroke='%23D23A2E' stroke-width='3'/%3E%3Crect x='9' y='9' width='14' height='14' fill='%23D23A2E'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@700;900&display=swap">
+<script>
+  // apply the saved theme before first paint
+  try { var t = localStorage.getItem('sb-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+<style>
+/* Layout: a print-proof light table. Each theme only swaps the tokens below. */
+:root, [data-theme="zhuhong"] {
+  --bg: #FFFFFF; --band: #F4F5F7; --card: #FFFFFF; --line: #E2E4E8; --line2: #C9CDD3;
+  --ink: #16181C; --sub: #5B616B; --body: #3A3F47; --accent: #D23A2E; --on-accent: #FFFFFF; --chip: #F1F2F4;
+  --ok-bg: #E3F3E9; --ok: #1E6B43; --mix-bg: #FCEFD6; --mix: #8A5A0E; --shadow: rgba(22, 24, 28, .10);
+  color-scheme: light;
+}
+[data-theme="qinglv"] {
+  --bg: #F6FBF7; --band: #E4F2E8; --card: #FFFFFF; --line: #CFE3D5; --line2: #AFCDB9;
+  --ink: #15281D; --sub: #4A6353; --body: #2F4537; --accent: #2A7D4F; --chip: #E9F4EC;
+}
+[data-theme="sakura"] {
+  --bg: #FFF8FA; --band: #FCE6EE; --card: #FFFFFF; --line: #F3D3DE; --line2: #E5B3C4;
+  --ink: #2B1A20; --sub: #7A5562; --body: #4A3239; --accent: #C2366B; --chip: #FCEDF2;
+}
+[data-theme="tianqing"] {
+  --bg: #F5F9FC; --band: #E2EFF7; --card: #FFFFFF; --line: #CFE0EC; --line2: #A9C6DA;
+  --ink: #12222E; --sub: #4B6272; --body: #2C4352; --accent: #1F6E9C; --chip: #EAF3F9;
+}
+[data-theme="lavender"] {
+  --bg: #FAF8FD; --band: #EEE8F8; --card: #FFFFFF; --line: #DFD5F0; --line2: #C3B3E0;
+  --ink: #221A33; --sub: #645778; --body: #3D3350; --accent: #6A4BB0; --chip: #F2EEFA;
+}
+[data-theme="apricot"] {
+  --bg: #FFFAF3; --band: #FCEBD3; --card: #FFFFFF; --line: #F2DDBE; --line2: #E3C192;
+  --ink: #2A1E10; --sub: #745C3E; --body: #4A3A26; --accent: #B5561B; --chip: #FDF1E1;
+}
+[data-theme="starry"] {
+  --bg: #0E1430; --band: rgba(22, 30, 66, .82); --card: #18204A; --line: #2A3463; --line2: #3F4B85;
+  --ink: #EEF0FF; --sub: #A9B1D6; --body: #CDD3F0; --accent: #F5C451; --on-accent: #1A1A2E; --chip: #232C5A;
+  --ok-bg: #1C3A30; --ok: #9BE0B9; --mix-bg: #3D3018; --mix: #F2CF86; --shadow: rgba(0, 0, 0, .35);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { background: var(--bg); }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 16px; line-height: 1.7;
+  transition: background-color .3s ease, color .3s ease;
+}
+a { color: inherit; text-underline-offset: 3px; }
+a:hover { text-decoration-thickness: 2px; }
+button { font: inherit; color: inherit; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+img { max-width: 100%; }
+.serif { font-family: "Noto Serif SC", "Songti SC", "SimSun", serif; font-weight: 900; }
+.mono { font-family: "JetBrains Mono", Consolas, Menlo, monospace; }
+.wrap { max-width: 1440px; margin: 0 auto; padding-inline: clamp(16px, 4vw, 56px); }
+
+/* starry sky: a fixed star layer behind everything */
+.sky { display: none; }
+[data-theme="starry"] .sky {
+  display: block; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 60% 40% at 78% 8%, rgba(120, 110, 220, .28), transparent 70%),
+    radial-gradient(ellipse 50% 35% at 12% 70%, rgba(70, 140, 220, .18), transparent 70%);
+}
+.sky canvas { width: 100%; height: 100%; display: block; }
+.page { position: relative; z-index: 1; }
+
+.cmyk { display: flex; height: 6px; }
+.cmyk span { flex: 1; }
+[data-theme="starry"] .cmyk { opacity: .55; }
+
+header.top {
+  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px 24px;
+  padding-block: 14px; border-bottom: 1px solid var(--line);
+}
+.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.seal {
+  display: inline-grid; place-items: center; flex: none;
+  width: 44px; height: 44px; border: 2px solid var(--accent); border-radius: 3px; color: var(--accent);
+  font-family: "Noto Serif SC", "Songti SC", serif; font-weight: 900; font-size: 17px; line-height: 1;
+}
+.seal.big { width: 40px; height: 40px; font-size: 20px; }
+.brand-name { display: flex; flex-direction: column; line-height: 1.3; }
+.brand-name .serif { font-size: 18px; }
+.brand-name .mono { font-size: 12px; color: var(--sub); letter-spacing: .06em; }
+nav.links { display: flex; flex-wrap: wrap; gap: 2px; }
+nav.links a { padding: 10px 12px; text-decoration: none; color: var(--body); }
+
+.themebar {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+  padding-block: 12px; border-bottom: 1px solid var(--line);
+}
+.themebar .label { font-size: 13px; color: var(--sub); margin-right: 4px; }
+.tbtn {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px;
+  border-radius: 999px; border: 1px solid var(--line2); background: var(--card); color: var(--body);
+  cursor: pointer; font-size: 14px;
+}
+.tbtn[aria-pressed="true"] { border: 2px solid var(--accent); background: var(--band); color: var(--ink); font-weight: 700; }
+.tbtn i { width: 16px; height: 16px; border-radius: 50%; flex: none; border: 1px solid rgba(0, 0, 0, .12); }
+
+.hero { display: flex; flex-wrap: wrap; gap: 56px; align-items: center; padding-block: clamp(40px, 7vw, 96px); }
+.hero-text { flex: 999 1 540px; min-width: 0; display: flex; flex-direction: column; gap: 24px; }
+.eyebrow { font-size: 13px; color: var(--accent); letter-spacing: .12em; }
+h1 { margin: 0; font-size: clamp(40px, 6vw, 84px); line-height: 1.12; text-wrap: balance; }
+.lede { margin: 0; max-width: 34em; font-size: 18px; color: var(--sub); }
+.cta { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn {
+  display: inline-flex; align-items: center; min-height: 48px; padding: 0 24px; border-radius: 4px;
+  text-decoration: none; border: 1px solid var(--line2); background: var(--card); color: var(--ink);
+}
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); font-weight: 700; }
+.proof { flex: 1 1 400px; min-width: 0; display: flex; flex-direction: column; gap: 14px; }
+.proof-frame { position: relative; padding: 18px; background: var(--band); }
+.proof-frame .cm { position: absolute; width: 20px; height: 20px; border-color: var(--ink); border-style: solid; border-width: 0; }
+.cm.tl { top: -12px; left: -12px; border-top-width: 1px; border-left-width: 1px; }
+.cm.tr { top: -12px; right: -12px; border-top-width: 1px; border-right-width: 1px; }
+.cm.bl { bottom: -12px; left: -12px; border-bottom-width: 1px; border-left-width: 1px; }
+.cm.br { bottom: -12px; right: -12px; border-bottom-width: 1px; border-right-width: 1px; }
+.proof-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.proof-grid figure { margin: 0; display: flex; flex-direction: column; gap: 6px; }
+.proof-grid img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; }
+.proof-grid figcaption { font-size: 12px; color: var(--body); }
+.proof-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: 12px; color: var(--sub); }
+.bars { display: flex; gap: 4px; }
+.bars span { width: 14px; height: 14px; }
+
+.band { background: var(--band); transition: background-color .3s ease; }
+section.block { padding-block: clamp(48px, 7vw, 88px); display: flex; flex-direction: column; gap: 28px; }
+.sec-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px; border-top: 2px solid var(--ink); padding-top: 18px; }
+.sec-head > div { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+h2 { margin: 0; font-size: clamp(28px, 3.4vw, 44px); line-height: 1.25; text-wrap: balance; }
+.sec-head p { margin: 0; color: var(--sub); max-width: 40em; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
+.grid.styles { grid-auto-flow: row dense; }
+.pick, .card {
+  background: var(--card); border: 1px solid var(--line); border-radius: 6px; overflow: hidden;
+  display: flex; flex-direction: column; text-align: left; padding: 0; margin: 0; color: var(--ink);
+}
+.pick img, .card img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; display: block; background: var(--band); }
+.pick-body, .card-body { padding: 18px 20px 22px; display: flex; flex-direction: column; gap: 12px; }
+.title-row { display: flex; align-items: center; gap: 12px; }
+.title-row > span:last-child { display: flex; flex-direction: column; line-height: 1.35; min-width: 0; }
+.kicker { font-size: 13px; color: var(--sub); }
+.name { font-size: 19px; }
+.handle { font-size: 12px; color: var(--sub); }
+.desc { color: var(--body); font-size: 15px; margin: 0; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.chip { font-size: 13px; padding: 2px 10px; border-radius: 3px; background: var(--chip); color: var(--ink); }
+.chip.ok { background: var(--ok-bg); color: var(--ok); }
+.chip.mix { background: var(--mix-bg); color: var(--mix); }
+.card-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.sw { display: flex; gap: 6px; }
+.sw i { width: 20px; height: 20px; border-radius: 3px; border: 1px solid var(--line2); }
+.hint { font-size: 12px; color: var(--accent); }
+.card { cursor: pointer; transition: box-shadow .2s ease, transform .2s ease, background-color .3s ease; }
+.card:hover { box-shadow: 0 10px 28px var(--shadow); transform: translateY(-2px); }
+.card[aria-expanded="true"] { border: 2px solid var(--accent); }
+
+.filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.fbtn { min-height: 44px; padding: 0 16px; border-radius: 4px; cursor: pointer; font-size: 15px; background: var(--card); color: var(--ink); border: 1px solid var(--line2); }
+.fbtn[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); border-color: var(--accent); font-weight: 700; }
+
+.detail {
+  grid-column: 1 / -1; display: flex; flex-wrap: wrap; background: var(--card);
+  border: 2px solid var(--accent); border-radius: 6px; overflow: hidden;
+}
+.detail-img { flex: 999 1 560px; min-width: 0; display: flex; align-items: center; justify-content: center; background: var(--band); padding: 16px; }
+.detail-img img { max-width: 100%; max-height: 640px; display: block; }
+.detail-text { flex: 1 1 340px; min-width: 0; padding: 24px 26px 28px; display: flex; flex-direction: column; gap: 16px; }
+.detail-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.detail-head > div { display: flex; flex-direction: column; line-height: 1.35; min-width: 0; }
+.detail-head .mono { font-size: 12px; color: var(--accent); letter-spacing: .08em; }
+.detail-head .serif { font-size: 24px; }
+.close { min-height: 44px; padding: 0 16px; background: var(--card); border: 1px solid var(--line2); border-radius: 4px; cursor: pointer; flex: none; }
+dl { margin: 0; display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 10px 14px; }
+dt { font-size: 13px; color: var(--sub); letter-spacing: .06em; padding-top: 2px; }
+dd { margin: 0; min-width: 0; color: var(--body); font-size: 15px; }
+.hexes { display: flex; flex-wrap: wrap; gap: 8px 14px; }
+.hexes span { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--sub); }
+.hexes i { width: 18px; height: 18px; border-radius: 2px; border: 1px solid var(--line2); }
+.src-link { align-self: flex-start; display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border: 1px solid var(--accent); color: var(--accent); border-radius: 4px; text-decoration: none; font-weight: 500; }
+
+ol.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px; }
+ol.steps li { display: flex; flex-direction: column; gap: 10px; padding: 20px 22px 24px; background: var(--card); border-top: 3px solid var(--accent); }
+ol.steps .mono { font-size: 13px; color: var(--accent); }
+ol.steps .serif { font-size: 20px; }
+ol.steps .txt { color: var(--body); }
+
+footer.foot { display: flex; flex-wrap: wrap; gap: 24px 48px; padding-block: 32px 48px; color: var(--sub); font-size: 14px; }
+footer.foot > div { flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+footer.foot > div:last-child { flex: 2 1 420px; }
+footer.foot strong { color: var(--ink); }
+
+@media (prefers-reduced-motion: reduce) {
+  body, .card, .band { transition: none; }
+  .card:hover { transform: none; }
+}
+</style>
+</head>
+<body>
+<div class="sky" aria-hidden="true"><canvas id="stars"></canvas></div>
+<div class="page">
+
+<div class="cmyk" aria-hidden="true"><span style="background:#00A0E3"></span><span style="background:#E4007F"></span><span style="background:#FFE100"></span><span style="background:#16181C"></span></div>
+
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="#top">
+      <span class="seal big">选</span>
+      <span class="brand-name"><span class="serif">动画风格选片台</span><span class="mono">OPUS 5.5 案例 · 2026-10</span></span>
+    </a>
+    <nav class="links" aria-label="页面导航">
+      <a href="#picks">推荐</a><a href="#styles">全部风格</a><a href="#method">做法</a><a href="#source">来源</a>
+    </nav>
+  </header>
+  <div class="themebar" role="group" aria-label="配色主题" id="themebar">
+    <span class="label">配色</span>
+  </div>
+</div>
+
+<div class="wrap">
+  <section class="hero" id="top">
+    <div class="hero-text">
+      <span class="eyebrow mono">11 种画风 · 4 组 · 抽帧样张</span>
+      <h1 class="serif">十一种画风，<br>挑一种做下一部片子</h1>
+      <p class="lede">这些画风来自 @0xMovez 那篇 Opus 5.5 动画长文和它引用的案例。每种都有一张抽帧样张、主色、适合哪个系列，以及我们的管线能不能直接做。看中哪种，回到对话告诉我编号，比如「用 A2 做下一期」。</p>
+      <div class="cta">
+        <a class="btn primary" href="#picks">先看三个推荐</a>
+        <a class="btn" href="#styles">浏览全部 11 种</a>
+      </div>
+    </div>
+    <div class="proof" aria-hidden="true">
+      <div class="proof-frame">
+        <span class="cm tl"></span><span class="cm tr"></span><span class="cm bl"></span><span class="cm br"></span>
+        <div class="proof-grid">
+          <figure><img src="images/donald.jpg" alt="" style="object-position: top left"><figcaption class="mono">B1 网点海报</figcaption></figure>
+          <figure><img src="images/jobs.jpg" alt="" style="object-position: 30% 70%"><figcaption class="mono">A2 编年角色</figcaption></figure>
+          <figure><img src="images/wy.jpg" alt="" style="object-position: top left"><figcaption class="mono">A1 线描留白</figcaption></figure>
+          <figure><img src="images/water.jpg" alt="" style="object-position: 50% 40%"><figcaption class="mono">B3 绘本水彩</figcaption></figure>
+        </div>
+      </div>
+      <div class="proof-foot mono">
+        <span class="bars"><span style="background:#00A0E3"></span><span style="background:#E4007F"></span><span style="background:#FFE100"></span><span style="background:#16181C"></span><span style="background:var(--accent)"></span><span style="background:var(--line2)"></span></span>
+        <span>样张 4 / 11</span>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="band">
+  <div class="wrap">
+    <section class="block" id="picks">
+      <div class="sec-head"><div><h2 class="serif">先看这三个</h2><p>按你现在在做的三个系列，各挑一种最合适的。</p></div></div>
+      <div class="grid">
+        <article class="pick">
+          <img src="images/wy.jpg" alt="A1 线描留白的抽帧样张" loading="lazy">
+          <div class="pick-body">
+            <div class="title-row"><span class="seal">A1</span><span><span class="kicker">一物一史下一期</span><span class="serif name">线描留白 · 朱印标题</span></span></div>
+            <p class="desc">纯代码就能做，和频道头像的朱文印是同一种气质。也可以换成 A2 编年角色，讲主线更有画面感。</p>
+          </div>
+        </article>
+        <article class="pick">
+          <img src="images/donald.jpg" alt="B1 网点海报的抽帧样张" loading="lazy">
+          <div class="pick-body">
+            <div class="title-row"><span class="seal">B1</span><span><span class="kicker">下一支 MV</span><span class="serif name">网点海报 · 大字歌词</span></span></div>
+            <p class="desc">画面明亮、歌词能做成大字，正好是《青衣》v2「画面太黑、只有 SVG 小人」的反面。人物要先用 AI 生图定好角色。</p>
+          </div>
+        </article>
+        <article class="pick">
+          <img src="images/clawdui.jpg" alt="C1 卡通 UI 片场的抽帧样张" loading="lazy">
+          <div class="pick-body">
+            <div class="title-row"><span class="seal">C1</span><span><span class="kicker">Clawd 系列</span><span class="serif name">卡通 UI 片场</span></span></div>
+            <p class="desc">再借用 PDoom 项目的角色系统：换表情时先眨眼、挤压再弹出，线条每秒轻抖 12 次，做出手绘感。</p>
+          </div>
+        </article>
+      </div>
+    </section>
+  </div>
+</div>
+
+<div class="wrap">
+  <section class="block" id="styles">
+    <div class="sec-head">
+      <div><h2 class="serif">全部风格</h2><p>点一张卡片，展开完整说明和大图。</p></div>
+      <div class="filters" role="group" aria-label="按系列筛选" id="filters"></div>
+    </div>
+    <div class="grid styles" id="grid"></div>
+  </section>
+</div>
+
+<div class="band">
+  <div class="wrap">
+    <section class="block" id="method">
+      <div class="sec-head"><div><h2 class="serif">选定以后怎么做</h2><p>文章和案例里反复出现的四步。提示词只占结果的一成，剩下的靠这套流程。</p></div></div>
+      <ol class="steps">
+        <li><span class="mono">第 1 步</span><span class="serif">先定参考</span><span class="txt">选一个编号，从原片抽帧写一份风格说明：色值、字体、镜头长度、转场。学手法，不抄内容。</span></li>
+        <li><span class="mono">第 2 步</span><span class="serif">每个场景一张静帧</span><span class="txt">动画开始前先出静帧给你看。改一张静帧只要几秒，改一段渲染好的动画要重渲。</span></li>
+        <li><span class="mono">第 3 步</span><span class="serif">用镜头语言提意见</span><span class="txt">「这里硬切」「推近到人物」「所有推镜放慢到 0.7 倍」，比「再好一点」准确得多。</span></li>
+        <li><span class="mono">第 4 步</span><span class="serif">渲染后自己先打分</span><span class="txt">我会把成片拼成总览图和手机尺寸预览，按开头、可读性、动作、节奏打分，修掉最差的三处再交给你。</span></li>
+      </ol>
+    </section>
+  </div>
+</div>
+
+<div class="wrap">
+  <footer class="foot" id="source">
+    <div>
+      <strong>来源</strong>
+      <span>文章：<a href="https://x.com/0xMovez/status/2104216919033192746" target="_blank" rel="noopener">@0xMovez《How to build motion design studio with Opus 5.5》</a></span>
+      <span>案例图谱：<a href="https://github.com/athemeroy/awesome-claude-5-5-videos" target="_blank" rel="noopener">athemeroy/awesome-claude-5-5-videos</a></span>
+    </div>
+    <div>
+      <strong>说明</strong>
+      <span>抽帧是在浏览器里按时间点截下来拼成的，每格左上角的黄色数字是秒数，分辨率有限，只用来看风格。画面版权归原作者，这里只作风格参考。</span>
+    </div>
+  </footer>
+</div>
+
+</div>
+
+<script>
+(function () {
+  var THEMES = [
+    { id: 'zhuhong', name: '朱红', a: '#F4F5F7', b: '#D23A2E' },
+    { id: 'qinglv', name: '浅绿', a: '#E4F2E8', b: '#2A7D4F' },
+    { id: 'sakura', name: '樱花粉', a: '#FCE6EE', b: '#C2366B' },
+    { id: 'tianqing', name: '天青', a: '#E2EFF7', b: '#1F6E9C' },
+    { id: 'lavender', name: '薰衣草', a: '#EEE8F8', b: '#6A4BB0' },
+    { id: 'apricot', name: '杏黄', a: '#FCEBD3', b: '#B5561B' },
+    { id: 'starry', name: '星空', a: '#0E1430', b: '#F5C451' }
+  ];
+  var GROUPS = [
+    { id: 'all', label: '全部' }, { id: 'A', label: '科普' }, { id: 'B', label: 'MV' },
+    { id: 'C', label: 'Clawd · 竖屏' }, { id: 'D', label: '产品参考' }
+  ];
+  var GROUP_NAMES = { A: '一物一史科普', B: '音乐 MV', C: 'Clawd 与竖屏', D: '产品片参考' };
+  var STYLES = [
+    { code: 'A1', group: 'A', name: '线描留白 · 朱印标题', handle: '@akokoi1 中华五千年 2:37', img: 'wy', link: 'https://x.com/akokoi1/status/2102583898865873225', fit: '一物一史', ok: true,
+      desc: '米白纸、黑色细线，毛笔朝代名加红印章，一个小吉祥物在角落旁白。', palette: ['#ECEAE3', '#1C1C1C', '#C4372C'],
+      spec: [['画面', '米白纸底，人物和建筑只用黑色细线，大量留白。左上角毛笔字朝代名加一枚红色小印章，底部一行说明。'], ['角色', '左下角一个固定的小水滴吉祥物当旁白，火柴人配对话气泡演小剧场。'], ['节奏', '一个朝代一个画面，线条一笔笔画出来，再切到下一个。'], ['做法', '纯代码，现有 cairo 管线就能做。作者说 2 分 38 秒只用了 5 小时额度的 3%。'], ['注意', '细线在手机上容易糊，线宽按 360 像素宽的预览来定。']] },
+    { code: 'A2', group: 'A', name: '编年角色 · 年份大字', handle: '@oozn Steve Jobs 约 2 分钟', img: 'jobs', link: 'https://x.com/oozn/status/2103482545111232946', fit: '一物一史', ok: true,
+      desc: '同一个角色从小到老，每段一个巨大年份加一句话，年代换配色。', palette: ['#0F131C', '#E8C27A', '#8EC9F0', '#C6E83B'],
+      spec: [['画面', '左上角巨大的年份，旁边小字写年龄，下面一句话说发生了什么。'], ['场景', '每个年代一套场景和主色，底部时间轴一直往前走，结尾各个年龄的他排成一排。'], ['适合', 'X简史主线：让一个固定的见证者（比如 Clawd）穿越年代，或者把物品拟人化。'], ['做法', '纯代码。原作是 Remotion 加 SVG，关节角色、程序化走路、23 种转场，剪辑点锁在 120 BPM。'], ['注意', '年份要大到手机上一眼能看清，每段只讲一件事。']] },
+    { code: 'A3', group: 'A', name: '手写批注讲解', handle: '@himanshutwtxs 15 秒', img: 'reel', link: 'https://x.com/himanshutwtxs/status/2103495232637882858', fit: '科普插段', ok: true,
+      desc: '示意图旁边是蓝笔红笔手写批注，曲线和残影把原理画出来。', palette: ['#F2F2F2', '#111111', '#2F6BFF', '#E5484D'],
+      spec: [['画面', '白底黑底交替，粗体窄字大标题，示意图旁是蓝笔、红笔的手写批注和曲线图。'], ['动作', '弹跳球带残影，曲线自己画出来，批注跟着动作弹出。'], ['适合', '讲原理的插段：盐怎么结晶、玻璃怎么吹、锂电池怎么充放电。'], ['注意', '批注要短，一处一个词。']] },
+    { code: 'A4', group: 'A', name: '双色印刷 · 文字成形', handle: '@Voxyz_ai small print 29 秒', img: 'vox', link: 'https://x.com/Voxyz_ai/status/2102531681450119426', fit: '科普收尾', ok: true,
+      desc: '米色和藏青两色印刷，文字排成吐司、猫和星座的形状。', palette: ['#E8DFC9', '#2C4C8C', '#E2653A'],
+      spec: [['画面', '米色纸和藏青色轮流做底，叠一层网点颗粒，唯一的亮色是一颗橙色星。'], ['排版', '打字机字条漂在空中，字条里的文字排成吐司、猫、海浪的形状，最后连成星座。'], ['适合', '片尾、抒情段，或者讲「这件东西怎样改变了日常」。'], ['注意', '中文字排成形状要用等宽网格，否则轮廓会歪。']] },
+    { code: 'B1', group: 'B', name: '网点海报 · 大字歌词', handle: '@donaldjewkes Claude Pop 142 秒', img: 'donald', link: 'https://x.com/donaldjewkes/status/2102801274173587569', fit: 'MV', ok: false,
+      desc: '明亮的网点海报，固定女主，副歌一屏只放一个大字。', palette: ['#F08A3C', '#F28BB0', '#2E3A6E', '#2F8C8C', '#F1E7D2'],
+      spec: [['画面', '网点印刷和纸张颗粒，4 到 5 种平涂色，放射光芒背景，角落贴着胶带标签。'], ['角色', '一个向日葵发型的动漫女主贯穿全片，长相不走样。'], ['歌词', '开场大字，副歌一屏一个词，其余像字幕放底部。角色站一边，歌词占另一边。'], ['做法', '先用 AI 生图做角色设定图和底片，再用代码重画一层。可用本机 Stable Diffusion 或即梦、可灵。'], ['注意', '先锁定角色长相，再做分镜。']] },
+    { code: 'B2', group: 'B', name: '复古像素动漫 PC-98', handle: '@pleometric 2 分 36 秒', img: 'pc98', link: 'https://x.com/pleometric/status/2103082510607610023', fit: 'MV · 快歌', ok: false,
+      desc: '90 年代日式像素动画，视觉小说对话框，底部黄字幕。', palette: ['#1B1446', '#D9468F', '#F2A33A', '#5AD1E6'],
+      spec: [['画面', '抖动网点、低色数，视觉小说的对话框和状态栏直接当画面元素。'], ['歌词', '底部黄色描边字幕，高潮处换成像素大字。'], ['来历', '和 B1 同一首歌、同一份说明，只是参考换成了作者自己的 PC-98 图库。'], ['注意', '风格取决于参考素材：想要什么风格，先准备一组那种风格的参考图。']] },
+    { code: 'B3', group: 'B', name: '绘本水彩', handle: '@mablesjoseph 45 秒', img: 'water', link: 'https://x.com/mablesjoseph/status/2103465246014746943', fit: 'MV · 慢歌', ok: true,
+      desc: '绘本水彩和纸纹，暮色配晚霞，正脸的简单人物。', palette: ['#6D6F8F', '#F2B38A', '#2C7A7B', '#C8433A', '#F3E6C4'],
+      spec: [['画面', '水彩晕染加纸纹，暮色紫灰配暖橙晚霞，远处城市剪影。'], ['角色', '青绿外套、红围巾的女孩和一个灯笼小伙伴，脸都是正面、点状眼睛。'], ['适合', '抒情慢歌。忧伤靠暮色和留白，不用把画面压黑。'], ['注意', '很费迭代：作者用了 163 次模型调用、约 6¾ 小时。']] },
+    { code: 'C1', group: 'C', name: '卡通 UI 片场', handle: '@NFT_Chen 30 秒', img: 'clawdui', link: 'https://x.com/NFT_Chen/status/2102681172367323300', fit: 'Clawd 系列', ok: true,
+      desc: '卡通剪辑软件当舞台，橙色方块小人在时间轴上走。', palette: ['#F1EBDD', '#D9774B', '#A8D8C8', '#F2C1C8', '#3A3A3A'],
+      spec: [['画面', '素材库、手机预览框、时间轴、音轨波形、滑杆，全是代码画的卡通界面。'], ['角色', '橙色方块小人拖滑杆、剪片段，弹出 SNIP!、NAILED IT 这样的音效字。'], ['适合', 'Clawd 系列的片头片尾，或一期「幕后制作」番外。'], ['注意', '界面元素很密，手机上要推近到局部。']] },
+    { code: 'C2', group: 'C', name: '治愈竖屏信息流', handle: '@pleometric 47 秒竖版', img: 'tiktok', link: 'https://x.com/pleometric/status/2102572941699354900', fit: '竖版合集', ok: true,
+      desc: '深夜卧室里刷手机，一条条可爱小视频，3 到 5 秒一个笑点。', palette: ['#3B2D6B', '#F5C6C9', '#8FD3F4', '#F7D774', '#9BCB6C'],
+      spec: [['画面', '手机屏幕里刷着草莓、小黄鸭、电脑前的黑猫、破壳小鸡说 hello world。'], ['节奏', '手指一划切到下一条，每条 3 到 5 秒一个小笑点。'], ['适合', '竖版合集，比如「Clawd 吃遍中国」一条一个城市。'], ['注意', '每条换配色，但卧室外框不变，观众才认得是同一个系列。']] },
+    { code: 'D1', group: 'D', name: '单一形状变形 UI', handle: '@twoclipping 14 秒', img: 'ui', link: 'https://x.com/twoclipping/status/2103273003555402193', fit: '流程介绍', ok: true,
+      desc: '一个黑色胶囊不切镜头，连续变成按钮、播放器、图表。', palette: ['#ECEBE8', '#111111', '#FFFFFF'],
+      spec: [['画面', '暖灰底，一个黑色胶囊依次变成按钮、播放器、音量条、开关、图表、搜索框。'], ['动作', '每次变化由鼠标点击驱动，全靠弹簧动画；一个值变好几次时，每次叠加一个弹簧。'], ['适合', '讲一个流程或一个工具的片段。']] },
+    { code: 'D2', group: 'D', name: '网点吉祥物 · 蓝色强调', handle: '@achxvi Pocketsflow 15 秒', img: 'pockets', link: 'https://x.com/achxvi/status/2103918792845963545', fit: '频道宣传', ok: true,
+      desc: '黑白网点吉祥物，钴蓝强调，正体斜体混排的标题。', palette: ['#FFFFFF', '#111111', '#1F4FFF'],
+      spec: [['画面', '黑白网点风的吉祥物配钴蓝色强调，标题里正体和斜体混排，界面用真实截图。'], ['适合', '频道宣传片、账号介绍。']] }
+  ];
+
+  var root = document.documentElement;
+  var state = { group: 'all', open: null };
+
+  // theme buttons
+  var bar = document.getElementById('themebar');
+  THEMES.forEach(function (t) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'tbtn'; b.dataset.theme = t.id;
+    b.innerHTML = '<i style="background:linear-gradient(135deg,' + t.a + ' 0 50%,' + t.b + ' 50% 100%)"></i>' + t.name;
+    b.addEventListener('click', function () { setTheme(t.id); });
+    bar.appendChild(b);
+  });
+  function setTheme(id) {
+    root.dataset.theme = id;
+    try { localStorage.setItem('sb-theme', id); } catch (e) {}
+    bar.querySelectorAll('.tbtn').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.theme === id)); });
+    stars.toggle(id === 'starry');
+  }
+
+  // filters
+  var filters = document.getElementById('filters');
+  GROUPS.forEach(function (g) {
+    var n = g.id === 'all' ? STYLES.length : STYLES.filter(function (s) { return s.group === g.id; }).length;
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'fbtn'; b.textContent = g.label + ' ' + n; b.dataset.group = g.id;
+    b.addEventListener('click', function () { state.group = g.id; render(); });
+    filters.appendChild(b);
+  });
+
+  var grid = document.getElementById('grid');
+  function swatches(p) { return p.map(function (c) { return '<i style="background:' + c + '"></i>'; }).join(''); }
+  function render() {
+    filters.querySelectorAll('.fbtn').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.group === state.group)); });
+    var html = '';
+    STYLES.forEach(function (s) {
+      if (state.group !== 'all' && s.group !== state.group) return;
+      var open = state.open === s.code;
+      var alt = s.code + ' ' + s.name + '的抽帧样张';
+      html += '<button type="button" class="card" data-code="' + s.code + '" aria-expanded="' + open + '">' +
+        '<img src="images/' + s.img + '.jpg" alt="' + alt + '" loading="lazy">' +
+        '<span class="card-body">' +
+          '<span class="title-row"><span class="seal">' + s.code + '</span><span><span class="serif name">' + s.name + '</span><span class="mono handle">' + s.handle + '</span></span></span>' +
+          '<span class="desc">' + s.desc + '</span>' +
+          '<span class="chips"><span class="chip">' + s.fit + '</span><span class="chip ' + (s.ok ? 'ok">纯代码可做' : 'mix">需 AI 生图打底') + '</span></span>' +
+          '<span class="card-foot"><span class="sw">' + swatches(s.palette) + '</span><span class="mono hint">' + (open ? '收起 ▴' : '展开 ▾') + '</span></span>' +
+        '</span></button>';
+      if (open) {
+        html += '<div class="detail" id="detail-' + s.code + '">' +
+          '<div class="detail-img"><img src="images/' + s.img + '.jpg" alt="' + alt + '"></div>' +
+          '<div class="detail-text">' +
+            '<div class="detail-head"><div><span class="mono">' + s.code + ' · ' + GROUP_NAMES[s.group] + '</span><span class="serif">' + s.name + '</span></div>' +
+            '<button type="button" class="close" data-code="' + s.code + '">收起</button></div>' +
+            '<dl>' + s.spec.map(function (r) { return '<dt>' + r[0] + '</dt><dd>' + r[1] + '</dd>'; }).join('') + '</dl>' +
+            '<div class="hexes mono">' + s.palette.map(function (c) { return '<span><i style="background:' + c + '"></i>' + c + '</span>'; }).join('') + '</div>' +
+            '<a class="src-link" href="' + s.link + '" target="_blank" rel="noopener">在 X 上看原片 ↗</a>' +
+          '</div></div>';
+      }
+    });
+    grid.innerHTML = html;
+  }
+  grid.addEventListener('click', function (e) {
+    var el = e.target.closest('[data-code]');
+    if (!el) return;
+    var code = el.dataset.code;
+    state.open = state.open === code ? null : code;
+    render();
+    if (state.open) {
+      var d = document.getElementById('detail-' + code);
+      if (d && d.scrollIntoView) d.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'nearest' });
+    }
+  });
+
+  // starry sky: seeded stars drawn once, gentle twinkle unless reduced motion
+  var stars = (function () {
+    var cv = document.getElementById('stars'), ctx = cv.getContext('2d'), list = [], raf = 0, on = false;
+    var calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var seed = 7; function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+    function build() {
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      cv.width = innerWidth * dpr; cv.height = innerHeight * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      seed = 7; list = [];
+      var n = Math.round(innerWidth * innerHeight / 2600);
+      for (var i = 0; i < n; i++) list.push({ x: rnd() * innerWidth, y: rnd() * innerHeight, r: rnd() < 0.08 ? 1.6 : 0.4 + rnd() * 0.9, p: rnd() * 6.28, s: 0.6 + rnd() * 1.6, warm: rnd() < 0.15 });
+    }
+    function draw(t) {
+      ctx.clearRect(0, 0, innerWidth, innerHeight);
+      for (var i = 0; i < list.length; i++) {
+        var s = list[i];
+        var a = calm ? 0.8 : 0.45 + 0.55 * (0.5 + 0.5 * Math.sin(t / 1000 * s.s + s.p));
+        ctx.globalAlpha = a;
+        ctx.fillStyle = s.warm ? '#FFE3A3' : '#FFFFFF';
+        ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, 6.2832); ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+      if (on && !calm) raf = requestAnimationFrame(draw);
+    }
+    addEventListener('resize', function () { if (on) { build(); draw(performance.now()); } });
+    return {
+      toggle: function (v) {
+        on = v; cancelAnimationFrame(raf);
+        if (v) { build(); raf = requestAnimationFrame(draw); }
+      }
+    };
+  })();
+
+  render();
+  setTheme(root.dataset.theme && THEMES.some(function (t) { return t.id === root.dataset.theme; }) ? root.dataset.theme : 'zhuhong');
+})();
+</script>
+</body>
+</html>
