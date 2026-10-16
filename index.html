@@ -225,6 +225,24 @@ dd { margin: 0; min-width: 0; color: var(--body); font-size: 15px; }
 .src { display: inline-flex; align-self: flex-start; align-items: center; min-height: 40px; padding: 0 16px; border: 1px solid var(--accent); color: var(--accent); border-radius: 6px; text-decoration: none; font-size: 14px; }
 .order { font-size: 13px; color: var(--sub); }
 
+/* ---------- music ---------- */
+.music { padding-block: 8px 72px; border-top: 1px solid var(--line); }
+.music .sec-head { padding-top: 36px; }
+.music-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 360px), 1fr)); gap: 18px; margin-top: 22px; }
+.mood { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 16px 18px 6px; min-width: 0; }
+.mood h3 { margin: 0; font-size: 19px; color: var(--ink); }
+.mood > p { margin: 4px 0 8px; font-size: 13px; color: var(--sub); }
+.trk { display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; gap: 2px 12px; align-items: start; padding: 12px 0; border-top: 1px solid var(--line); }
+.trk .tid { grid-row: span 3; width: 36px; height: 36px; border: 1.5px solid var(--accent); color: var(--accent); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 13px; }
+.trk .tname { font-size: 16px; color: var(--ink); min-width: 0; overflow-wrap: anywhere; line-height: 1.35; }
+.trk .tmeta { grid-column: 2; font-size: 12.5px; color: var(--sub); }
+.trk .tuse { grid-column: 2 / span 2; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 12.5px; color: var(--sub); margin-top: 4px; }
+.trk .tuse button { font: inherit; font-size: 12.5px; padding: 1px 9px; border-radius: 3px; border: 1px solid var(--line2); background: var(--chip); color: var(--ink); cursor: pointer; }
+.trk .tuse button:hover { border-color: var(--accent); color: var(--accent); }
+.trk a.listen { grid-column: 3; grid-row: 1; font-size: 13px; color: var(--accent); text-decoration: none; white-space: nowrap; padding: 2px 0; }
+.trk a.listen:hover { text-decoration: underline; }
+.music-note { font-size: 13px; color: var(--sub); margin-top: 14px; }
+
 /* ---------- method + footer ---------- */
 .band { background: var(--band); transition: background-color .3s ease; }
 section.block { padding-block: clamp(44px, 6vw, 80px); display: flex; flex-direction: column; gap: 24px; }
@@ -290,7 +308,7 @@ footer.foot strong { color: var(--ink); }
       <span class="brand-name"><span class="serif">风格库 · 选片台</span><span class="mono">STYLE BOARD</span></span>
     </a>
     <nav class="links" aria-label="页面导航">
-      <a href="#browse">浏览</a><a href="#method">做法</a><a href="#source">来源</a>
+      <a href="#browse">浏览</a><a href="#music">配乐</a><a href="#method">做法</a><a href="#source">来源</a>
     </nav>
     <details class="theme" id="theme">
       <summary><i id="theme-dot"></i>配色</summary>
@@ -330,6 +348,14 @@ footer.foot strong { color: var(--ink); }
   </div>
 </div>
 
+<div class="wrap">
+  <section class="music" id="music">
+    <div class="sec-head"><h2 class="serif">配乐库</h2><p id="music-lede">按情绪分 6 类，每个风格默认配哪首都标好了。</p></div>
+    <div class="music-grid" id="music-grid"></div>
+    <p class="music-note">曲子都来自 Pixabay（Pixabay Content License：免费、可商用、无需署名）。授权不允许把原曲单独转发，所以本站不放音频文件，点「去 Pixabay 试听」在原页面听。</p>
+  </section>
+</div>
+
 <div class="band">
   <div class="wrap">
     <section class="block" id="method">
@@ -350,6 +376,7 @@ footer.foot strong { color: var(--ink); }
     <div>
       <strong>来源</strong>
       <span>我们的样片：全部程序化绘制，角色原创，不含任何品牌、赛事或角色标志。</span>
+      <span>配乐：来自 Pixabay，各曲作者见上方「配乐库」。</span>
       <span>参考画风：<a href="https://x.com/0xMovez/status/2104216919033192746" target="_blank" rel="noopener">@0xMovez《How to build motion design studio with Opus 5.5》</a> 和 <a href="https://github.com/athemeroy/awesome-claude-5-5-videos" target="_blank" rel="noopener">athemeroy/awesome-claude-5-5-videos</a></span>
     </div>
     <div>
@@ -3307,6 +3334,246 @@ footer.foot strong { color: var(--ink); }
     ]
     }
     ];
+  var MUSIC = [
+    {
+    "id": "A1",
+    "mood": "复盘 · 紧张悬疑",
+    "moodDesc": "脉冲和低音铺底，适合爆点事件复盘。",
+    "name": "Tension Documentary",
+    "author": "AtlasAudio",
+    "dur": "2:02",
+    "bpm": 72,
+    "url": "https://pixabay.com/music/ambient-tension-documentary-519912/",
+    "styles": [],
+    "note": "复盘开场"
+    },
+    {
+    "id": "A2",
+    "mood": "复盘 · 紧张悬疑",
+    "moodDesc": "脉冲和低音铺底，适合爆点事件复盘。",
+    "name": "Documentary Suspense",
+    "author": "leberch",
+    "dur": "2:00",
+    "bpm": 99,
+    "url": "https://pixabay.com/music/pulses-documentary-suspense-375268/",
+    "styles": [],
+    "note": "复盘默认铺底"
+    },
+    {
+    "id": "A3",
+    "mood": "复盘 · 紧张悬疑",
+    "moodDesc": "脉冲和低音铺底，适合爆点事件复盘。",
+    "name": "Investigation",
+    "author": "leberch",
+    "dur": "2:30",
+    "bpm": 81,
+    "url": "https://pixabay.com/music/crime-scene-investigation-375272/",
+    "styles": [],
+    "note": "真相揭开"
+    },
+    {
+    "id": "B1",
+    "mood": "安静钢琴 · 好奇",
+    "moodDesc": "不抢旁白，适合讲道理、做推导。",
+    "name": "Calm Piano",
+    "author": "alex-morgan",
+    "dur": "1:58",
+    "bpm": 136,
+    "url": "https://pixabay.com/music/modern-classical-calm-piano-541028/",
+    "styles": [
+    "73"
+    ],
+    "note": ""
+    },
+    {
+    "id": "B2",
+    "mood": "安静钢琴 · 好奇",
+    "moodDesc": "不抢旁白，适合讲道理、做推导。",
+    "name": "Piano",
+    "author": "leberch",
+    "dur": "2:02",
+    "bpm": 81,
+    "url": "https://pixabay.com/music/modern-classical-piano-516448/",
+    "styles": [
+    "75"
+    ],
+    "note": ""
+    },
+    {
+    "id": "B3",
+    "mood": "安静钢琴 · 好奇",
+    "moodDesc": "不抢旁白，适合讲道理、做推导。",
+    "name": "Mysterious Fog Curious Discovery",
+    "author": "alex-morgan",
+    "dur": "1:29",
+    "bpm": 92,
+    "url": "https://pixabay.com/music/electronic-mysterious-fog-curious-discovery-575877/",
+    "styles": [],
+    "note": "悬念段"
+    },
+    {
+    "id": "C1",
+    "mood": "轻快电子 · 马林巴",
+    "moodDesc": "明亮、有推进感，适合科普和科技题。",
+    "name": "Science Documentary",
+    "author": "Lexin_Music",
+    "dur": "2:07",
+    "bpm": 112,
+    "url": "https://pixabay.com/music/build-up-scenes-science-documentary-169621/",
+    "styles": [
+    "74"
+    ],
+    "note": ""
+    },
+    {
+    "id": "C2",
+    "mood": "轻快电子 · 马林巴",
+    "moodDesc": "明亮、有推进感，适合科普和科技题。",
+    "name": "Technology - Technology Music",
+    "author": "JonasBlakewood",
+    "dur": "2:16",
+    "bpm": 136,
+    "url": "https://pixabay.com/music/corporate-technology-technology-music-533871/",
+    "styles": [
+    "82"
+    ],
+    "note": ""
+    },
+    {
+    "id": "C3",
+    "mood": "轻快电子 · 马林巴",
+    "moodDesc": "明亮、有推进感，适合科普和科技题。",
+    "name": "Joyful Marimba Melody",
+    "author": "Universfield",
+    "dur": "1:44",
+    "bpm": 112,
+    "url": "https://pixabay.com/music/solo-instruments-joyful-marimba-melody-232400/",
+    "styles": [
+    "80"
+    ],
+    "note": ""
+    },
+    {
+    "id": "D1",
+    "mood": "Lo-fi 节拍",
+    "moodDesc": "松弛的节拍，适合轻松的解释类。",
+    "name": "Lofi Chill Vlog Beats",
+    "author": "alex-morgan",
+    "dur": "2:25",
+    "bpm": 76,
+    "url": "https://pixabay.com/music/lofi-lofi-chill-vlog-beats-573883/",
+    "styles": [
+    "76"
+    ],
+    "note": ""
+    },
+    {
+    "id": "D2",
+    "mood": "Lo-fi 节拍",
+    "moodDesc": "松弛的节拍，适合轻松的解释类。",
+    "name": "Lofi Midnight Club",
+    "author": "alex-morgan",
+    "dur": "2:17",
+    "bpm": 76,
+    "url": "https://pixabay.com/music/lofi-lofi-midnight-club-568164/",
+    "styles": [
+    "81"
+    ],
+    "note": ""
+    },
+    {
+    "id": "D3",
+    "mood": "Lo-fi 节拍",
+    "moodDesc": "松弛的节拍，适合轻松的解释类。",
+    "name": "Lofi Chill",
+    "author": "AtlasAudio",
+    "dur": "1:59",
+    "bpm": 86,
+    "url": "https://pixabay.com/music/beats-lofi-chill-589987/",
+    "styles": [
+    "83"
+    ],
+    "note": ""
+    },
+    {
+    "id": "E1",
+    "mood": "电影感氛围",
+    "moodDesc": "慢慢铺开、有起伏，适合地理和大事件。",
+    "name": "Cinematic Documentary",
+    "author": "Lexin_Music",
+    "dur": "2:11",
+    "bpm": 112,
+    "url": "https://pixabay.com/music/beautiful-plays-cinematic-documentary-115669/",
+    "styles": [
+    "77"
+    ],
+    "note": ""
+    },
+    {
+    "id": "E2",
+    "mood": "电影感氛围",
+    "moodDesc": "慢慢铺开、有起伏，适合地理和大事件。",
+    "name": "Documentary - Documentary Music",
+    "author": "PaulYudin",
+    "dur": "2:04",
+    "bpm": 72,
+    "url": "https://pixabay.com/music/corporate-documentary-documentary-music-483324/",
+    "styles": [],
+    "note": "纪录片式铺底"
+    },
+    {
+    "id": "E3",
+    "mood": "电影感氛围",
+    "moodDesc": "慢慢铺开、有起伏，适合地理和大事件。",
+    "name": "Documentary",
+    "author": "NastelBom",
+    "dur": "2:13",
+    "bpm": 136,
+    "url": "https://pixabay.com/music/adventure-documentary-466207/",
+    "styles": [],
+    "note": "高潮转折"
+    },
+    {
+    "id": "F1",
+    "mood": "俏皮 · 尤克里里",
+    "moodDesc": "轻快诙谐，适合小知识和谜题。",
+    "name": "Fun Happy Ukulele",
+    "author": "PaulYudin",
+    "dur": "2:28",
+    "bpm": 89,
+    "url": "https://pixabay.com/music/happy-childrens-tunes-fun-happy-ukulele-113443/",
+    "styles": [
+    "78"
+    ],
+    "note": ""
+    },
+    {
+    "id": "F2",
+    "mood": "俏皮 · 尤克里里",
+    "moodDesc": "轻快诙谐，适合小知识和谜题。",
+    "name": "Whimsical",
+    "author": "leberch",
+    "dur": "1:35",
+    "bpm": 118,
+    "url": "https://pixabay.com/music/comedy-whimsical-250869/",
+    "styles": [
+    "79"
+    ],
+    "note": ""
+    },
+    {
+    "id": "F3",
+    "mood": "俏皮 · 尤克里里",
+    "moodDesc": "轻快诙谐，适合小知识和谜题。",
+    "name": "Whimsical Acoustic",
+    "author": "The_Mountain",
+    "dur": "2:32",
+    "bpm": 76,
+    "url": "https://pixabay.com/music/sneaky-whimsical-acoustic-375992/",
+    "styles": [],
+    "note": "诙谐段"
+    }
+    ];
   STYLES = OWN.concat(STYLES);
 
   var root = document.documentElement;
@@ -3406,6 +3673,25 @@ footer.foot strong { color: var(--ink); }
     }
     results.innerHTML = html;
   }
+
+  // ---- music ----
+  (function () {
+    if (typeof MUSIC === 'undefined' || !MUSIC.length) return;
+    var order = [], by = {};
+    MUSIC.forEach(function (m) { if (!by[m.mood]) { by[m.mood] = []; order.push(m.mood); } by[m.mood].push(m); });
+    document.getElementById('music-lede').textContent = MUSIC.length + ' 首，按情绪分 ' + order.length + ' 类。下面标了每个风格以后做正片默认配哪首，点风格名能打开那个样片（样片视频里还是原来的配乐）。';
+    document.getElementById('music-grid').innerHTML = order.map(function (mood) {
+      var list = by[mood];
+      return '<div class="mood"><h3 class="serif">' + esc(mood) + '</h3><p>' + esc(list[0].moodDesc) + '</p>' + list.map(function (m) {
+        var uses = m.styles.map(function (c) { var s = byCode[c]; return s ? '<button type="button" data-open="' + esc(c) + '">' + esc(c + ' ' + s.name) + '</button>' : ''; }).join('');
+        if (m.note) uses += '<span>' + esc(m.note) + '</span>';
+        return '<div class="trk"><span class="tid mono">' + esc(m.id) + '</span><span class="tname serif">' + esc(m.name) + '</span>' +
+          '<a class="listen" href="' + esc(m.url) + '" target="_blank" rel="noopener">去 Pixabay 试听 ↗</a>' +
+          '<span class="tmeta mono">' + esc(m.author) + ' · ' + esc(m.dur) + ' · 约 ' + m.bpm + ' BPM</span>' +
+          '<span class="tuse">用在：' + uses + '</span></div>';
+      }).join('') + '</div>';
+    }).join('');
+  })();
 
   // ---- detail dialog ----
   var dlg = document.getElementById('dlg');
