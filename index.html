@@ -236,12 +236,12 @@ footer.foot strong { color: var(--ink); }
 <div class="wrap">
   <section class="hero" id="top">
     <div class="hero-text">
-      <span class="eyebrow mono">11 种画风 · 4 组 · 抽帧样张</span>
-      <h1 class="serif">十一种画风，<br>挑一种做下一部片子</h1>
-      <p class="lede">这些画风来自 @0xMovez 那篇 Opus 5.5 动画长文和它引用的案例。每种都有一张抽帧样张、主色、适合哪个系列，以及我们的管线能不能直接做。看中哪种，回到对话告诉我编号，比如「用 A2 做下一期」。</p>
+      <span class="eyebrow mono">39 种风格 · 我们做的 28 种 + 参考 11 种</span>
+      <h1 class="serif">我们的风格库，<br>挑一种做下一部片子</h1>
+      <p class="lede">已成片 7 种 + 新做的样片 21 种（讲法、画法、绘画、品牌赛事四篇），再加 11 种来自 @0xMovez 长文的参考画风。点卡片看三格样片和说明；看中哪种，回到对话告诉我编号，比如「用 ⑪ 做下一期」。</p>
       <div class="cta">
         <a class="btn primary" href="#picks">先看三个推荐</a>
-        <a class="btn" href="#styles">浏览全部 11 种</a>
+        <a class="btn" href="#styles">浏览全部 39 种</a>
       </div>
     </div>
     <div class="proof" aria-hidden="true">
@@ -345,10 +345,12 @@ footer.foot strong { color: var(--ink); }
     { id: 'starry', name: '星空', a: '#0E1430', b: '#F5C451' }
   ];
   var GROUPS = [
-    { id: 'all', label: '全部' }, { id: 'A', label: '科普' }, { id: 'B', label: 'MV' },
-    { id: 'C', label: 'Clawd · 竖屏' }, { id: 'D', label: '产品参考' }
+    { id: 'all', label: '全部' }, { id: 'P', label: '已成片' }, { id: 'E', label: '讲法样片' }, { id: 'F', label: '画法样片' },
+    { id: 'G', label: '绘画样片' }, { id: 'H', label: '品牌赛事样片' },
+    { id: 'A', label: '参考 · 科普' }, { id: 'B', label: '参考 · MV' }, { id: 'C', label: '参考 · Clawd' }, { id: 'D', label: '参考 · 产品' }
   ];
-  var GROUP_NAMES = { A: '一物一史科普', B: '音乐 MV', C: 'Clawd 与竖屏', D: '产品片参考' };
+  var GROUP_NAMES = { A: '参考 · 一物一史科普', B: '参考 · 音乐 MV', C: '参考 · Clawd 与竖屏', D: '参考 · 产品片', P: '我们的已成片',
+    E: '我们的样片 · 讲法篇', F: '我们的样片 · 画法篇', G: '我们的样片 · 绘画篇', H: '我们的样片 · 品牌与赛事转播篇' };
   var STYLES = [
     { code: 'A1', group: 'A', name: '线描留白 · 朱印标题', handle: '@akokoi1 中华五千年 2:37', img: 'wy', link: 'https://x.com/akokoi1/status/2102583898865873225', fit: '一物一史', ok: true,
       desc: '米白纸、黑色细线，毛笔朝代名加红印章，一个小吉祥物在角落旁白。', palette: ['#ECEAE3', '#1C1C1C', '#C4372C'],
@@ -384,6 +386,820 @@ footer.foot strong { color: var(--ink); }
       desc: '黑白网点吉祥物，钴蓝强调，正体斜体混排的标题。', palette: ['#FFFFFF', '#111111', '#1F4FFF'],
       spec: [['画面', '黑白网点风的吉祥物配钴蓝色强调，标题里正体和斜体混排，界面用真实截图。'], ['适合', '频道宣传片、账号介绍。']] }
   ];
+
+  var OWN = [
+    {
+    "code": "①",
+    "group": "E",
+    "name": "手机屏幕叙事",
+    "handle": "示例题目：原油宝穿仓",
+    "img": "own/s01",
+    "strip": "own/s01_strip",
+    "fit": "原油宝穿仓",
+    "own": true,
+    "chip": "已出样片",
+    "desc": "整部片只发生在一部手机里：锁屏推送、群聊刷屏、行情、银行 App。",
+    "palette": [
+    "#E9ECF2",
+    "#16181D",
+    "#F0383B",
+    "#2F6BFF"
+    ],
+    "spec": [
+    [
+    "讲法",
+    "主角是“看着手机的散户”，情节全靠通知、聊天、App 页面推进。"
+    ],
+    [
+    "画面",
+    "浅色系统界面 + 关键信息从手机里“抽出来”放大成卡片。"
+    ],
+    [
+    "适合",
+    "散户视角的复盘：原油宝、韩股、游戏驿站。"
+    ],
+    [
+    "注意",
+    "App 一律用通用名，不仿任何真实品牌界面。"
+    ]
+    ]
+    },
+    {
+    "code": "②",
+    "group": "E",
+    "name": "案件卷宗",
+    "handle": "示例题目：比尔黄 Archegos 爆仓",
+    "img": "own/s02",
+    "strip": "own/s02_strip",
+    "fit": "比尔黄 Archegos 爆仓",
+    "own": true,
+    "chip": "已出样片",
+    "desc": "软木证据板、红线、证物袋、打字机笔录，旁白像侦探结案。",
+    "palette": [
+    "#D2AE7B",
+    "#FBF8F1",
+    "#C8231E",
+    "#1E1B18"
+    ],
+    "spec": [
+    [
+    "讲法",
+    "把爆仓当案件查：嫌疑人、受害方、证物、判决。"
+    ],
+    [
+    "画面",
+    "暖色软木板 + 纸卡 + 图钉 + 红线，打字机字体和仿宋。"
+    ],
+    [
+    "适合",
+    "“人为什么倒下”的故事：比尔黄、FTX、LUNA。"
+    ]
+    ]
+    },
+    {
+    "code": "③",
+    "group": "E",
+    "name": "穿越新闻直播间",
+    "handle": "示例题目：南海泡沫 1720",
+    "img": "own/s03",
+    "strip": "own/s03_strip",
+    "fit": "南海泡沫 1720",
+    "own": true,
+    "chip": "已出样片",
+    "desc": "把历史事件当突发新闻直播：主播台、滚动条、跨时空连线。",
+    "palette": [
+    "#F4F7FC",
+    "#0B2A5B",
+    "#E3262B",
+    "#F2B705"
+    ],
+    "spec": [
+    [
+    "讲法",
+    "“现在连线本台在 1720 年伦敦的记者”，历史变成新闻现场。"
+    ],
+    [
+    "画面",
+    "明亮演播室、BREAKING 条、快讯滚动字幕、原创台标。"
+    ],
+    [
+    "适合",
+    "郁金香、胡椒、白银等各种“简史”。"
+    ]
+    ]
+    },
+    {
+    "code": "④",
+    "group": "E",
+    "name": "格斗游戏对战",
+    "handle": "示例题目：游戏驿站逼空",
+    "img": "own/s04",
+    "strip": "own/s04_strip",
+    "fit": "游戏驿站逼空",
+    "own": true,
+    "chip": "已出样片",
+    "desc": "选人 VS 画面 → 血条与连击 → K.O.，股价每跳一下就是一招。",
+    "palette": [
+    "#FF7A1A",
+    "#2A6CF0",
+    "#FFD23F",
+    "#1A1420"
+    ],
+    "spec": [
+    [
+    "讲法",
+    "多空双方是两名选手，事件节点变成回合。"
+    ],
+    [
+    "画面",
+    "粗描边角色、火焰渐变大字、速度线背景。"
+    ],
+    [
+    "适合",
+    "逼空类：特斯拉、游戏驿站、FF。"
+    ]
+    ]
+    },
+    {
+    "code": "⑤",
+    "group": "E",
+    "name": "你会怎么选",
+    "handle": "示例题目：一万个比特币换两个披萨",
+    "img": "own/s05",
+    "strip": "own/s05_strip",
+    "fit": "一万个比特币换两个披萨",
+    "own": true,
+    "chip": "已出样片",
+    "desc": "关键时刻停 3 秒让观众选 A / B，再揭晓真实结局和平行宇宙。",
+    "palette": [
+    "#FFF3DE",
+    "#FF5A4E",
+    "#21B8A6",
+    "#24212B"
+    ],
+    "spec": [
+    [
+    "讲法",
+    "互动选择，评论区打 A 或 B，互动率高。"
+    ],
+    [
+    "画面",
+    "明亮选择按钮 + 倒计时圈 + 分屏平行宇宙。"
+    ],
+    [
+    "适合",
+    "任何有“当初要是……”的事件；也可叠加在别的画风上。"
+    ]
+    ]
+    },
+    {
+    "code": "⑥",
+    "group": "F",
+    "name": "一物一史博物馆",
+    "handle": "示例题目：瓷器",
+    "img": "own/s06",
+    "strip": "own/s06_strip",
+    "fit": "瓷器",
+    "own": true,
+    "chip": "已出样片",
+    "desc": "明亮展厅、轨道射灯、展柜与说明牌，镜头像参观者一样走过每个展厅。",
+    "palette": [
+    "#E9E3D8",
+    "#1F3F8F",
+    "#B08A4A",
+    "#23201C"
+    ],
+    "spec": [
+    [
+    "画面",
+    "暖白墙、木地板透视、展柜玻璃反光、金边说明牌。"
+    ],
+    [
+    "讲法",
+    "每一章是一个展厅；说明牌就是知识点。"
+    ],
+    [
+    "适合",
+    "所有“X简史”，和频道名最契合。"
+    ]
+    ]
+    },
+    {
+    "code": "⑦",
+    "group": "F",
+    "name": "皮影戏",
+    "handle": "示例题目：丝绸之路",
+    "img": "own/s07",
+    "strip": "own/s07_strip",
+    "fit": "丝绸之路",
+    "own": true,
+    "chip": "已出样片",
+    "desc": "暖光幕布上，半透明彩色皮影带镂空花纹、关节铆钉和操纵杆。",
+    "palette": [
+    "#FFF4DA",
+    "#B8262A",
+    "#2E7D4F",
+    "#2C4C8C"
+    ],
+    "spec": [
+    [
+    "画面",
+    "幕布暖光渐变、木框、镂空网格袍、行楷对联。"
+    ],
+    [
+    "适合",
+    "中国题材：丝绸、瓷器、茶、盐铁。"
+    ],
+    [
+    "注意",
+    "配乐用真实锣鼓 BGM，不自己合成。"
+    ]
+    ]
+    },
+    {
+    "code": "⑧",
+    "group": "F",
+    "name": "纸艺定格",
+    "handle": "示例题目：方便面",
+    "img": "own/s08",
+    "strip": "own/s08_strip",
+    "fit": "方便面",
+    "own": true,
+    "chip": "已出样片",
+    "desc": "剪纸层叠 + 柔和投影 + 纸纹，成片按 12 帧/秒的手作抖动。",
+    "palette": [
+    "#F7C873",
+    "#E8533F",
+    "#3FA7A0",
+    "#2B2522"
+    ],
+    "spec": [
+    [
+    "画面",
+    "毛边剪纸、剪纸字、多层投影。"
+    ],
+    [
+    "适合",
+    "糖、纸、巧克力这类有温度的物件。"
+    ]
+    ]
+    },
+    {
+    "code": "⑨",
+    "group": "F",
+    "name": "地铁线路图",
+    "handle": "示例题目：特斯拉二十年",
+    "img": "own/s09",
+    "strip": "own/s09_strip",
+    "fit": "特斯拉二十年",
+    "own": true,
+    "chip": "已出样片",
+    "desc": "每个事件是一站，线索是线路，换乘站是转折，列车开到哪讲到哪。",
+    "palette": [
+    "#FAFAF7",
+    "#E4322B",
+    "#1F6FD1",
+    "#F2A900"
+    ],
+    "spec": [
+    [
+    "画面",
+    "45° 折线线路、站名牌、换乘站台指示牌、终点站。"
+    ],
+    [
+    "适合",
+    "时间线长、线索多的事件或公司史。"
+    ]
+    ]
+    },
+    {
+    "code": "⑩",
+    "group": "F",
+    "name": "3D 黏土定格",
+    "handle": "示例题目：土豆",
+    "img": "own/s10",
+    "strip": "own/s10_strip",
+    "fit": "土豆",
+    "own": true,
+    "chip": "已出样片",
+    "desc": "Blender 真 3D：黏土指纹质感、珠子眼睛、定格节奏，角色都是“捏”出来的。",
+    "palette": [
+    "#BFE7F8",
+    "#C48A4E",
+    "#86CF6B",
+    "#F5C04A"
+    ],
+    "spec": [
+    [
+    "做法",
+    "本机 Blender + RTX 4060，Cycles 每帧约 10 秒。"
+    ],
+    [
+    "适合",
+    "可爱化反差：黏土小人讲爆仓、讲食物史。"
+    ]
+    ]
+    },
+    {
+    "code": "⑪",
+    "group": "G",
+    "name": "新海诚风",
+    "handle": "示例题目：特斯拉飞车的那个黄昏",
+    "img": "own/s11",
+    "strip": "own/s11_strip",
+    "fit": "特斯拉飞车的那个黄昏",
+    "own": true,
+    "chip": "已出样片",
+    "desc": "饱和天空、金边积云、电线杆、体积光、镜头光晕、闪光粒子。",
+    "palette": [
+    "#2F5BB0",
+    "#F2A7B4",
+    "#FFC38E",
+    "#2B2440"
+    ],
+    "spec": [
+    [
+    "画面",
+    "魔幻时刻的天空 + 受光积云 + 逆光剪影 + 窗边光斑。"
+    ],
+    [
+    "讲法",
+    "情绪化旁白配电影字幕，知识点写在场景里的笔记本上。"
+    ],
+    [
+    "注意",
+    "角色只用背影 / 剪影，全部原创。"
+    ]
+    ]
+    },
+    {
+    "code": "⑫",
+    "group": "G",
+    "name": "宫崎骏风",
+    "handle": "示例题目：莱特兄弟 1903",
+    "img": "own/s12",
+    "strip": "own/s12_strip",
+    "fit": "莱特兄弟 1903",
+    "own": true,
+    "chip": "已出样片",
+    "desc": "手绘水粉背景、大朵积云、草浪，配干净的线稿角色和温暖的光。",
+    "palette": [
+    "#3E8FDA",
+    "#EAD6A6",
+    "#7FB84A",
+    "#3A2E28"
+    ],
+    "spec": [
+    [
+    "画面",
+    "笔触重绘的水粉背景 + 赛璐璐线稿前景。"
+    ],
+    [
+    "适合",
+    "飞行、田园、手工、食物等温暖题材。"
+    ]
+    ]
+    },
+    {
+    "code": "⑬",
+    "group": "G",
+    "name": "藤子风（哆啦A梦式）",
+    "handle": "示例题目：时光邮筒 × 比特币披萨",
+    "img": "own/s13",
+    "strip": "own/s13_strip",
+    "fit": "时光邮筒 × 比特币披萨",
+    "own": true,
+    "chip": "已出样片",
+    "desc": "圆头圆脑、粗黑线、明快平涂，“秘密道具”式讲解。",
+    "palette": [
+    "#5DB6F2",
+    "#FF8A3D",
+    "#7CCB5A",
+    "#1A1A1A"
+    ],
+    "spec": [
+    [
+    "角色",
+    "原创：闹钟机器人“小钟”和绿条纹 T 恤男孩，不出现任何既有动画角色。"
+    ],
+    [
+    "讲法",
+    "每期一个“道具”带出知识点，道具亮相用放射背景。"
+    ],
+    [
+    "适合",
+    "儿童向、轻松向的科普。"
+    ]
+    ]
+    },
+    {
+    "code": "⑭",
+    "group": "G",
+    "name": "浮世绘",
+    "handle": "示例题目：大阪堂岛米市与K线",
+    "img": "own/s14",
+    "strip": "own/s14_strip",
+    "fit": "大阪堂岛米市与K线",
+    "own": true,
+    "chip": "已出样片",
+    "desc": "和纸、普鲁士蓝晕染、爪状浪花、粗细墨线、竖排题签与朱印。",
+    "palette": [
+    "#F1E6CC",
+    "#1F3A6E",
+    "#C8402E",
+    "#D3A04A"
+    ],
+    "spec": [
+    [
+    "画面",
+    "木版画平涂 + ぼかし渐变 + 题签。"
+    ],
+    [
+    "适合",
+    "日本相关题材；堂岛米市正好接上我们的金融复盘。"
+    ]
+    ]
+    },
+    {
+    "code": "⑮",
+    "group": "G",
+    "name": "梵高油画",
+    "handle": "示例题目：郁金香狂热",
+    "img": "own/s15",
+    "strip": "own/s15_strip",
+    "fit": "郁金香狂热",
+    "own": true,
+    "chip": "已出样片",
+    "desc": "厚涂笔触、漩涡天空、画布纹理，每一笔都顺着流场走。",
+    "palette": [
+    "#2F5FAE",
+    "#F2C230",
+    "#D8402E",
+    "#4E8A3A"
+    ],
+    "spec": [
+    [
+    "做法",
+    "先铺色块，再用几万笔流场笔触覆盖，最后加颜料厚度光影。"
+    ],
+    [
+    "注意",
+    "文字和价签要在笔触之后再贴，否则会被刷糊。"
+    ]
+    ]
+    },
+    {
+    "code": "⑯",
+    "group": "G",
+    "name": "敦煌壁画",
+    "handle": "示例题目：藏经洞与《金刚经》",
+    "img": "own/s16",
+    "strip": "own/s16_strip",
+    "fit": "藏经洞与《金刚经》",
+    "own": true,
+    "chip": "已出样片",
+    "desc": "土红、石绿、石青、赭石，铁线描、飞天飘带，做旧的裂纹和剥落。",
+    "palette": [
+    "#D9B98E",
+    "#A8442E",
+    "#3E8A72",
+    "#2E5E8E"
+    ],
+    "spec": [
+    [
+    "画面",
+    "矿物色平涂 + 边饰纹样 + 榜题；做旧后再贴说明文字。"
+    ],
+    [
+    "适合",
+    "丝路、佛教艺术、印刷术、纸。"
+    ]
+    ]
+    },
+    {
+    "code": "⑰",
+    "group": "H",
+    "name": "苹果发布会风",
+    "handle": "示例题目：把算盘当新品发布",
+    "img": "own/s17",
+    "strip": "own/s17_strip",
+    "fit": "把算盘当新品发布",
+    "own": true,
+    "chip": "已出样片",
+    "desc": "白底、渐变大标题、悬浮产品图、便当格参数卡、One more thing。",
+    "palette": [
+    "#FFFFFF",
+    "#7B5CFF",
+    "#E8457F",
+    "#FF9F43"
+    ],
+    "spec": [
+    [
+    "讲法",
+    "把一件老物件当新品发布，参数页讲知识点。"
+    ],
+    [
+    "注意",
+    "不出现任何品牌标志。"
+    ]
+    ]
+    },
+    {
+    "code": "⑱",
+    "group": "H",
+    "name": "维密走秀风",
+    "handle": "示例题目：口红简史",
+    "img": "own/s18",
+    "strip": "own/s18_strip",
+    "fit": "口红简史",
+    "own": true,
+    "chip": "已出样片",
+    "desc": "粉色 T 台、聚光、闪光灯、亮片、天使翅膀、时装杂志字体。",
+    "palette": [
+    "#FF8CC0",
+    "#FFE0EC",
+    "#E8C26A",
+    "#2A1420"
+    ],
+    "spec": [
+    [
+    "画面",
+    "T 台透视 + 观众剪影闪光 + 杂志内页排版。"
+    ],
+    [
+    "适合",
+    "美妆、时尚、香水、丝袜等物件史。"
+    ]
+    ]
+    },
+    {
+    "code": "⑲",
+    "group": "H",
+    "name": "F1 转播风",
+    "handle": "示例题目：人类速度极限",
+    "img": "own/s19",
+    "strip": "own/s19_strip",
+    "fit": "人类速度极限",
+    "own": true,
+    "chip": "已出样片",
+    "desc": "计时塔、测速点、车载 HUD、转速灯、紫色最快圈、斜切黑面板。",
+    "palette": [
+    "#15151E",
+    "#E10600",
+    "#A230E8",
+    "#FFD200"
+    ],
+    "spec": [
+    [
+    "讲法",
+    "把对比做成排行榜和赛况，数字一路刷新。"
+    ],
+    [
+    "适合",
+    "速度、排名、竞争类题材；也能做市值排行赛。"
+    ]
+    ]
+    },
+    {
+    "code": "⑳",
+    "group": "H",
+    "name": "NBA 转播风",
+    "handle": "示例题目：1891 年第一场篮球赛",
+    "img": "own/s20",
+    "strip": "own/s20_strip",
+    "fit": "1891 年第一场篮球赛",
+    "own": true,
+    "chip": "已出样片",
+    "desc": "比分条、球员资料卡、数据条、REPLAY 回放、粗斜体压缩字。",
+    "palette": [
+    "#14213D",
+    "#F26B1D",
+    "#FDB927",
+    "#D9A066"
+    ],
+    "spec": [
+    [
+    "讲法",
+    "人物用球员卡介绍，关键时刻用回放。"
+    ],
+    [
+    "适合",
+    "体育史、人物传记、对决类事件。"
+    ]
+    ]
+    },
+    {
+    "code": "㉑",
+    "group": "H",
+    "name": "特斯拉预告片风",
+    "handle": "示例题目：Roadster 预告",
+    "img": "own/s21",
+    "strip": "own/s21_strip",
+    "fit": "Roadster 预告",
+    "own": true,
+    "chip": "已出样片",
+    "desc": "暗场里一道轮廓光扫过细节、烟雾、喷流特写、极少的细字和日期悬念。",
+    "palette": [
+    "#0B0C10",
+    "#E8ECF5",
+    "#FF2A2A",
+    "#8FB8E8"
+    ],
+    "spec": [
+    [
+    "画面",
+    "大面积暗场 + 轮廓光 + 烟雾，几乎没有字。"
+    ],
+    [
+    "注意",
+    "天生偏暗，属于酷炫取向；成片可用白闪过渡提亮。"
+    ]
+    ]
+    },
+    {
+    "code": "P1",
+    "group": "P",
+    "name": "深色金属 · X简史",
+    "handle": "黄金简史等 20 期",
+    "img": "own/p1",
+    "strip": "own/p1",
+    "fit": "已成片",
+    "own": true,
+    "chip": "已成片",
+    "desc": "深色金属质感主题、真实图片、云扬旁白，三分钟讲完一件东西。",
+    "palette": [
+    "#14161C",
+    "#E8B230"
+    ],
+    "spec": [
+    [
+    "用在",
+    "黄金简史等 20 期"
+    ],
+    [
+    "样子",
+    "深色金属质感主题、真实图片、云扬旁白，三分钟讲完一件东西。"
+    ]
+    ]
+    },
+    {
+    "code": "P2",
+    "group": "P",
+    "name": "宣纸水墨",
+    "handle": "红茶简史",
+    "img": "own/p2",
+    "strip": "own/p2",
+    "fit": "已成片",
+    "own": true,
+    "chip": "已成片",
+    "desc": "宣纸底、水墨晕染、楷书题字，文气路线。",
+    "palette": [
+    "#F2EDE2",
+    "#2A2A2A"
+    ],
+    "spec": [
+    [
+    "用在",
+    "红茶简史"
+    ],
+    [
+    "样子",
+    "宣纸底、水墨晕染、楷书题字，文气路线。"
+    ]
+    ]
+    },
+    {
+    "code": "P3",
+    "group": "P",
+    "name": "Clawd 像素电影",
+    "handle": "二十四节气 / 吃遍中国 等",
+    "img": "own/p3",
+    "strip": "own/p3_strip",
+    "fit": "已成片",
+    "own": true,
+    "chip": "已成片",
+    "desc": "像素小人 Clawd 穿越场景，跟着 BGM 节拍走。",
+    "palette": [
+    "#F7E3B8",
+    "#D9774B"
+    ],
+    "spec": [
+    [
+    "用在",
+    "二十四节气 / 吃遍中国 等"
+    ],
+    [
+    "样子",
+    "像素小人 Clawd 穿越场景，跟着 BGM 节拍走。"
+    ]
+    ]
+    },
+    {
+    "code": "P4",
+    "group": "P",
+    "name": "新闻纸网点 · 大事件复盘",
+    "handle": "白银暴跌 → 比尔黄爆仓 9 期",
+    "img": "own/p4",
+    "strip": "own/p4_strip",
+    "fit": "已成片",
+    "own": true,
+    "chip": "已成片",
+    "desc": "亮色纸底、粗墨线卡片、荧光笔标记，每期换一个强调色。",
+    "palette": [
+    "#F5EFE4",
+    "#17161B"
+    ],
+    "spec": [
+    [
+    "用在",
+    "白银暴跌 → 比尔黄爆仓 9 期"
+    ],
+    [
+    "样子",
+    "亮色纸底、粗墨线卡片、荧光笔标记，每期换一个强调色。"
+    ]
+    ]
+    },
+    {
+    "code": "P5",
+    "group": "P",
+    "name": "极速动势 + 等距城市",
+    "handle": "Solana杀进陆家嘴",
+    "img": "own/p5",
+    "strip": "own/p5",
+    "fit": "已成片",
+    "own": true,
+    "chip": "已成片",
+    "desc": "巨型黑字 + 渐变斜带 + 速度拖影；外滩段用等距微缩城。",
+    "palette": [
+    "#F7F5FC",
+    "#9945FF"
+    ],
+    "spec": [
+    [
+    "用在",
+    "Solana杀进陆家嘴"
+    ],
+    [
+    "样子",
+    "巨型黑字 + 渐变斜带 + 速度拖影；外滩段用等距微缩城。"
+    ]
+    ]
+    },
+    {
+    "code": "P6",
+    "group": "P",
+    "name": "特斯拉发布会风",
+    "handle": "特斯拉Roadster真的会飞了？",
+    "img": "own/p6",
+    "strip": "own/p6",
+    "fit": "已成片",
+    "own": true,
+    "chip": "已成片",
+    "desc": "发布会实拍满屏 + 细白字 + 红色灯带，数据段用官网式白页。",
+    "palette": [
+    "#171A20",
+    "#E82127"
+    ],
+    "spec": [
+    [
+    "用在",
+    "特斯拉Roadster真的会飞了？"
+    ],
+    [
+    "样子",
+    "发布会实拍满屏 + 细白字 + 红色灯带，数据段用官网式白页。"
+    ]
+    ]
+    },
+    {
+    "code": "P7",
+    "group": "P",
+    "name": "MV 三种画风",
+    "handle": "红色高跟鞋 MV",
+    "img": "own/p7",
+    "strip": "own/p7_strip",
+    "fit": "已成片",
+    "own": true,
+    "chip": "已成片",
+    "desc": "同一首歌做了法式插画、港风胶片、午夜城市三种画风。",
+    "palette": [
+    "#F2E6D8",
+    "#C0392B"
+    ],
+    "spec": [
+    [
+    "用在",
+    "红色高跟鞋 MV"
+    ],
+    [
+    "样子",
+    "同一首歌做了法式插画、港风胶片、午夜城市三种画风。"
+    ]
+    ]
+    }
+    ];
+  STYLES = OWN.concat(STYLES);
 
   var root = document.documentElement;
   var state = { group: 'all', open: null };
@@ -428,18 +1244,18 @@ footer.foot strong { color: var(--ink); }
         '<span class="card-body">' +
           '<span class="title-row"><span class="seal">' + s.code + '</span><span><span class="serif name">' + s.name + '</span><span class="mono handle">' + s.handle + '</span></span></span>' +
           '<span class="desc">' + s.desc + '</span>' +
-          '<span class="chips"><span class="chip">' + s.fit + '</span><span class="chip ' + (s.ok ? 'ok">纯代码可做' : 'mix">需 AI 生图打底') + '</span></span>' +
+          '<span class="chips"><span class="chip">' + s.fit + '</span><span class="chip ' + (s.own ? 'ok">' + s.chip : (s.ok ? 'ok">纯代码可做' : 'mix">需 AI 生图打底')) + '</span></span>' +
           '<span class="card-foot"><span class="sw">' + swatches(s.palette) + '</span><span class="mono hint">' + (open ? '收起 ▴' : '展开 ▾') + '</span></span>' +
         '</span></button>';
       if (open) {
         html += '<div class="detail" id="detail-' + s.code + '">' +
-          '<div class="detail-img"><img src="images/' + s.img + '.jpg" alt="' + alt + '"></div>' +
+          '<div class="detail-img"><img src="images/' + (s.strip || s.img) + '.jpg" alt="' + alt + '"></div>' +
           '<div class="detail-text">' +
             '<div class="detail-head"><div><span class="mono">' + s.code + ' · ' + GROUP_NAMES[s.group] + '</span><span class="serif">' + s.name + '</span></div>' +
             '<button type="button" class="close" data-code="' + s.code + '">收起</button></div>' +
             '<dl>' + s.spec.map(function (r) { return '<dt>' + r[0] + '</dt><dd>' + r[1] + '</dd>'; }).join('') + '</dl>' +
             '<div class="hexes mono">' + s.palette.map(function (c) { return '<span><i style="background:' + c + '"></i>' + c + '</span>'; }).join('') + '</div>' +
-            '<a class="src-link" href="' + s.link + '" target="_blank" rel="noopener">在 X 上看原片 ↗</a>' +
+            (s.own ? '<span class="src-link">' + (s.group === 'P' ? '我们已经发过的风格' : '我们自己做的样片 · 程序化绘制，角色原创，不含品牌标志') + '</span>' : '<a class="src-link" href="' + s.link + '" target="_blank" rel="noopener">在 X 上看原片 ↗</a>') +
           '</div></div>';
       }
     });
