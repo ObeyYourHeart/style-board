@@ -242,6 +242,8 @@ dd { margin: 0; min-width: 0; color: var(--body); font-size: 15px; }
 .trk a.listen { grid-column: 3; grid-row: 1; font-size: 13px; color: var(--accent); text-decoration: none; white-space: nowrap; padding: 2px 0; }
 .trk a.listen:hover { text-decoration: underline; }
 .music-note { font-size: 13px; color: var(--sub); margin-top: 14px; }
+.music-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: 18px; }
+.music-cta span { font-size: 13px; color: var(--sub); flex: 1 1 280px; min-width: 0; }
 
 /* ---------- method + footer ---------- */
 .band { background: var(--band); transition: background-color .3s ease; }
@@ -351,6 +353,10 @@ footer.foot strong { color: var(--ink); }
 <div class="wrap">
   <section class="music" id="music">
     <div class="sec-head"><h2 class="serif">配乐库</h2><p id="music-lede">按情绪分 6 类，每个风格默认配哪首都标好了。</p></div>
+    <div class="music-cta">
+      <a class="btn primary" href="https://claude.ai/artifact/3SQz5mqgLU1iYAhhnv8kbi" target="_blank" rel="noopener">▶ 一键试听全部 18 首</a>
+      <span>私人试听页，放在站长的 Claude 账号里，只有站长本人登录后能打开；其他访客请点下面各曲的「去 Pixabay 试听」。</span>
+    </div>
     <div class="music-grid" id="music-grid"></div>
     <p class="music-note">曲子都来自 Pixabay（Pixabay Content License：免费、可商用、无需署名）。授权不允许把原曲单独转发，所以本站不放音频文件，点「去 Pixabay 试听」在原页面听。</p>
   </section>
