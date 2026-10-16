@@ -177,6 +177,9 @@ h1 { margin: 0; font-size: clamp(38px, 5.2vw, 72px); line-height: 1.12; text-wra
 }
 .card:hover { box-shadow: 0 10px 26px var(--shadow); transform: translateY(-2px); }
 .card img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; display: block; background: var(--band); }
+.card .media { position: relative; display: block; }
+.card .play { position: absolute; left: 10px; bottom: 10px; width: 38px; height: 38px; border-radius: 50%; background: rgba(16, 18, 22, .72); color: #fff;
+  display: flex; align-items: center; justify-content: center; font-size: 15px; padding-left: 3px; box-sizing: border-box; }
 .card-body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
 .title-row { display: flex; align-items: center; gap: 10px; }
 .title-row .seal { width: 34px; height: 34px; font-size: 14px; border-width: 1.5px; }
@@ -205,6 +208,8 @@ dialog.dlg::backdrop { background: rgba(10, 12, 16, .6); }
 .dlg-scroll { overflow: auto; }
 .dlg-img { background: var(--band); padding: 16px; display: flex; justify-content: center; }
 .dlg-img img { max-width: 100%; max-height: 56vh; display: block; border-radius: 4px; }
+.dlg-img video { width: min(100%, calc(56vh * 16 / 9)); aspect-ratio: 16 / 9; display: block; border-radius: 4px; background: #000; }
+.dlg-img [hidden] { display: none; }
 .dlg-body { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 20px 36px; padding: 22px 26px 28px; }
 .dlg-title { display: flex; align-items: center; gap: 12px; }
 .dlg-title .serif { font-size: 28px; line-height: 1.25; }
@@ -364,7 +369,7 @@ footer.foot strong { color: var(--ink); }
     <button type="button" class="ibtn" id="dlg-close" autofocus>关闭</button>
   </div>
   <div class="dlg-scroll">
-    <div class="dlg-img"><img id="dlg-img" alt=""></div>
+    <div class="dlg-img"><img id="dlg-img" alt=""><video id="dlg-vid" controls playsinline preload="metadata" hidden></video></div>
     <div class="dlg-body">
       <div class="dlg-main">
         <div class="dlg-title"><span class="seal" id="dlg-code"></span><span class="serif" id="dlg-name"></span></div>
@@ -396,10 +401,11 @@ footer.foot strong { color: var(--ink); }
   var GROUPS = [
     { id: 'all', label: '全部' }, { id: 'P', label: '已成片' }, { id: 'E', label: '讲法样片' }, { id: 'F', label: '画法样片' },
     { id: 'G', label: '绘画样片' }, { id: 'H', label: '品牌赛事样片' }, { id: 'I', label: '动画材质样片' }, { id: 'J', label: '设计工艺样片' },
+    { id: 'K', label: '名家风格样片' },
     { id: 'A', label: '参考 · 科普' }, { id: 'B', label: '参考 · MV' }, { id: 'C', label: '参考 · Clawd' }, { id: 'D', label: '参考 · 产品' }
   ];
   var GROUP_NAMES = { A: '参考 · 一物一史科普', B: '参考 · 音乐 MV', C: '参考 · Clawd 与竖屏', D: '参考 · 产品片', P: '我们的已成片',
-    E: '我们的样片 · 讲法篇', F: '我们的样片 · 画法篇', G: '我们的样片 · 绘画篇', H: '我们的样片 · 品牌与赛事转播篇', I: '我们的样片 · 动画与材质篇', J: '我们的样片 · 设计与工艺篇' };
+    E: '我们的样片 · 讲法篇', F: '我们的样片 · 画法篇', G: '我们的样片 · 绘画篇', H: '我们的样片 · 品牌与赛事转播篇', I: '我们的样片 · 动画与材质篇', J: '我们的样片 · 设计与工艺篇', K: '我们的样片 · 名家频道风格篇' };
   var GROUP_DESC = {
     P: '已经发布的视频用过的风格。',
     E: '换一种讲故事的装置：手机屏幕、卷宗、新闻直播间、格斗游戏、互动选择。',
@@ -408,10 +414,11 @@ footer.foot strong { color: var(--ink); }
     H: '苹果发布会、维密秀、F1、NBA、预告片这类包装。',
     I: '2D 动画、赛璐璐、美漫、条漫，以及毛毡、毛线、积木、移轴这些材质。',
     J: '设计流派和手艺：蓝图、海报、青花、剪纸、包豪斯、景泰蓝、沙画……',
+    K: '借鉴 Veritasium、Kurzgesagt、3Blue1Brown、Vox 等知名科普频道的讲法和画风，每个都是带旁白、可直接播放的完整小样。',
     A: '@0xMovez 长文里的案例，适合一物一史科普。', B: '适合音乐 MV 的参考画风。', C: '适合 Clawd 系列和竖屏的参考。', D: '产品片的参考。'
   };
-  var OURS = ['P', 'E', 'F', 'G', 'H', 'I', 'J'], REFS = ['A', 'B', 'C', 'D'];
-  var MOSAIC = ['⑪', '㉔', '㊱', '㊷', '㊼', '62'];
+  var OURS = ['P', 'K', 'E', 'F', 'G', 'H', 'I', 'J'], REFS = ['A', 'B', 'C', 'D'];
+  var MOSAIC = ['⑪', '74', '㊱', '77', '㊼', '62'];
 
   var STYLES = [
     { code: 'A1', group: 'A', name: '线描留白 · 朱印标题', handle: '@akokoi1 中华五千年 2:37', img: 'wy', link: 'https://x.com/akokoi1/status/2102583898865873225', fit: '一物一史', ok: true,
@@ -2735,6 +2742,369 @@ footer.foot strong { color: var(--ink); }
     "同一首歌做了法式插画、港风胶片、午夜城市三种画风。"
     ]
     ]
+    },
+    {
+    "code": "73",
+    "group": "K",
+    "name": "Veritasium 风",
+    "handle": "示例题目：冰块放铁块和木块上，哪个先化完？",
+    "img": "own/s73",
+    "strip": "own/s73_strip",
+    "video": "own/v73.mp4",
+    "fit": "冰块放铁块和木块上，哪个先化完？",
+    "own": true,
+    "chip": "▶ 可播放",
+    "desc": "先抛问题让观众选，再做实验、讲原理，最后来一个反直觉的反转。",
+    "palette": [
+    "#F4F5F7",
+    "#E8452E",
+    "#3A8AE0",
+    "#F28A2E"
+    ],
+    "spec": [
+    [
+    "讲法",
+    "提问 → 你选哪个 → 实验 → 原理 → 反转 → 再抛一个问题。"
+    ],
+    [
+    "画面",
+    "干净的浅色影棚、斜俯视道具、马克笔式圈注。"
+    ],
+    [
+    "适合",
+    "生活里的反直觉物理、化学小实验。"
+    ]
+    ]
+    },
+    {
+    "code": "74",
+    "group": "K",
+    "name": "Kurzgesagt 风",
+    "handle": "示例题目：一滴血里有什么",
+    "img": "own/s74",
+    "strip": "own/s74_strip",
+    "video": "own/v74.mp4",
+    "fit": "一滴血里有什么",
+    "own": true,
+    "chip": "▶ 可播放",
+    "desc": "扁平无描边、双色明暗块面、景深分层的细胞流，镜头一路推进一立方毫米。",
+    "palette": [
+    "#FFE6DA",
+    "#E8304A",
+    "#5EC4D2",
+    "#8E70E2"
+    ],
+    "spec": [
+    [
+    "画面",
+    "饱和渐变底、左上高光右下阴影、漂浮微粒、可爱小眼睛。"
+    ],
+    [
+    "讲法",
+    "从宏观推到微观，再拉回宏观，用大数字收尾。"
+    ],
+    [
+    "适合",
+    "生物、宇宙、尺度类话题。"
+    ]
+    ]
+    },
+    {
+    "code": "75",
+    "group": "K",
+    "name": "3Blue1Brown 风（浅色版）",
+    "handle": "示例题目：圆的面积为什么是 πr²",
+    "img": "own/s75",
+    "strip": "own/s75_strip",
+    "video": "own/v75.mp4",
+    "fit": "圆的面积为什么是 πr²",
+    "own": true,
+    "chip": "▶ 可播放",
+    "desc": "先描线后填色、公式逐字写出、一个形状平滑变成另一个，几何本身就是画面。",
+    "palette": [
+    "#F7F5EF",
+    "#1C6E8C",
+    "#5CC3D6",
+    "#E09A2C"
+    ],
+    "spec": [
+    [
+    "画面",
+    "暖白底（原版黑底）+ 蓝绿渐变 + 一处金色强调。"
+    ],
+    [
+    "讲法",
+    "把直觉“看出来”：剪开、拉直、摞起来。"
+    ],
+    [
+    "适合",
+    "数学、物理推导。"
+    ]
+    ]
+    },
+    {
+    "code": "76",
+    "group": "K",
+    "name": "Vox 风",
+    "handle": "示例题目：飞机窗户为什么是圆角的",
+    "img": "own/s76",
+    "strip": "own/s76_strip",
+    "video": "own/v76.mp4",
+    "fit": "飞机窗户为什么是圆角的",
+    "own": true,
+    "chip": "▶ 可播放",
+    "desc": "纸面拼贴、半调网点“老照片”、荧光笔划重点、红笔圈注、时间轴纸条。",
+    "palette": [
+    "#F1EBDF",
+    "#202328",
+    "#FFE04A",
+    "#E0352B"
+    ],
+    "spec": [
+    [
+    "画面",
+    "白边剪纸 + 投影、黑底白字标题条、打字机档案字。"
+    ],
+    [
+    "讲法",
+    "一个日常细节 → 一段历史事故 → 背后的原理。"
+    ],
+    [
+    "适合",
+    "“为什么 X 是这样”的解释视频。"
+    ]
+    ]
+    },
+    {
+    "code": "77",
+    "group": "K",
+    "name": "Johnny Harris 风",
+    "handle": "示例题目：长赐号堵住苏伊士运河",
+    "img": "own/s77",
+    "strip": "own/s77_strip",
+    "video": "own/v77.mp4",
+    "fit": "长赐号堵住苏伊士运河",
+    "own": true,
+    "chip": "▶ 可播放",
+    "desc": "桌上的纸地图、手持微晃、从世界推到运河再拉回，马克笔画航线，图钉红线和拍立得。",
+    "palette": [
+    "#CBE2E4",
+    "#F5EACB",
+    "#D8322A",
+    "#B4865A"
+    ],
+    "spec": [
+    [
+    "画面",
+    "木桌 + 折痕纸地图 + 便利贴 + 拍立得插图。"
+    ],
+    [
+    "讲法",
+    "第一人称“看这张地图”，地理决定事件。"
+    ],
+    [
+    "注意",
+    "海岸线是手录的粗略坐标，只作示意。"
+    ]
+    ]
+    },
+    {
+    "code": "78",
+    "group": "K",
+    "name": "MinutePhysics 风",
+    "handle": "示例题目：天空为什么是蓝的",
+    "img": "own/s78",
+    "strip": "own/s78_strip",
+    "video": "own/v78.mp4",
+    "fit": "天空为什么是蓝的",
+    "own": true,
+    "chip": "▶ 可播放",
+    "desc": "白纸黑马克笔，每一笔现场画出，线条逐格微抖，几支彩笔点色。",
+    "palette": [
+    "#FDFCF8",
+    "#1B1B1D",
+    "#2F6FD6",
+    "#E2412D"
+    ],
+    "spec": [
+    [
+    "画面",
+    "火柴人、箭头、手写字，一页画满换新纸。"
+    ],
+    [
+    "讲法",
+    "一分钟一个物理问题，语速快、不废话。"
+    ],
+    [
+    "适合",
+    "物理常识、光、声、热。"
+    ]
+    ]
+    },
+    {
+    "code": "79",
+    "group": "K",
+    "name": "TED-Ed 风",
+    "handle": "示例题目：农夫过河谜题",
+    "img": "own/s79",
+    "strip": "own/s79_strip",
+    "video": "own/v79.mp4",
+    "fit": "农夫过河谜题",
+    "own": true,
+    "chip": "▶ 可播放",
+    "desc": "暖色绘本插画、固定纸面颗粒；先讲规则，再“暂停视频想一想”倒计时，然后演示解法。",
+    "palette": [
+    "#F7E9C9",
+    "#6FA7C7",
+    "#8DB46A",
+    "#C8553D"
+    ],
+    "spec": [
+    [
+    "画面",
+    "侧视河岸、简洁角色、柔和配色。"
+    ],
+    [
+    "讲法",
+    "谜题式：规则 → 暂停思考 → 动画解答 → 出处。"
+    ],
+    [
+    "适合",
+    "逻辑题、历史小故事。"
+    ]
+    ]
+    },
+    {
+    "code": "80",
+    "group": "K",
+    "name": "Primer 风",
+    "handle": "示例题目：速度是怎么进化出来的",
+    "img": "own/s80",
+    "strip": "own/s80_strip",
+    "video": "own/v80.mp4",
+    "fit": "速度是怎么进化出来的",
+    "own": true,
+    "chip": "▶ 可播放",
+    "desc": "带高光和投影的“3D”小团子在圆台上找食物，颜色代表性状，折线图随模拟实时长出来。",
+    "palette": [
+    "#EEF2FA",
+    "#4F86F7",
+    "#F0524F",
+    "#6CC24A"
+    ],
+    "spec": [
+    [
+    "画面",
+    "柔和球体角色 + 浮空圆台 + 实时数据图。"
+    ],
+    [
+    "讲法",
+    "定规则 → 跑模拟 → 看数据说话。"
+    ],
+    [
+    "数据",
+    "来自真实运行的模拟（固定种子），不是摆拍。"
+    ]
+    ]
+    },
+    {
+    "code": "81",
+    "group": "K",
+    "name": "CGP Grey 风",
+    "handle": "示例题目：为什么有闰年",
+    "img": "own/s81",
+    "strip": "own/s81_strip",
+    "video": "own/v81.mp4",
+    "fit": "为什么有闰年",
+    "own": true,
+    "chip": "▶ 可播放",
+    "desc": "白底粗描边扁平图标、推拉镜头换场、语速快，最后用流程图收束。",
+    "palette": [
+    "#FAFAF7",
+    "#2E2E33",
+    "#3B7DD8",
+    "#E04A3F"
+    ],
+    "spec": [
+    [
+    "画面",
+    "极简图标、日历、流程图。"
+    ],
+    [
+    "讲法",
+    "把规则一条条拆开，像讲制度一样讲历法。"
+    ],
+    [
+    "适合",
+    "制度、规则、地理名词辨析。"
+    ]
+    ]
+    },
+    {
+    "code": "82",
+    "group": "K",
+    "name": "回形针式信息图",
+    "handle": "示例题目：电梯为什么不会掉下去",
+    "img": "own/s82",
+    "strip": "own/s82_strip",
+    "video": "own/v82.mp4",
+    "fit": "电梯为什么不会掉下去",
+    "own": true,
+    "chip": "▶ 可播放",
+    "desc": "浅灰点阵底、细线等轴测剖面、编号橙色标注配中英小字，镜头在剖面里推来推去。",
+    "palette": [
+    "#EEF0F3",
+    "#3A3F47",
+    "#FF6A13",
+    "#C3CAD4"
+    ],
+    "spec": [
+    [
+    "画面",
+    "等轴测线稿 + 橙色编号引线 + 双语小标签。"
+    ],
+    [
+    "讲法",
+    "信息密集：一个结构，五个部件，逐个点名。"
+    ],
+    [
+    "注意",
+    "只借风格，不放任何品牌标识。"
+    ]
+    ]
+    },
+    {
+    "code": "83",
+    "group": "K",
+    "name": "白板讲题风",
+    "handle": "示例题目：三门问题",
+    "img": "own/s83",
+    "strip": "own/s83_strip",
+    "video": "own/v83.mp4",
+    "fit": "三门问题",
+    "own": true,
+    "chip": "▶ 可播放",
+    "desc": "白板、铝框、笔槽，蓝黑红马克笔现场写，笔尖跟着走；先写直觉，再列表推翻它。",
+    "palette": [
+    "#FCFDFE",
+    "#1F4FB0",
+    "#D93025",
+    "#1E8E3E"
+    ],
+    "spec": [
+    [
+    "画面",
+    "白板反光 + 手写板书 + 表格。"
+    ],
+    [
+    "讲法",
+    "像老师上课：摆题 → 直觉 → 穷举 → 结论。"
+    ],
+    [
+    "注意",
+    "只画白板，不画真人老师。"
+    ]
+    ]
     }
     ];
   STYLES = OWN.concat(STYLES);
@@ -2803,7 +3173,7 @@ footer.foot strong { color: var(--ink); }
   }
   function card(s) {
     return '<button type="button" class="card" data-open="' + esc(s.code) + '">' +
-      '<img src="images/' + s.img + '.jpg" alt="' + esc(s.name) + '的样片" loading="lazy">' +
+      '<span class="media"><img src="images/' + s.img + '.jpg" alt="' + esc(s.name) + '的样片" loading="lazy">' + (s.video ? '<span class="play" aria-hidden="true">▶</span>' : '') + '</span>' +
       '<span class="card-body">' +
         '<span class="title-row"><span class="seal">' + esc(s.code) + '</span><span><span class="serif name">' + esc(s.name) + '</span><span class="mono handle">' + esc(s.handle) + '</span></span></span>' +
         '<span class="desc">' + esc(s.desc) + '</span>' +
@@ -2844,7 +3214,15 @@ footer.foot strong { color: var(--ink); }
     var list = state.list.indexOf(code) >= 0 ? state.list : STYLES.map(function (x) { return x.code; });
     state.idx = list.indexOf(code); state.cur = list;
     document.getElementById('dlg-where').textContent = s.code + ' · ' + GROUP_NAMES[s.group];
-    var img = document.getElementById('dlg-img'); img.src = 'images/' + (s.strip || s.img) + '.jpg'; img.alt = s.name + '的三格样片';
+    var img = document.getElementById('dlg-img'), vid = document.getElementById('dlg-vid');
+    if (s.video) {
+      img.hidden = true; img.removeAttribute('src');
+      vid.hidden = false; vid.poster = 'images/' + s.img + '.jpg'; vid.src = 'images/' + s.video;
+      vid.setAttribute('aria-label', s.name + '的样片视频');
+    } else {
+      vid.pause(); vid.removeAttribute('src'); vid.load(); vid.hidden = true;
+      img.hidden = false; img.src = 'images/' + (s.strip || s.img) + '.jpg'; img.alt = s.name + '的三格样片';
+    }
     document.getElementById('dlg-code').textContent = s.code;
     document.getElementById('dlg-name').textContent = s.name;
     document.getElementById('dlg-handle').textContent = s.handle;
@@ -2853,7 +3231,7 @@ footer.foot strong { color: var(--ink); }
     document.getElementById('dlg-chips').innerHTML = chipHTML(s);
     document.getElementById('dlg-hex').innerHTML = s.palette.map(function (c) { return '<span><i style="background:' + c + '"></i>' + c + '</span>'; }).join('');
     document.getElementById('dlg-src').innerHTML = s.own
-      ? '<span class="order">' + (s.group === 'P' ? '我们已经发过的风格' : '我们自己做的样片 · 程序化绘制，角色原创，不含品牌标志') + '</span>'
+      ? '<span class="order">' + (s.group === 'P' ? '我们已经发过的风格' : s.group === 'K' ? '我们自己做的样片 · 借鉴知名频道的讲法和画风，画面与旁白全部原创，不含频道标志' : '我们自己做的样片 · 程序化绘制，角色原创，不含品牌标志') + '</span>'
       : '<a class="src" href="' + esc(s.link) + '" target="_blank" rel="noopener">在 X 上看原片 ↗</a>';
     document.getElementById('dlg-order').textContent = (state.idx + 1) + ' / ' + list.length + ' · 方向键切换';
     document.querySelector('.dlg-scroll').scrollTop = 0;
@@ -2862,7 +3240,7 @@ footer.foot strong { color: var(--ink); }
   }
   function step(d) { if (!state.cur) return; var n = state.cur.length; show(state.cur[(state.idx + d + n) % n]); }
   function closeDlg() { dlg.close(); }
-  dlg.addEventListener('close', function () { try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {} });
+  dlg.addEventListener('close', function () { document.getElementById('dlg-vid').pause(); try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {} });
   dlg.addEventListener('click', function (e) { if (e.target === dlg) closeDlg(); });
   document.getElementById('dlg-close').addEventListener('click', closeDlg);
   document.getElementById('dlg-prev').addEventListener('click', function () { step(-1); });
