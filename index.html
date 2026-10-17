@@ -216,7 +216,8 @@ dialog.dlg::backdrop { background: rgba(10, 12, 16, .6); }
 .dlg-main { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
 .dlg-main .desc { display: block; -webkit-line-clamp: unset; font-size: 15px; }
 .dlg-side { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
-dl { margin: 0; display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 10px 14px; }
+dl { margin: 0; display: grid; grid-template-columns: minmax(48px, max-content) minmax(0, 1fr); gap: 10px 14px; }
+dt { white-space: nowrap; }
 dt { font-size: 13px; color: var(--sub); letter-spacing: .06em; padding-top: 2px; }
 dd { margin: 0; min-width: 0; color: var(--body); font-size: 15px; }
 .hexes { display: flex; flex-wrap: wrap; gap: 8px 14px; }
@@ -224,6 +225,8 @@ dd { margin: 0; min-width: 0; color: var(--body); font-size: 15px; }
 .hexes i { width: 18px; height: 18px; border-radius: 2px; border: 1px solid var(--line2); }
 .src { display: inline-flex; align-self: flex-start; align-items: center; min-height: 40px; padding: 0 16px; border: 1px solid var(--accent); color: var(--accent); border-radius: 6px; text-decoration: none; font-size: 14px; }
 .order { font-size: 13px; color: var(--sub); }
+#dlg-src { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+.credit { line-height: 1.6; }
 
 /* ---------- music ---------- */
 .music { padding-block: 8px 72px; border-top: 1px solid var(--line); }
@@ -383,6 +386,7 @@ footer.foot strong { color: var(--ink); }
       <strong>来源</strong>
       <span>我们的样片：全部程序化绘制，角色原创，不含任何品牌、赛事或角色标志。</span>
       <span>配乐：来自 Pixabay，各曲作者见上方「配乐库」。</span>
+      <span>LemoLab 风格成片、OPUSCAR 98：来自 <a href="https://github.com/lemomo-ai/lemo-opuscar" target="_blank" rel="noopener">lemomo-ai/lemo-opuscar</a>（MIT 协议，Copyright © 2026 LemoLab），样片与风格说明的版权归原作者，本站转载并附中文摘译。</span>
       <span>参考画风：<a href="https://x.com/0xMovez/status/2104216919033192746" target="_blank" rel="noopener">@0xMovez《How to build motion design studio with Opus 5.5》</a> 和 <a href="https://github.com/athemeroy/awesome-claude-5-5-videos" target="_blank" rel="noopener">athemeroy/awesome-claude-5-5-videos</a></span>
     </div>
     <div>
@@ -435,9 +439,10 @@ footer.foot strong { color: var(--ink); }
     { id: 'all', label: '全部' }, { id: 'P', label: '已成片' }, { id: 'E', label: '讲法样片' }, { id: 'F', label: '画法样片' },
     { id: 'G', label: '绘画样片' }, { id: 'H', label: '品牌赛事样片' }, { id: 'I', label: '动画材质样片' }, { id: 'J', label: '设计工艺样片' },
     { id: 'K', label: '名家风格样片' }, { id: 'M', label: '日本动画样片' }, { id: 'L', label: '动效样片' },
+    { id: 'S', label: 'LemoLab 风格成片' }, { id: 'Q', label: 'OPUSCAR 98' },
     { id: 'A', label: '参考 · 科普' }, { id: 'B', label: '参考 · MV' }, { id: 'C', label: '参考 · Clawd' }, { id: 'D', label: '参考 · 产品' }
   ];
-  var GROUP_NAMES = { A: '参考 · 一物一史科普', B: '参考 · 音乐 MV', C: '参考 · Clawd 与竖屏', D: '参考 · 产品片', P: '我们的已成片',
+  var GROUP_NAMES = { S: '参考 · LemoLab 风格成片', Q: '参考 · OPUSCAR 98 电影风格', A: '参考 · 一物一史科普', B: '参考 · 音乐 MV', C: '参考 · Clawd 与竖屏', D: '参考 · 产品片', P: '我们的已成片',
     E: '我们的样片 · 讲法篇', F: '我们的样片 · 画法篇', G: '我们的样片 · 绘画篇', H: '我们的样片 · 品牌与赛事转播篇', I: '我们的样片 · 动画与材质篇', J: '我们的样片 · 设计与工艺篇', K: '我们的样片 · 名家频道风格篇', L: '我们的样片 · 动效篇', M: '我们的样片 · 日本动画篇' };
   var GROUP_DESC = {
     P: '已经发布的视频用过的风格。',
@@ -450,9 +455,11 @@ footer.foot strong { color: var(--ink); }
     K: '借鉴 Veritasium、Kurzgesagt、3Blue1Brown、Vox 等知名科普频道的讲法和画风，每个都是带旁白、可直接播放的完整小样。',
     M: '热血少年漫、新海诚式电影感、京阿尼式日常、90 年代赛璐璐：四种日本动画风，带旁白和配乐，角色全部原创。',
     L: '以动效为主的 8 秒无声小样：无限缩放、连锁机关、液态变形、条形图赛跑、一笔画、沙画转场，打开就循环播放。',
+    S: '开源风格库 lemo-opuscar 里我们还没有的 26 种风格。每种都配一支完全用代码做的成片，点开直接看（有声音）；下面是中文风格要点，完整说明见 STYLE.md。',
+    Q: '同一作者的《OPUSCAR 98》：Clawd 走过 1927–2025 年的 98 部奥斯卡最佳影片，每部换一种画风。这里收了和我们不重复的 71 种，每种是从整片里切出的几秒片段（静音循环），附中文风格提示词，可以直接拿去做别的题目。',
     A: '@0xMovez 长文里的案例，适合一物一史科普。', B: '适合音乐 MV 的参考画风。', C: '适合 Clawd 系列和竖屏的参考。', D: '产品片的参考。'
   };
-  var OURS = ['P', 'K', 'M', 'L', 'E', 'F', 'G', 'H', 'I', 'J'], REFS = ['A', 'B', 'C', 'D'];
+  var OURS = ['P', 'K', 'M', 'L', 'E', 'F', 'G', 'H', 'I', 'J'], REFS = ['S', 'Q', 'A', 'B', 'C', 'D'];
   var MOSAIC = ['⑪', '74', '㊱', '77', '㊼', '62'];
 
   var STYLES = [
@@ -3713,7 +3720,5105 @@ footer.foot strong { color: var(--ink); }
     "note": "诙谐段"
     }
     ];
-  STYLES = OWN.concat(STYLES);
+  var LEMO = [
+    {
+    "code": "S1",
+    "group": "S",
+    "name": "卫星简报",
+    "handle": "LemoLab 样片《The Map Still Says Sea》· 38 秒",
+    "img": "lemo/satellite-briefing",
+    "video": "lemo/satellite-briefing.mp4",
+    "fit": "地理 · 调查 · 气候",
+    "ok": true,
+    "chip": "▶ 可播放",
+    "desc": "真实卫星影像压成分析师的灰调，地面上只画细白测量线；一镜从轨道推到地面再升回去，时间在锁定的画面里流动。",
+    "palette": [
+    "#91948F",
+    "#181C1C",
+    "#525453",
+    "#757774"
+    ],
+    "spec": [
+    [
+    "画面",
+    "地面必须是真实、可授权的卫星或航拍照片，什么都不画、不生成；上面只叠稀疏的细白线：锁定框、轮廓、测距线，一屏只给一个读数，用唯一的强调色（琥珀）。"
+    ],
+    [
+    "手法",
+    "地图对照照片；锁定画面里让年份流转；测距线；从轨道俯冲再爬升；故事转折处颜色才回来；锁定框变成画框。"
+    ],
+    [
+    "声音",
+    "遥测 FM 提示音、越来越密的网格滴答、伺服马达声；测量结果落在定音鼓和低音鼓的重拍上。"
+    ],
+    [
+    "适合",
+    "气候环境、调查报道和新闻解读、地理和历史"
+    ],
+    [
+    "样片",
+    "卫星照着地图去找咸海，找到的是沙漠；唯一回来的那一小块，是有人筑坝留住的。"
+    ],
+    [
+    "注意",
+    "谷歌地球、必应、Esri、Maxar 等影像都不能用；可用 Landsat、Sentinel-2（注意年份授权）和 NASA 影像。"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看完整风格说明 STYLE.md ↗",
+    "https://github.com/lemomo-ai/lemo-opuscar/blob/main/styles/satellite-briefing/STYLE.md"
+    ],
+    [
+    "LemoLab 风格图鉴 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/"
+    ]
+    ]
+    },
+    {
+    "code": "S2",
+    "group": "S",
+    "name": "工程简报板",
+    "handle": "LemoLab 样片《The Ship Decides》· 40 秒",
+    "img": "lemo/briefing-board",
+    "video": "lemo/briefing-board.mp4",
+    "fit": "方案比较 · 工程决策",
+    "ok": true,
+    "chip": "▶ 可播放",
+    "desc": "拍一面真实的白板墙：窗光、擦不干净的旧笔迹，真实物件的剪切照片带着阴影贴上去，三色马克笔各有含义。",
+    "palette": [
+    "#C0BDB6",
+    "#615C57",
+    "#EFEBE1",
+    "#848381"
+    ],
+    "spec": [
+    [
+    "画面",
+    "搪瓷白板有窗光衰减和反光；贴上去的是真实物件的照片（离板几毫米、有投影和视差）；铅灰写名称和规则，蓝色写水和尺寸，红色只给结论；被否掉的方案擦成残影。"
+    ],
+    [
+    "手法",
+    "镜头沿着尺寸线、投影线、引线在一面连续的墙上走，最后才拉远看到整面墙像一张海报；磁贴当计数，盖章定论。"
+    ],
+    [
+    "适合",
+    "工程决策、方案对比、简报讲解"
+    ],
+    [
+    "样片",
+    "一条河要架桥，四种桥型在一面简报墙上逐个受检，拍板的是桥下要过的船。"
+    ],
+    [
+    "注意",
+    "镜头路过时一闪而过的字读不完；只拍特写观众看不到全局，要按「细节 → 判断 → 停顿 → 结论」走。"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看完整风格说明 STYLE.md ↗",
+    "https://github.com/lemomo-ai/lemo-opuscar/blob/main/styles/briefing-board/STYLE.md"
+    ],
+    [
+    "LemoLab 风格图鉴 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/"
+    ]
+    ]
+    },
+    {
+    "code": "S3",
+    "group": "S",
+    "name": "点云测绘",
+    "handle": "LemoLab 样片《The Fields Under the Forest》· 40 秒",
+    "img": "lemo/lidar-survey",
+    "video": "lemo/lidar-survey.mp4",
+    "fit": "考古 · 地形 · 城建",
+    "ok": true,
+    "chip": "▶ 可播放",
+    "desc": "真实机载激光点云悬在暗处，扫描线扫过，点凝成受光的实体地形，再用细线一项项量出来，镜头一路飞穿。",
+    "palette": [
+    "#141513",
+    "#9C9588",
+    "#56534D",
+    "#7A7469"
+    ],
+    "spec": [
+    [
+    "画面",
+    "每个点都是真实测量回波，不挪成形状；扫描前沿过后点云凝成实体表面；地面、植被、建筑、水是可以剥离的图层；近黑带冷调的底，克制的绿青高度色，只有扫描前沿发光。"
+    ],
+    [
+    "手法",
+    "照片变点云；剥掉树冠；点云凝固成面；剖切面；开窗；植被再长回来。"
+    ],
+    [
+    "声音",
+    "FM 提示音、点落下的细碎噼啪、跟着前沿走的噪声扫频、越分越细的滴答。"
+    ],
+    [
+    "适合",
+    "考古和文化遗产、林业环境、基建和场地测量"
+    ],
+    [
+    "样片",
+    "激光点云把康涅狄格州一片森林的树冠一层层剥掉，地面上露出当年农田的石墙：描出 3.4 公里，逐一量过。"
+    ],
+    [
+    "注意",
+    "样片底色很暗，我们做时要先确认能不能接受；数据可用 USGS 3DEP 等公开源。"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看完整风格说明 STYLE.md ↗",
+    "https://github.com/lemomo-ai/lemo-opuscar/blob/main/styles/lidar-survey/STYLE.md"
+    ],
+    [
+    "LemoLab 风格图鉴 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/"
+    ]
+    ]
+    },
+    {
+    "code": "S4",
+    "group": "S",
+    "name": "白模投影",
+    "handle": "LemoLab 样片《How a Flattened City Grew Back》· 40 秒",
+    "img": "lemo/white-model",
+    "video": "lemo/white-model.mp4",
+    "fit": "城市 · 规划 · 展厅",
+    "ok": true,
+    "chip": "▶ 可播放",
+    "desc": "暗室展台上一座纯白城市模型，投影机一层层把数据「照」上去：只亮朝向它的面，还会溢出一点到底座上。",
+    "palette": [
+    "#0E1118",
+    "#E2C8B0",
+    "#6C676B",
+    "#AC9889"
+    ],
+    "spec": [
+    [
+    "画面",
+    "模型是真实地方的建筑轮廓和高度（开放数据按比例拉伸），模型本身永远是白的；颜色是投上去的光，背光的墙面会暗下去；一次只来一层数据。"
+    ],
+    [
+    "手法",
+    "关灯、投影亮起；城市里的空洞；按年代分层；水位上涨；太阳时钟投影；单独点亮一栋；最后开灯。"
+    ],
+    [
+    "声音",
+    "房间底噪、投影机风扇、灯泡点亮的电流声；木槌和玻璃音代表亮起，弓擦颤音琴代表持续的光。"
+    ],
+    [
+    "适合",
+    "城市规划和地产、展览展厅、城市数据和历史"
+    ],
+    [
+    "样片",
+    "投影机把数据一层层刷上鹿特丹白模：1940 年前留下的楼、填满空洞的几十年、长起来的塔楼，以及最高那栋在冬至正午投向战前屋顶的影子。"
+    ],
+    [
+    "注意",
+    "暖色环境光会把白模照成米色，要用中性环境光。"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看完整风格说明 STYLE.md ↗",
+    "https://github.com/lemomo-ai/lemo-opuscar/blob/main/styles/white-model/STYLE.md"
+    ],
+    [
+    "LemoLab 风格图鉴 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/"
+    ]
+    ]
+    },
+    {
+    "code": "S5",
+    "group": "S",
+    "name": "数据实物化",
+    "handle": "LemoLab 样片《Two Spirals》· 39 秒",
+    "img": "lemo/data-physical",
+    "video": "lemo/data-physical.mp4",
+    "fit": "年报 · 统计 · 能源",
+    "ok": true,
+    "chip": "▶ 可播放",
+    "desc": "真实统计做成真实物件：一片金属、一块亚克力就是一个单位，按精确比例叠在胡桃木底座上，像产品一样打光拍。",
+    "palette": [
+    "#333A2C",
+    "#F1EDE5",
+    "#9D9B94",
+    "#CBC2B7"
+    ],
+    "spec": [
+    [
+    "画面",
+    "一个物件 = 一个说明过的单位（「1 片 = 10 GW」），每第十个换重材质当刻度；影棚低角度暖主光 + 冷轮廓光、浅景深；不发光、不描边、不做假界面。"
+    ],
+    [
+    "手法",
+    "单位特写；两组并肩爬升；一片片摆上去（增长就是组装，不缩放不变形）；拉远看到图表是一件装置；最后一件物件。"
+    ],
+    [
+    "声音",
+    "材料本身就是音效：金属片清脆、亚克力发闷、木头敲击、硬币响；每第十片敲一个音高，图表变成琶音。"
+    ],
+    [
+    "适合",
+    "年报和 ESG、投资者沟通、能源气候统计"
+    ],
+    [
+    "样片",
+    "十二年的风电和太阳能装机，按同一个单位叠成实物，绕胡桃木表盘升成两条螺旋：2014 年风电领先，2021 年太阳能超过，2025 年比值整个反了过来。"
+    ],
+    [
+    "注意",
+    "两种材料太像会看成一组，要在缩略图尺寸下检查；屏幕上每个数字都要有出处。"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看完整风格说明 STYLE.md ↗",
+    "https://github.com/lemomo-ai/lemo-opuscar/blob/main/styles/data-physical/STYLE.md"
+    ],
+    [
+    "LemoLab 风格图鉴 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/"
+    ]
+    ]
+    },
+    {
+    "code": "S6",
+    "group": "S",
+    "name": "产品拆解",
+    "handle": "LemoLab 样片《21 Keys, Opened》· 39 秒",
+    "img": "lemo/teardown",
+    "video": "lemo/teardown.mp4",
+    "fit": "产品 · 硬件 · 参数",
+    "ok": true,
+    "chip": "▶ 可播放",
+    "desc": "用产品自己的工程文件（CAD、电路板、物料表）建模，像影棚产品照一样打光，在镜头前沿一根轴逐层拆开再合上。",
+    "palette": [
+    "#6C7172",
+    "#030304",
+    "#A0A0A1",
+    "#484340"
+    ],
+    "spec": [
+    [
+    "画面",
+    "几何、位置、数量都来自文件；各层沿一根轴均匀悬开、保持原方向；物理材质 + 影棚主光 + 冷轮廓光；数字用引线和带刻度的尺寸线直接画在物件上，不另放表格。"
+    ],
+    [
+    "手法",
+    "波浪式逐层抬起；镜头钻进层间缝隙；引线落到零件上；尺寸画在实物上；一个真实动作；里面的灯亮起来。"
+    ],
+    [
+    "适合",
+    "硬件发布、电商详情页、技术参数讲解"
+    ],
+    [
+    "样片",
+    "开源键盘的一半在一次环绕中逐层拆开，镜头钻到电路板背面看主控、灯珠和热插拔座，再合拢，把真实尺寸画在实物上。"
+    ],
+    [
+    "注意",
+    "不许编数字，文件给不出的尺寸要么实测、要么不写；不同版本的零件不能混用。"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看完整风格说明 STYLE.md ↗",
+    "https://github.com/lemomo-ai/lemo-opuscar/blob/main/styles/teardown/STYLE.md"
+    ],
+    [
+    "LemoLab 风格图鉴 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/"
+    ]
+    ]
+    },
+    {
+    "code": "S7",
+    "group": "S",
+    "name": "显微叙事",
+    "handle": "LemoLab 样片《Measured Blue》· 40 秒",
+    "img": "lemo/microscope",
+    "video": "lemo/microscope.mp4",
+    "fit": "生物 · 医学 · 材料",
+    "ok": true,
+    "chip": "▶ 可播放",
+    "desc": "真实显微照片原样呈现，一镜从手里的玻片推到单个细胞；倍率变化时焦点会「呼吸」，比例尺和读数都来自图像本身。",
+    "palette": [
+    "#241C28",
+    "#E3E0DB",
+    "#98727F",
+    "#5C445F"
+    ],
+    "spec": [
+    [
+    "画面",
+    "标本是真实显微图或全玻片扫描，不画不修不生成；一路俯冲，比例尺按 1-2-5 跳变，视野读数滚动；染色保持真实颜色，唯一的强调色避开染色的色相。"
+    ],
+    [
+    "手法",
+    "俯冲；逐像素数颜色；两个圆、一个结论；焦平面扫过 + 圆环；再爬升回来。"
+    ],
+    [
+    "声音",
+    "物镜转盘的咔嗒、对焦伺服、笔划玻璃；硬槌颤音琴和马林巴，每个读数落地一声钟琴。"
+    ],
+    [
+    "适合",
+    "生物医学和病理、材料和表面科学、护肤成分科学"
+    ],
+    [
+    "样片",
+    "一镜从肉眼看到的肝组织玻片推到单个细胞核；相隔 1.4 毫米的两个圆被逐像素计数，其中一个的蓝色是另一个的 2.4 倍。"
+    ],
+    [
+    "注意",
+    "网上大部分显微图是非商用或保留版权，要用 CC0 全玻片（如 OpenSlide 测试数据）或公有领域图。"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看完整风格说明 STYLE.md ↗",
+    "https://github.com/lemomo-ai/lemo-opuscar/blob/main/styles/microscope/STYLE.md"
+    ],
+    [
+    "LemoLab 风格图鉴 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/"
+    ]
+    ]
+    },
+    {
+    "code": "S8",
+    "group": "S",
+    "name": "档案灯台",
+    "handle": "LemoLab 样片《Two Seconds Short》· 40 秒",
+    "img": "lemo/archive-lighttable",
+    "video": "lemo/archive-lighttable.mp4",
+    "fit": "历史 · 档案 · 品牌史",
+    "ok": true,
+    "chip": "▶ 可播放",
+    "desc": "真实档案（玻璃底片、电报、剪报、图纸）躺在冷白灯台上，放大镜落下，镜片里底片转正、一行字亮起、照片打开纵深。",
+    "palette": [
+    "#E0E1E2",
+    "#24231F",
+    "#848480",
+    "#57544E"
+    ],
+    "spec": [
+    [
+    "画面",
+    "档案是公有领域或有授权的扫描件，保持真实比例和破损；光从下面透上来；每件带真实馆藏编号和日期；干净现代，不加做旧滤镜；唯一信号色（信号橙）。"
+    ],
+    [
+    "手法",
+    "放大镜下负片变正片；一行字亮起；钻进照片里；在照片上测量；两份记录并排对照；灯台变成索引。"
+    ],
+    [
+    "声音",
+    "灯台镇流器的嗡声、启辉器咔嗒；放大镜磕在玻璃上、纸张滑动、落笔下结论。"
+    ],
+    [
+    "适合",
+    "品牌历史和周年、档案纪录片、博物馆馆藏故事"
+    ],
+    [
+    "样片",
+    "电报说最长一次飞了 57 秒，第二天报纸照登；放大镜下，莱特兄弟的玻璃底片和国会图书馆的记录说是 59 秒。"
+    ],
+    [
+    "注意",
+    "弱扫描件不要放大过头；放大镜直接落在物件上，别在空桌面上滑。"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看完整风格说明 STYLE.md ↗",
+    "https://github.com/lemomo-ai/lemo-opuscar/blob/main/styles/archive-lighttable/STYLE.md"
+    ],
+    [
+    "LemoLab 风格图鉴 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/"
+    ]
+    ]
+    },
+    {
+    "code": "S9",
+    "group": "S",
+    "name": "钢笔淡彩",
+    "handle": "LemoLab 样片《Where the Wind Went》· 32 秒",
+    "img": "lemo/urban-sketch",
+    "video": "lemo/urban-sketch.mp4",
+    "fit": "城市 · 旅行 · 建筑",
+    "ok": true,
+    "chip": "▶ 可播放",
+    "desc": "现场速写本：深棕细针管笔线微微抖、出头、不封口，透明水彩松松落上去，颜色和线错开一点，边缘散进米白水彩纸。",
+    "palette": [
+    "#C4C394",
+    "#6D6B46",
+    "#F3ECDA",
+    "#99976F"
+    ],
+    "spec": [
+    [
+    "画面",
+    "墨线只有一种颜色；淡彩错开线 1–3 像素、偶尔溢出，留白当高光；颜料边缘积色、颗粒沉进纸纹；画面不铺满，边缘碎成小色块，留出手写日期地点的位置。"
+    ],
+    [
+    "手法",
+    "先线后色；颜色等于「到了」；全画面只有一样东西有颜色；纸页就是画框；胡萝卜形的小人。"
+    ],
+    [
+    "声音",
+    "先只有纸面的安静，地方有了颜色才进环境声（鸟、车、海鸥、集市）；钢笔划冷压纸的沙沙声，一笔一声。"
+    ],
+    [
+    "适合",
+    "城市和旅行、建筑、生活方式品牌"
+    ],
+    [
+    "样片",
+    "公园只是一张钢笔速写，风把草帽吹到哪里，哪里才有颜色。"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看完整风格说明 STYLE.md ↗",
+    "https://github.com/lemomo-ai/lemo-opuscar/blob/main/styles/urban-sketch/STYLE.md"
+    ],
+    [
+    "LemoLab 风格图鉴 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/"
+    ]
+    ]
+    },
+    {
+    "code": "S10",
+    "group": "S",
+    "name": "60s 间谍片头",
+    "handle": "LemoLab 样片《The Velvet Cipher》· 44 秒",
+    "img": "lemo/spy-titles",
+    "video": "lemo/spy-titles.mp4",
+    "fit": "片头 · 发布 · 悬疑",
+    "ok": true,
+    "chip": "▶ 可播放",
+    "desc": "剪纸四色片头：侧影人物穿过用演职员表搭成的布景，每一声铜管强音就是一刀剪辑，最后碎片拼成片名。",
+    "palette": [
+    "#AB2E1B",
+    "#1B1714",
+    "#522117",
+    "#C6533B"
+    ],
+    "spec": [
+    [
+    "画面",
+    "四种不透明油墨（墨黑、纸米、一种热色、一种暖辅色），每个形状都是剪刀剪出的毛边，层间有切缝和小纸影；人物只剩侧影；文字就是建筑、道具和车。"
+    ],
+    [
+    "手法",
+    "文字即布景；字幕落在拍点上；图形匹配剪辑；斜线网格切开再拼回；定格一拍的冷场笑点；被追的东西最后拼成标题。"
+    ],
+    [
+    "声音",
+    "60 年代间谍大乐队：八度叠置的断奏小号长号、冲浪吉他、行走低音提琴、邦戈；强音提前约 8 毫秒，让峰值压在帧上。"
+    ],
+    [
+    "适合",
+    "片头、活动开场、预告片"
+    ],
+    [
+    "样片",
+    "虚构 1964 年间谍片的片头：追一把被偷的钥匙，几何碎片最后拼成片名。"
+    ],
+    [
+    "注意",
+    "不做枪管开场、不做粉红豹式卡通、不碰任何真实片名的字体；人物内部每块都描边会像人体模型图，要合成一个轮廓、只留关节缝。"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看完整风格说明 STYLE.md ↗",
+    "https://github.com/lemomo-ai/lemo-opuscar/blob/main/styles/spy-titles/STYLE.md"
+    ],
+    [
+    "LemoLab 风格图鉴 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/"
+    ]
+    ]
+    },
+    {
+    "code": "S11",
+    "group": "S",
+    "name": "ASCII / CRT 终端",
+    "handle": "LemoLab 样片《Tranquility.log》· 60 秒",
+    "img": "lemo/ascii-crt",
+    "video": "lemo/ascii-crt.mp4",
+    "fit": "科技 · 科幻 · 开发者",
+    "ok": true,
+    "chip": "▶ 可播放",
+    "desc": "画面上每样东西都是等宽网格里的真实字符，由旧单色显示器的琥珀荧光照亮；推拉镜头靠的是改变字号。",
+    "palette": [
+    "#0C0A07",
+    "#6E6E61",
+    "#41321A"
+    ],
+    "spec": [
+    [
+    "画面",
+    "单色终端：P3 琥珀（或 P1 绿）荧光、弧形屏边、扫描线；标题、风景、人脸、字幕全是按墨量挑选的真字符；只有一个镜头——屏幕本身，字变大就是推近。"
+    ],
+    [
+    "手法",
+    "用文字拼出画面；字号 = 镜头；打字节奏 = 剪辑节奏；显像管的物理感；全片只换一次颜色；日志文件叙事。"
+    ],
+    [
+    "声音",
+    "代码合成的模拟合成器配乐（锯齿波方波、梯形滤波器、慢速磁带抖动）；图像成形时长出一条琶音，大三和弦只出现一次。"
+    ],
+    [
+    "适合",
+    "开发者工具、科幻、科技品牌"
+    ],
+    [
+    "样片",
+    "月球基地的 AI 沉睡 40 年后被唤醒，用字符画出“家”来回复。"
+    ],
+    [
+    "注意",
+    "不能用「图片 + ASCII 滤镜」糊弄，必须逐格画字符；底色是深色屏幕，做之前先确认。"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看完整风格说明 STYLE.md ↗",
+    "https://github.com/lemomo-ai/lemo-opuscar/blob/main/styles/ascii-crt/STYLE.md"
+    ],
+    [
+    "LemoLab 风格图鉴 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/"
+    ]
+    ]
+    },
+    {
+    "code": "S12",
+    "group": "S",
+    "name": "象形运动图形",
+    "handle": "LemoLab 样片《Aichi-Nagoya 2026 — All 43 Sports》· 164 秒",
+    "img": "lemo/pictogram-motion",
+    "video": "lemo/pictogram-motion.mp4",
+    "fit": "赛事 · 盘点 · 视觉识别",
+    "ok": true,
+    "chip": "▶ 可播放",
+    "desc": "卡着鼓点的快闪卡片：方格里的圆和半圆图案整行错位滑动，圆头线条的几何小人做动作，粗体双语大字从遮罩里滑出。",
+    "palette": [
+    "#006F35",
+    "#C4DEBD",
+    "#339F56"
+    ],
+    "spec": [
+    [
+    "画面",
+    "一张卡 = 一个象形小人做一个动作 + 超大标题 + 第二语言一行 + 「07 / N」编号；方格图案用同一色相的五个色阶，整行切开横移是招牌；每章一个色相。"
+    ],
+    [
+    "手法",
+    "一卡一项；一章一色；一项一个动词；速度阶梯；沿轨道的长镜头；数字滚动砸出；图标墙收尾。"
+    ],
+    [
+    "声音",
+    "打击乐是骨架（框鼓、太鼓、军鼓、钢鼓或电子鼓 + 拍手沙锤）；旁白可有可无，每章最多一句。"
+    ],
+    [
+    "适合",
+    "体育赛事、视觉识别、活动开场"
+    ],
+    [
+    "样片",
+    "2026 亚运会 43 个大项，几何象形人卡着节拍快闪。"
+    ],
+    [
+    "注意",
+    "浅色底上用米白字对比不够，要用深色字和深色小人。"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看完整风格说明 STYLE.md ↗",
+    "https://github.com/lemomo-ai/lemo-opuscar/blob/main/styles/pictogram-motion/STYLE.md"
+    ],
+    [
+    "LemoLab 风格图鉴 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/"
+    ]
+    ]
+    },
+    {
+    "code": "S13",
+    "group": "S",
+    "name": "数据叙事",
+    "handle": "LemoLab 样片《A Hundred Summers》· 50 秒",
+    "img": "lemo/dataviz",
+    "video": "lemo/dataviz.mp4",
+    "fit": "数据 · 报告 · 气候",
+    "ok": true,
+    "chip": "▶ 可播放",
+    "desc": "图表本身就是电影：真实数据在米色纸上用红蓝铅笔一笔笔画出来，手写批注钉在数字旁边。",
+    "palette": [
+    "#F6F3EC",
+    "#97B0BE"
+    ],
+    "spec": [
+    [
+    "画面",
+    "每个记号都是真实数字，每个动作都是有意义的图表操作（落点、坐标轴生长、换刻度、编码变形、钉批注）；颜色只编码数值，发散数据用以参考期均值为中心的红蓝色带。"
+    ],
+    [
+    "手法",
+    "一个记号 = 一个事实；坐标轴随故事生长；钉住的批注；打破画框；编码变形；切换刻度；留一格空着的「下一年」。"
+    ],
+    [
+    "声音",
+    "石墨、纸和木头的拟音；数据可听化当配乐：音高 = 数值，节奏 = 时间密度。"
+    ],
+    [
+    "适合",
+    "数据新闻、报告、气候和科学"
+    ],
+    [
+    "样片",
+    "一百年的夏季气温，图表本身就是故事。"
+    ],
+    [
+    "注意",
+    "按表头名取数据列，别按序号；旁白里说的每个数都要打印出来核对。"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看完整风格说明 STYLE.md ↗",
+    "https://github.com/lemomo-ai/lemo-opuscar/blob/main/styles/dataviz/STYLE.md"
+    ],
+    [
+    "LemoLab 风格图鉴 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/"
+    ]
+    ]
+    },
+    {
+    "code": "S14",
+    "group": "S",
+    "name": "活体实机录屏",
+    "handle": "LemoLab 样片《Clawd Moves In》· 59 秒",
+    "img": "lemo/living-screencast",
+    "video": "lemo/living-screencast.mp4",
+    "fit": "产品教程 · 功能发布",
+    "ok": true,
+    "chip": "▶ 可播放",
+    "desc": "看起来像真实录屏的产品演示，其实每个窗口都用代码重画；一个大像素吉祥物住在高清界面里，把软件正在做的事演出来。",
+    "palette": [
+    "#1E1A17",
+    "#FFF8F0",
+    "#7B6C63"
+    ],
+    "spec": [
+    [
+    "画面",
+    "界面用网页代码重画，镜头能去任何地方、放大不糊；低分辨率硬边像素小人对上抗锯齿的高清界面，两种分辨率的冲突就是这个风格；软件读文件时它沿着行跑，计划时拿像素铅笔，测试时去踩按钮。"
+    ],
+    [
+    "手法",
+    "匹配剪辑开场；界面里的片名；会动的地板；带标签的延时；聚光定格；细胞分裂；光标和吉祥物是两个角色；卡拉 OK 式逐字高亮。"
+    ],
+    [
+    "声音",
+    "高保真乐器（钢琴、贝斯、刷鼓、钟琴）代表世界，芯片方波代表吉祥物；键盘、触控板、弹窗、通知音效。"
+    ],
+    [
+    "适合",
+    "产品教程、功能发布、新手引导"
+    ],
+    [
+    "样片",
+    "像素小人 Clawd 跳出终端、搬进 Claude 应用，在一镜到底的录屏里演示 Plan 模式、diff 评论和自检。"
+    ],
+    [
+    "注意",
+    "不许编造功能和按钮名，文档里没有的就不能出现；吉祥物每帧都要站在界面元素的上边沿，不能飘。"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看完整风格说明 STYLE.md ↗",
+    "https://github.com/lemomo-ai/lemo-opuscar/blob/main/styles/living-screencast/STYLE.md"
+    ],
+    [
+    "LemoLab 风格图鉴 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/"
+    ]
+    ]
+    },
+    {
+    "code": "S15",
+    "group": "S",
+    "name": "科幻全息界面",
+    "handle": "LemoLab 样片《Volt · Spec Scan》· 39 秒",
+    "img": "lemo/hologram-hud",
+    "video": "lemo/hologram-hud.mp4",
+    "fit": "产品参数 · 众筹 · 展会",
+    "ok": true,
+    "chip": "▶ 可播放",
+    "desc": "物体被扫描成发光线框，目标框依次锁定零件、局部炸开、引线拉出，数字从乱码滚成真值，最后整体亮成实心全息。",
+    "palette": [
+    "#0C1F23",
+    "#63BFC7",
+    "#2F6B74"
+    ],
+    "spec": [
+    [
+    "画面",
+    "主体永远是投影台上方的光线框，近黑舞台；三层纵深：背景点阵（慢视差）、主体、前景界面（角括号、标尺、状态字）；一冷色 + 一暖强调色，强调色只给已锁定的数值。"
+    ],
+    [
+    "手法",
+    "扫描生长 =「这是真数据」；目标锁定 =「现在看这里」；局部爆炸 =「数字为什么是真的」；数字滚动是高潮拍；放大镜两种比例同框；实心全息 + 光束收尾。"
+    ],
+    [
+    "声音",
+    "先定音乐网格，一小节一个信息拍；锯齿波方波琶音 + 乒乓延迟、合成器鼓。"
+    ],
+    [
+    "适合",
+    "产品参数讲解、发布和众筹视频、展会大屏"
+    ],
+    [
+    "样片",
+    "一辆电助力车被扫描成全息线框，目标框依次锁定电池、电机、刹车，参数逐个滚到真值。"
+    ],
+    [
+    "注意",
+    "底色深，做之前先确认；目标框别膨胀，引线别指错零件。"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看完整风格说明 STYLE.md ↗",
+    "https://github.com/lemomo-ai/lemo-opuscar/blob/main/styles/hologram-hud/STYLE.md"
+    ],
+    [
+    "LemoLab 风格图鉴 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/"
+    ]
+    ]
+    },
+    {
+    "code": "S16",
+    "group": "S",
+    "name": "1930s 橡皮管卡通",
+    "handle": "LemoLab 样片《Coffee Cup Chase》· 50 秒",
+    "img": "lemo/rubber-hose",
+    "video": "lemo/rubber-hose.mp4",
+    "fit": "食品 · 复古广告 · 儿童",
+    "ok": true,
+    "chip": "▶ 可播放",
+    "desc": "黑白手绘墨线卡通：没有关节的橡皮管四肢、白手套、馅饼眼，家具、机器、墙壁全都跟着热爵士乐一起呼吸摇摆。",
+    "palette": [
+    "#000000",
+    "#FAFAFA",
+    "#807D75",
+    "#C4C1B9"
+    ],
+    "spec": [
+    [
+    "画面",
+    "角色是平涂白、灰和墨黑，背景是柔和的灰色水彩；严格灰阶，约 6 级灰 + 角色专用白；像放映中的旧 35mm 拷贝：闪烁、划痕、灰尘、片门晃动、暗角。"
+    ],
+    [
+    "手法",
+    "万物踩拍呼吸；音画同步；橡皮管拉伸；变形；跳球跟唱；胶片本身是实物；墨水瓶。"
+    ],
+    [
+    "声音",
+    "30 年代热舞乐队：跨步钢琴、单簧管、加弱音器的「哇哇」小号、长号滑音、大号、班卓、木鱼、滑哨；笑点前硬停一拍。"
+    ],
+    [
+    "适合",
+    "食品饮料、复古广告、儿童内容"
+    ],
+    [
+    "样片",
+    "一只咖啡杯满厨房追一块逃跑的方糖。"
+    ],
+    [
+    "注意",
+    "不用任何现成卡通角色；远景会让笑点看不清，多用中景。"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看完整风格说明 STYLE.md ↗",
+    "https://github.com/lemomo-ai/lemo-opuscar/blob/main/styles/rubber-hose/STYLE.md"
+    ],
+    [
+    "LemoLab 风格图鉴 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/"
+    ]
+    ]
+    },
+    {
+    "code": "S17",
+    "group": "S",
+    "name": "科幻情景喜剧卡通",
+    "handle": "LemoLab 样片《Coffee Run》· 58 秒",
+    "img": "lemo/scifi-toon",
+    "video": "lemo/scifi-toon.mp4",
+    "fit": "喜剧 · 科技 · 短视频",
+    "ok": true,
+    "chip": "▶ 可播放",
+    "desc": "成人向科幻情景喜剧：会抖动的粗描边、平涂硬阴影、大白眼小瞳孔、发光传送门，每个平行世界一套配色。",
+    "palette": [
+    "#A1C9A7",
+    "#26372E",
+    "#6D8972",
+    "#71EC54"
+    ],
+    "spec": [
+    [
+    "画面",
+    "统一的粗深色描边会「沸腾」，平涂色 + 硬边阴影、没有渐变，弹性嘴型，又怪又萌的生物，科幻装置当家里的破烂；每个世界 3–5 色，和上一个世界拉开色相和明度，描线和眼白永远不变。"
+    ],
+    [
+    "手法",
+    "平行世界；两人反差；三连再机关枪；「可疑地正常」的世界；冷场反转；装置当破烂；结尾回扣。"
+    ],
+    [
+    "声音",
+    "全合成：特雷门琴式主旋律 + 模拟贝斯 + 方波琶音；每个世界换一种曲风（冲浪吉他、波尔卡手风琴、电梯波萨……）。"
+    ],
+    [
+    "适合",
+    "喜剧、科技品牌、社交短片"
+    ],
+    [
+    "样片",
+    "厌世天才开传送门只想买杯咖啡，却穿过越来越离谱的平行宇宙。"
+    ],
+    [
+    "注意",
+    "借语法不借角色；语音合成会把结巴的连字符读成词，要写成音节。"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看完整风格说明 STYLE.md ↗",
+    "https://github.com/lemomo-ai/lemo-opuscar/blob/main/styles/scifi-toon/STYLE.md"
+    ],
+    [
+    "LemoLab 风格图鉴 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/"
+    ]
+    ]
+    },
+    {
+    "code": "S18",
+    "group": "S",
+    "name": "50s 扁平卡通",
+    "handle": "LemoLab 样片《Meet Pip》· 40 秒",
+    "img": "lemo/midcentury-toon",
+    "video": "lemo/midcentury-toon.mp4",
+    "fit": "说明书 · 帮助中心 · 步骤",
+    "ok": true,
+    "chip": "▶ 可播放",
+    "desc": "50 年代平涂有限动画：色块印得偏离断续墨线几像素，身体不动只有手在干活，色块当房间，沉稳的课堂旁白配冷爵士。",
+    "palette": [
+    "#E2AD39",
+    "#382C29",
+    "#F6ECD9",
+    "#887051"
+    ],
+    "spec": [
+    [
+    "画面",
+    "每块颜色是单独一层「赛璐璐」，偏离墨线几像素，两帧一换地重抖，像手工套色一样微微闪；蛋形、豆形脑袋，鼻子是脸轮廓的一部分，四指手套；房间不画，只有一块色面 + 地面带 + 断开的地平线。"
+    ],
+    [
+    "手法",
+    "错版套色；有限动画引导视线；圆形标注；编号奖章；最后功能变成装饰图案。"
+    ],
+    [
+    "声音",
+    "西海岸冷爵士：长笛或弱音小号、颤音琴、拨弦行走贝斯、刷鼓、钢片琴；最重要的动作前全部静音一拍。"
+    ],
+    [
+    "适合",
+    "产品安装指南、帮助中心讲解、分步骤教程"
+    ],
+    [
+    "样片",
+    "用 50 年代教育片的口吻，三步教你装好一台扫地机：放充电座、连 app、按开始。"
+    ],
+    [
+    "注意",
+    "路线要遵守产品真实规则，流线绕开障碍、互不交叉；鼻子单独贴上去会像粘的，要和头一笔画成。"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看完整风格说明 STYLE.md ↗",
+    "https://github.com/lemomo-ai/lemo-opuscar/blob/main/styles/midcentury-toon/STYLE.md"
+    ],
+    [
+    "LemoLab 风格图鉴 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/"
+    ]
+    ]
+    },
+    {
+    "code": "S19",
+    "group": "S",
+    "name": "16-bit 像素 RPG",
+    "handle": "LemoLab 样片《The Last Save Point》· 54 秒",
+    "img": "lemo/pixel-rpg",
+    "video": "lemo/pixel-rpg.mp4",
+    "fit": "游戏 · 回顾 · 怀旧",
+    "ok": true,
+    "chip": "▶ 可播放",
+    "desc": "看起来、听起来、用起来都像 90 年代中期主机 RPG：320×180 像素、索引色板、会打字的对话框、菜单、存档、带回声的芯片音乐。",
+    "palette": [
+    "#3E2731",
+    "#E4CC9A",
+    "#B16D51",
+    "#0D5996"
+    ],
+    "spec": [
+    [
+    "画面",
+    "320×180 原生像素放大 6 倍，文字也在像素里；有限色板，渐变只用有序抖动；角色 20–34 像素高、几帧动画，表情靠头像演；用对话框、菜单、状态栏、战斗信息、存档讲故事。"
+    ],
+    [
+    "手法",
+    "色板塌缩和涌入；受保护颜色的匹配剪辑；存档就是回忆；游戏界面当旁白；升级；遇敌漩涡；时代切换（颜色越少越久远）。"
+    ],
+    [
+    "声音",
+    "芯片音：不同占空比的脉冲波、4 位三角波低音、噪声鼓、SNES 式回声；颜色位数越低，音质也跟着变低。"
+    ],
+    [
+    "适合",
+    "游戏预告、回顾、怀旧"
+    ],
+    [
+    "样片",
+    "勇士在最终 Boss 门前存档，存档画面闪回一路冒险。"
+    ],
+    [
+    "注意",
+    "不是 HD-2D（没有景深光效），也不是 CRT 怀旧（没有扫描线和颗粒）；不碰任何现有游戏的名字和角色。"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看完整风格说明 STYLE.md ↗",
+    "https://github.com/lemomo-ai/lemo-opuscar/blob/main/styles/pixel-rpg/STYLE.md"
+    ],
+    [
+    "LemoLab 风格图鉴 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/"
+    ]
+    ]
+    },
+    {
+    "code": "S20",
+    "group": "S",
+    "name": "HD-2D",
+    "handle": "LemoLab 样片《The Lampbearer》· 76 秒",
+    "img": "lemo/hd-2d",
+    "video": "lemo/hd-2d.mp4",
+    "fit": "游戏 · 奇幻 · 故事",
+    "ok": true,
+    "chip": "▶ 可播放",
+    "desc": "手绘像素小人像纸片一样站在打了光、起了雾的 3D 微缩场景里，高俯角 + 移轴镜头，每盏灯都投下真实影子。",
+    "palette": [
+    "#000309",
+    "#767178",
+    "#32374C",
+    "#0C1D37"
+    ],
+    "spec": [
+    [
+    "画面",
+    "方块和圆柱贴像素纹理搭成微缩场景，平面像素角色会受光、会投影；移轴焦点带让世界像桌面模型；光是主角：实景灯投影、光束、雾、尘、雨，强泛光 + 重暗角；上面一层小小的 RPG 界面。"
+    ],
+    [
+    "手法",
+    "点灯时影子跳动；手里的灯就是血条；移轴的珍贵感；灯一盏盏亮起；天气掠过整个模型。"
+    ],
+    [
+    "声音",
+    "室内乐奇幻（竖琴、钢片琴、弦乐、圆号、低声合唱、定音鼓）或民间小乐器（鲁特琴、竖笛、手鼓）；灯快灭时只留一声心跳。"
+    ],
+    [
+    "适合",
+    "游戏预告、奇幻、故事短片"
+    ],
+    [
+    "样片",
+    "灯塔熄灭，孙女提着最后一簇火穿过夜林、爬上风暴悬崖。"
+    ],
+    [
+    "注意",
+    "样片是夜景偏暗，我们做时可以换成白天的光；抖动带太宽会满屏棋盘格。"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看完整风格说明 STYLE.md ↗",
+    "https://github.com/lemomo-ai/lemo-opuscar/blob/main/styles/hd-2d/STYLE.md"
+    ],
+    [
+    "LemoLab 风格图鉴 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/"
+    ]
+    ]
+    },
+    {
+    "code": "S21",
+    "group": "S",
+    "name": "微游戏快闪（瓦里奥制造式）",
+    "handle": "LemoLab 样片《Five-Second Astronaut》· 60 秒",
+    "img": "lemo/microgame",
+    "video": "lemo/microgame.mp4",
+    "fit": "游戏 · 新手引导 · 短视频",
+    "ok": true,
+    "chip": "▶ 可播放",
+    "desc": "派对游戏式快闪：一个口令词、几秒钟、一个动作；每个小游戏换一种完全不同的画法，整部片越来越快。",
+    "palette": [
+    "#ED70A9",
+    "#161012",
+    "#EED030",
+    "#5E7BA5"
+    ],
+    "spec": [
+    [
+    "画面",
+    "一个小游戏 = 喊出的口令 + 2.5–4 秒 + 一个动作 + 一个结果（成功或搞笑地失败）；每关换一种媒介（蜡笔、水墨、终端、孔版印刷、像素、蓝图、瑞士排版、黏土、剪纸、木刻……）；一个固定的「主舞台」（主持人、生命数、关卡号）把全片串起来。"
+    ],
+    [
+    "手法",
+    "每关换画风；口令词；生命值界面；SPEED UP 加速；失败变成解法；Boss 关混合规则；即时回放。"
+    ],
+    [
+    "声音",
+    "先定节拍网格和提示表；一条不变的律动 + 每种媒介一种标志乐器（蜡笔配玩具钢琴、水墨配尺八或古琴……）。"
+    ],
+    [
+    "适合",
+    "游戏预告、新手引导、社交短片"
+    ],
+    [
+    "样片",
+    "见习宇航员闯五秒训练营，越来越快，Boss 关亲手降落回地球。"
+    ],
+    [
+    "注意",
+    "不碰瓦里奥制造的名字、角色、界面和音乐；字符画小人要手工排字形，按亮度映射会糊成一团。"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看完整风格说明 STYLE.md ↗",
+    "https://github.com/lemomo-ai/lemo-opuscar/blob/main/styles/microgame/STYLE.md"
+    ],
+    [
+    "LemoLab 风格图鉴 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/"
+    ]
+    ]
+    },
+    {
+    "code": "S22",
+    "group": "S",
+    "name": "综艺节奏扁平",
+    "handle": "LemoLab 样片《Rhythm of AI, 1997 → 2026》· 149 秒",
+    "img": "lemo/game-show",
+    "video": "lemo/game-show.mp4",
+    "fit": "年度盘点 · 时间线 · 综艺",
+    "ok": true,
+    "chip": "▶ 可播放",
+    "desc": "节奏游戏式综艺：粗墨线玩具吉祥物站在糖果色条纹和放射光芒上，每个动作卡在固定节拍上，一问一答，赢一轮盖一个评语大字。",
+    "palette": [
+    "#6B50B9",
+    "#FE5B5E",
+    "#221B33",
+    "#F7E2AC"
+    ],
+    "spec": [
+    [
+    "画面",
+    "平涂 + 一道粗墨线 + 圆头 + 硬投影；角色都是同一种身体，靠颜色、肚皮、头饰和名牌区分，踩拍跳、击中时压扁；每轮换一种饱和底色和图案；约 8 种糖果色 + 2–3 种深色收尾。"
+    ],
+    [
+    "手法",
+    "回合卡；一问一答；评语大字；数据做成游戏界面；混音板；观众欢呼；下一关预告；成绩单收尾。"
+    ],
+    [
+    "声音",
+    "全部由画面事件合成：正弦底鼓、噪声军鼓和拍手、拨弦贝斯、铜管强音、方波主旋律；大调流行和声，每轮换一种口味。"
+    ],
+    [
+    "适合",
+    "科技时间线、年度盘点、综艺节目"
+    ],
+    [
+    "样片",
+    "把 AI 发展史做成一局节奏游戏，模型踩着拍登场，最后发成绩单。"
+    ],
+    [
+    "注意",
+    "每一帧都要能从时间直接算出来、不带状态，否则多进程渲染会出错；提示表只维护一张。"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看完整风格说明 STYLE.md ↗",
+    "https://github.com/lemomo-ai/lemo-opuscar/blob/main/styles/game-show/STYLE.md"
+    ],
+    [
+    "LemoLab 风格图鉴 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/"
+    ]
+    ]
+    },
+    {
+    "code": "S23",
+    "group": "S",
+    "name": "1920s 默片",
+    "handle": "LemoLab 样片《The Runaway Loaf》· 54 秒",
+    "img": "lemo/silent-film",
+    "video": "lemo/silent-film.mp4",
+    "fit": "喜剧 · 复古品牌 · 无对白",
+    "ok": true,
+    "chip": "▶ 可播放",
+    "desc": "在老电影院里放映的雕版插画默片：墨线加银灰淡彩，4:3 胶片在丝绒幕布间闪烁晃动，字幕卡代替说话，影院钢琴师弹每一拍。",
+    "palette": [
+    "#76726E",
+    "#040302",
+    "#D8D8D6",
+    "#3B3632"
+    ],
+    "spec": [
+    [
+    "画面",
+    "16:9 画面两侧是电影院和幕布，中间是 4:3 拷贝；画本身是墨线 + 灰色淡彩 + 排线，印在会闪、会晃、有划痕和烧边的银色胶片上；没人说话，靠全景里的动作和字幕卡。"
+    ],
+    [
+    "手法",
+    "一个长镜头里的连锁笑料；擦身而过的险情；字幕卡反转；欠速摇片的混乱；光圈收在眼神上；重绘的影像；首尾呼应的动作。"
+    ],
+    [
+    "声音",
+    "只有影院乐器（立式钢琴，可加簧风琴、剧院管风琴、小提琴）和放映机声；按情绪分段（急促、神秘、激昂、温柔），主题变奏回归。"
+    ],
+    [
+    "适合",
+    "喜剧、复古品牌、无对白故事"
+    ],
+    [
+    "样片",
+    "面包店学徒追一个滚走的面包，最后掰成两半分给饿肚子的小女孩。"
+    ],
+    [
+    "注意",
+    "内容太多会把默片撑垮：一条看得懂、中间有停顿的连锁动作，胜过三条忙乱的；不是黑色电影，也不是现代动画加棕褐滤镜。"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看完整风格说明 STYLE.md ↗",
+    "https://github.com/lemomo-ai/lemo-opuscar/blob/main/styles/silent-film/STYLE.md"
+    ],
+    [
+    "LemoLab 风格图鉴 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/"
+    ]
+    ]
+    },
+    {
+    "code": "S24",
+    "group": "S",
+    "name": "后室 / 新怪谈",
+    "handle": "LemoLab 样片《Night Shift Orientation》· 60 秒",
+    "img": "lemo/backrooms",
+    "video": "lemo/backrooms.mp4",
+    "fit": "悬疑 · 解谜 · 游戏预告",
+    "ok": true,
+    "chip": "▶ 可播放",
+    "desc": "从空旷、无尽、日光灯嗡嗡响的空间里找回的家用摄像机录像带；没有怪物，只有规章。",
+    "palette": [
+    "#000000",
+    "#C7C7AB",
+    "#7D6E2F",
+    "#53481D"
+    ],
+    "spec": [
+    [
+    "画面",
+    "一段第一人称 90 年代录像带（4:3、手持、不剪）；熟悉又不对劲、不断重复的室内（办公室、酒店走廊、商场停车层），一种病态主色（芥末黄墙纸），只有一种饱和色。"
+    ],
+    [
+    "手法",
+    "恐惧来自空旷、重复、官僚规章，和摄像机自己在错误时刻出故障：自动对焦和曝光反复拉扯；磁带跟踪损坏；屏显文字推动剧情；规章写在画面里；那个「几乎是人」的东西。"
+    ],
+    [
+    "声音",
+    "没有配乐，只有磁带会录到的声音：120 Hz 日光灯嗡声 + 坏灯管爆音；音乐只存在于场景里（等待音乐、隔墙收音机）。"
+    ],
+    [
+    "适合",
+    "恐怖悬疑、解谜和 ARG、游戏预告"
+    ],
+    [
+    "样片",
+    "新夜班员工拍下入职第一晚：无尽的黄色办公空间，和墙上的员工守则。"
+    ],
+    [
+    "注意",
+    "不出现「Backrooms」字样、Level 编号和社区里的实体名；不跳吓、不血腥。"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看完整风格说明 STYLE.md ↗",
+    "https://github.com/lemomo-ai/lemo-opuscar/blob/main/styles/backrooms/STYLE.md"
+    ],
+    [
+    "LemoLab 风格图鉴 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/"
+    ]
+    ]
+    },
+    {
+    "code": "S25",
+    "group": "S",
+    "name": "纸片立体书",
+    "handle": "LemoLab 样片《Pip's Paper Adventure》· 133 秒",
+    "img": "lemo/paper-popup",
+    "video": "lemo/paper-popup.mp4",
+    "fit": "绘本 · 游戏 · 故事",
+    "ok": true,
+    "chip": "▶ 可播放",
+    "desc": "真实书桌上的立体书变成舞台：带白边的纸片演员在弹起的纸景前演戏，台灯真实打光，微距镜头浅景深。",
+    "palette": [
+    "#A7BFAE",
+    "#1B5B83",
+    "#784D2F",
+    "#4A91AC"
+    ],
+    "spec": [
+    [
+    "画面",
+    "两个世界同框：照片级的真实书桌（室内环境光、微距、暖光、柔和接触阴影）和纸的世界（打开的精装书，一面立起当背景、一面当地面）；每个布景都是平放在页面上、绕底边弹起的纸卡；角色几厘米高、扁平，带粗米白边和灰纸板边。"
+    ],
+    [
+    "手法",
+    "书打开；翻页 = 换场；拉条机关；纸本身是角色；页面边缘；真实物件参与剧情；打字气泡和评分。"
+    ],
+    [
+    "声音",
+    "纸的拟音是招牌：翻页、纸板闷响、弹起的「啪」、折痕、拉条滑动；角色说话是打字音，每人一种音色。"
+    ],
+    [
+    "适合",
+    "儿童绘本、游戏预告、故事短片"
+    ],
+    [
+    "样片",
+    "立体书在书桌上打开，小精灵 Pip 在纸片世界冒险，最后跳出书外。"
+    ],
+    [
+    "注意",
+    "翻卡片别用绕 y 轴旋转（会看到侧边和空白背面），要用水平缩放翻面。"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看完整风格说明 STYLE.md ↗",
+    "https://github.com/lemomo-ai/lemo-opuscar/blob/main/styles/paper-popup/STYLE.md"
+    ],
+    [
+    "LemoLab 风格图鉴 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/"
+    ]
+    ]
+    },
+    {
+    "code": "S26",
+    "group": "S",
+    "name": "玻璃质感产品",
+    "handle": "LemoLab 样片《Aura — Hear the Light》· 32 秒",
+    "img": "lemo/glass-product",
+    "video": "lemo/glass-product.mp4",
+    "fit": "产品发布 · 数码 · 美妆",
+    "ok": true,
+    "chip": "▶ 可播放",
+    "desc": "发布会式透明、磨砂玻璃产品渲染：暗场影棚、灯条扫过、色散、焦散、光在物体内部游走，慢速爆炸图卡在重拍上合拢。",
+    "palette": [
+    "#000000",
+    "#8EA78E",
+    "#544336",
+    "#223940"
+    ],
+    "spec": [
+    [
+    "画面",
+    "一件玻璃、金属和光组成的主角悬在无限黑的影棚里；身后和侧面的长灯条把透明玻璃勾成带彩虹边的细白轮廓，内部结构像展柜一样透出来；世界是中性色，唯一的强调色只属于光。"
+    ],
+    [
+    "手法",
+    "透明；透镜折射；色散；光在内部游走；焦散；爆炸图再合拢；磨砂变透明。"
+    ],
+    [
+    "声音",
+    "极简电子，不要钢琴弦乐：弓擦玻璃、湿手指玻璃音、颗粒水晶云、玻璃钟、FM 玻璃拨弦、精确的滴答网格。"
+    ],
+    [
+    "适合",
+    "产品发布、消费电子、美妆"
+    ],
+    [
+    "样片",
+    "虚构玻璃耳机 Aura 的开箱与特写。"
+    ],
+    [
+    "注意",
+    "产品必须虚构，不能复刻真实产品轮廓、品牌或字体；暗场底色，做之前先确认。"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看完整风格说明 STYLE.md ↗",
+    "https://github.com/lemomo-ai/lemo-opuscar/blob/main/styles/glass-product/STYLE.md"
+    ],
+    [
+    "LemoLab 风格图鉴 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/"
+    ]
+    ]
+    },
+    {
+    "code": "Q1",
+    "group": "Q",
+    "name": "默片 3D 空战 · 正色片黑白 + 琥珀染色",
+    "handle": "NO.1 · 1927/28《翼》",
+    "img": "lemo/q/01",
+    "video": "lemo/q/01.mp4",
+    "loop": true,
+    "fit": "3D · 黑白",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "用 three.js 搭的一战空战，按 1927 年正色片拷贝调色：天空发白、黑位很深、整体琥珀染色、片门抖动和划痕。《翼》最出名的是把摄影机绑在飞机上拍的空战，所以这里大部分机位都装在飞机上。",
+    "palette": [
+    "#030303",
+    "#EABB76",
+    "#7E6640",
+    "#413421"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1927/28 年奥斯卡最佳影片《翼》（Wings）"
+    ],
+    [
+    "画法组合",
+    "three.js 三维 + 正色片黑白 + 默片染色 + 放映磨损和圆形光圈"
+    ],
+    [
+    "风格提示词",
+    "平滑着色的 3D 按默片正色片拷贝调色：高反差，红色发黑。天空近白，地面留清楚的中灰层次，深黑占画面 25%–35%，只在剪影里。染色：白位向琥珀 #FFCC80 混一半，天空是淡奶油琥珀，不要整片橙；黑位不变。只有故事围绕的那个主角留色，整个人都留，饱和度约七成（如 #D97757）；灯火和其他光源一律是灰的。叠 24 fps 片门抖动（±1 像素）、闪烁（±5%）、细颗粒（±4%）、一到三条细划痕、稀疏灰尘，片门圆角加柔和暗角，第一镜 1 秒圆形光圈打开。招牌镜头：机位绑在跟主角一起动的东西上，露出一截支架，轻微震动；再接跟拍和主观镜头。每 2–3 秒一切，穿过云、烟或强光白场转场。对标 William Wellman《翼》（1927）。避免：运动模糊、灰阶里有颜色。"
+    ],
+    [
+    "导演",
+    "Clawd 扮美军飞行员：皮飞行帽、护目镜、白围巾，坐在 SPAD 座舱里。开场序幕接到第一镜，第 1 拍光圈打开；之后五刀硬切，大约两拍一切。第 5 拍前后它回头、机枪开火；最后穿云白场，接上第 2 部开头的奶油白。"
+    ],
+    [
+    "参考",
+    "William A. Wellman, 1927、Harry Perry (aerial photography)、Tinted silent-era release prints、RFC aerial photographs of the Somme, 1916–18"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q4",
+    "group": "Q",
+    "name": "1889 棕褐蛋白印相全景",
+    "handle": "NO.4 · 1930/31《壮志千秋》",
+    "img": "lemo/q/04",
+    "video": "lemo/q/04.mp4",
+    "loop": true,
+    "fit": "2D · 棕褐",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "1889 年的金调色蛋白印相全景：柔焦、轻微的横向拖影、奶油高光和暖褐暗部、银盐颗粒，只有 Clawd 手工上色。片子开场就是 1889 年俄克拉何马圈地狂奔，用那一年的照片质感来拍，这一章也保持单色。",
+    "palette": [
+    "#F2DCB4",
+    "#2E1C0F",
+    "#785634",
+    "#D97757"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1930/31 年奥斯卡最佳影片《壮志千秋》（Cimarron）"
+    ],
+    [
+    "画法组合",
+    "金调色蛋白印相 + 西部全景老照片 + 人物手工上色"
+    ],
+    [
+    "风格提示词",
+    "会动的 1880 年代金调色蛋白照片。先画边缘柔和的平涂形，按亮度分：主体深（15%–30%），地面 50%–60%，天空约 90%；物面和草丛有看得见的排线（线宽约画幅宽 1/300）。再“印”：转灰度，轻柔焦（约画幅宽 1/800），三层横向错开的淡影随运镜拉长，乘奶油色 #F2DCB4，黑位抬成暖褐 #2E1C0F，显影不匀（±5%），暗角压到 #785634，每帧刷新颗粒（±4%），稀疏灰尘划痕。只给故事围绕的那个主角手工上色（如 #D97757），像透明染料，蒙版羽化 2–3 像素；灯光仍是棕褐。横向全景，中间一条带排满重复小元素：人物、动物、车辆，题材冷清就用篱笆、木桩、树；别让一整块大面占满画面。天空默认发白。运镜：从主角近景 4–5 秒缓出拉到全景。避免：硬墨线、主角以外的颜色、干净的数码天空、发灰的印相。"
+    ],
+    [
+    "导演",
+    "Clawd 扮扬西·克拉瓦特：白色宽边牛仔帽、领巾，骑黑马冲在最前。整段按 1.1 倍跑。按 v6 的意见先拉远看到更多的马，再一刀切回近景，第 5 拍拔枪朝天开火。"
+    ],
+    [
+    "参考",
+    "Wesley Ruggles, 1931、Gold-toned albumen prints, 1880s、Currier & Ives (the flying gallop)"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q5",
+    "group": "Q",
+    "name": "米高梅银色黑白 3D 大堂",
+    "handle": "NO.5 · 1931/32《大饭店》",
+    "img": "lemo/q/05",
+    "video": "lemo/q/05.mp4",
+    "loop": true,
+    "fit": "3D · 黑白",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "用 three.js 建的圆形大堂，按米高梅的银色黑白调色，Clawd 的橙是唯一的颜色。这部片最出名的是从顶上笔直往下拍、回廊一圈圈收进去的镜头，整个布景就按这一镜来建。",
+    "palette": [
+    "#575656",
+    "#E8E8EA",
+    "#050505",
+    "#9D9D9E"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1931/32 年奥斯卡最佳影片《大饭店》（Grand Hotel）"
+    ],
+    [
+    "画法组合",
+    "three.js 三维 + 米高梅银色黑白 + 装饰艺术室内 + 俯拍同心构图"
+    ],
+    [
+    "风格提示词",
+    "真 3D 场景，默认装饰艺术风大堂（大理石、镀铬、吊灯、亮面棋盘格地面）；室外保留真实场景，表面做出光泽（湿路面、静水），构图对称。环境光遮蔽加柔和辉光，调成 30 年代片厂银色黑白：约四成画面深黑，白位亮度约九成，不发灰。光从一个高处光源成束落下。只有故事围绕的那个主角留色（如 #D97757），至少占画面高度六分之一；暖灯渲染成白光，辉光只在灯旁。颗粒（±3%），灯旁光晕。招牌镜头：平视大全景，望进对称纵深，地面和天花同时入画，地面有倒影；再接 4–6 秒的侧向跟拍；俯拍同心圆、人像棋子只用一次。年代人物有头、帽、四肢，按路线走。对标美术指导 Cedric Gibbons、摄影师 William Daniels。避免：原地踏步、抽象图案铺满画面、偏色。"
+    ],
+    [
+    "导演",
+    "Clawd 扮门童，戴圆筒小帽，拎一只贴满旅馆标签的皮箱。v6 改成真的在走：每秒 1.4 米、2.4 步，步子和位移对得上。整段 1:1 播放，1.08 秒处从俯拍一刀切到侧面跟拍。"
+    ],
+    [
+    "参考",
+    "Edmund Goulding, 1932、Cedric Gibbons (art direction)、William Daniels (cinematography)"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q9",
+    "group": "Q",
+    "name": "银色黑白 3D 螺旋婚礼蛋糕舞台",
+    "handle": "NO.9 · 1936《歌舞大王齐格飞》",
+    "img": "lemo/q/09",
+    "video": "lemo/q/09.mp4",
+    "loop": true,
+    "fit": "3D · 黑白",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "用 three.js 建的旋转螺旋“婚礼蛋糕”舞台，米高梅银色黑白：缎面、雪纺和鸵鸟羽毛衬在深黑里，只有 Clawd 是颜色。《A Pretty Girl Is Like a Melody》那座 175 级的螺旋舞台是这部片的名场面。",
+    "palette": [
+    "#656567",
+    "#F4F4F5",
+    "#060606",
+    "#AEAEB0"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1936 年奥斯卡最佳影片《歌舞大王齐格飞》（The Great Ziegfeld）"
+    ],
+    [
+    "画法组合",
+    "three.js 三维 + 米高梅银色黑白 + 1936 年歌舞大场面 + 鸵鸟羽毛与雪纺"
+    ],
+    [
+    "风格提示词",
+    "真 3D 舞台大场面，调成 30 年代片厂银色黑白：把题材的世界搭成圆形分层转台上的歌舞布景，慢慢转（每秒约 3 度），挂满垂幔花环；题材里的人变成一排排穿戏服、有脸有手的合唱队。灰阶：戏服浅缎灰，布景中灰，褶皱大幕更深，剧场深黑；白色不到纯白。正面柔和主光，轮廓光更亮，把缎子和羽毛的边勾到近白。淡光柱，颗粒（±3%）。只有故事围绕的那个主角留色（如 #D97757），灯都渲染成白光。招牌镜头：贴低的中景沿层台看过去，人物占画面高度四分之一到三分之一，主角在前排。再接帷幕升起（3 秒）、10 秒吊臂上升，落到平视主角的中景。对标 Robert Z. Leonard《歌舞大王齐格飞》（1936）。避免：平均打光、没脸的锥形人、转得太快。"
+    ],
+    [
+    "导演",
+    "Clawd 是蛋糕顶上的明星：水钻头带上一丛鸵鸟羽毛像喷泉一样翻落。场景按 1.2 倍跑；明星留到最后一刀才露脸，第 5 拍它转身、一跳、双臂甩成 V 字。两刀硬切连起帷幕、吊臂和顶层。"
+    ],
+    [
+    "参考",
+    "Robert Z. Leonard, 1936、Cedric Gibbons and John Harkrider (sets and costumes)、Oliver T. Marsh, Ray June, George Folsey (cinematography)"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q12",
+    "group": "Q",
+    "name": "Technicolor 厚涂油画",
+    "handle": "NO.12 · 1939《乱世佳人》",
+    "img": "lemo/q/12",
+    "video": "lemo/q/12.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "厚涂油画：刮刀色块、颜料堆起的棱，Technicolor 的热度——从金色烧到血红的天空、红土、黑色剪影。全片的色彩从《乱世佳人》开始降临，第一张满色画面就是夕阳下的塔拉。",
+    "palette": [
+    "#3A0912",
+    "#A8241A",
+    "#F27A22",
+    "#FFD878"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1939 年奥斯卡最佳影片《乱世佳人》（Gone with the Wind）"
+    ],
+    [
+    "画法组合",
+    "厚涂油画 + 刮刀 + 1939 年 Technicolor 配色 + 史诗海报画"
+    ],
+    [
+    "风格提示词",
+    "1939 年 Technicolor 配色的厚涂油画。刮刀色块：天空用长条横向色带（长为画幅宽的 1/15–1/6，厚约 1/60），地面和人物用顺形体的短笔触，之间留出平静、薄涂的区域；颜料棱受左上方的光，越亮越厚，薄处露布纹。默认是落日天空，从酒红 #3A0912 经大红 #A8241A、橙 #F27A22 烧到金 #FFD878；地面红褐 #6E2214；剪影是带暖意的近黑；故事围绕的那个主角保持看得清的暖中间调（如 #D97757），不做成剪影。强逆光，金色轮廓光；近景加一道暖色侧光照亮半边脸和手。构图像史诗海报：大块深色剪影（树、房子、岩石、人物）压在低地平线上。灯火用油画火焰。运镜：全景慢推，低机位推近主角，最后吊臂升起看大景。避免：大小一样的碎块铺满画面、脏棕色、平滑渐变。"
+    ],
+    [
+    "导演",
+    "Clawd 扮斯嘉丽：系绿缎带的宽檐草帽，手里一根萝卜。前 7 拍天空从金色烧到血红，第 6 拍举起萝卜。四刀硬切走过塔拉、发誓、亚特兰大和车站，最后 5 拍是一条升降长镜头。"
+    ],
+    [
+    "参考",
+    "Victor Fleming, 1939、Ernest Haller and Ray Rennahan (Technicolor cinematography)、William Cameron Menzies (production design)、1939 poster"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q14",
+    "group": "Q",
+    "name": "威尔士山谷水粉",
+    "handle": "NO.14 · 1941《青山翠谷》",
+    "img": "lemo/q/14",
+    "video": "lemo/q/14.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "用 1941 年原海报金黄加绿配色的不透明水粉：扎实的色块、煤黑的渣山、Kyffin Williams 式厚重的深色山体和断续描边。原定的木刻和第 3 部重复，改成水粉；画的是矿工唱着歌走下山谷回家。",
+    "palette": [
+    "#F1C565",
+    "#86A03F",
+    "#1D1B1E",
+    "#48505E"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1941 年奥斯卡最佳影片《青山翠谷》（How Green Was My Valley）"
+    ],
+    [
+    "画法组合",
+    "不透明水粉 + Kyffin Williams 刮刀风景 + 1941 原海报配色"
+    ],
+    [
+    "风格提示词",
+    "仿威尔士画家 Kyffin Williams 的不透明水粉。方向性笔触宽为画幅宽 1/80–1/40，长是宽的 2–5 倍，边缘毛糙，完全覆盖；房子、墙、山脊用断续深色短线勾边；暗山上刮几笔亮绿或灰蓝。色板：天空和光淡金 #F1C565（别成芥末黄），田野绿 #86A03F，暗部煤黑 #1D1B1E，远山和水面灰蓝 #48505E，小点缀黄 #F6CF2F，其他颜色由这几色调出；故事围绕的那个主角用 #D97757，至少占画面高八分之一。田野和天空偏亮（约六成），山和房子偏暗。暖色调色不超过一成，暗角，颗粒。默认傍晚低角度侧光，田野受光，山脊有轮廓光。从高处真透视取景，一条路把视线引下去；小房子（或墙、石块）顺山坡一级级排开。动起来：烟或云循环飘动，横向跟拍。避免：水彩透明感、矢量平涂、发暗发脏。"
+    ],
+    [
+    "导演",
+    "Clawd 扮少年休：粗花呢平顶帽、打结的红围巾、一枝黄水仙。先坐在山顶看山谷，再跟着唱歌的矿工齐步走下街。两刀硬切：山谷 → 井架大轮 → 街道。"
+    ],
+    [
+    "参考",
+    "John Ford, 1941、Arthur C. Miller (cinematography)、Kyffin Williams、1941 poster"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q15",
+    "group": "Q",
+    "name": "英国战时石印海报",
+    "handle": "NO.15 · 1942《忠勇之家》",
+    "img": "lemo/q/15",
+    "video": "lemo/q/15.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "二战英国本土战线的石印海报：砖红、深绿、奶油、灰蓝的有限套色，阴影是石版蜡笔颗粒。配影片结尾：被炸穿屋顶的乡村教堂里全村唱诗，喷火式战机从破洞上方飞过。",
+    "palette": [
+    "#EBDFC2",
+    "#8497A6",
+    "#A23F2D",
+    "#34503F"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1942 年奥斯卡最佳影片《忠勇之家》（Mrs. Miniver）"
+    ],
+    [
+    "画法组合",
+    "石印 + 蜡笔阴影版 + Frank Newbould、Abram Games 二战海报 + 英国信息部海报配色"
+    ],
+    [
+    "风格提示词",
+    "做成 1942 年英国战时的石印海报。造型简化有力，三版套印，略错位 1–3 像素：色版承载所有平涂；冷灰蓝蜡笔版压暗每一处阴影，带短而斜的石纹颗粒（不用网点）；墨绿黑轮廓版给每个形描一圈约画幅宽 1/500 的线，人物和云也要描。配色按用途：奶油 #EBDFC2 是纸色和亮部，灰蓝 #8497A6 是天空和阴影，砖红 #A23F2D 和深绿 #34503F 只作点缀，合计不超过画面四分之一；棕色和肤色由奶油加砖红调出；轮廓色 #1E2422。场景可以排满。天空用喷枪渐变，只有纸纹每秒 12 帧跳动。浅色光带顺着光源方向斜落，照到之处阴影版消失。人物正面站立，像海报里的人。镜头慢移带视差、上摇。对标 Frank Newbould、Abram Games。避免：网点阴影、干净的矢量边、大片饱和色。"
+    ],
+    [
+    "导演",
+    "Clawd 扮米尼弗夫人：花边草帽、赞美诗集和红色的「米尼弗夫人」玫瑰。全景里它在唱诗；切到近景时听见引擎声，停下抬头；第三个镜头是它的视线，穿过屋顶破洞看喷火式编队飞过。三个硬切，靠一个抬头的动作连起来。"
+    ],
+    [
+    "参考",
+    "William Wyler, 1942、Joseph Ruttenberg (cinematography)、Frank Newbould, Your Britain — Fight for it Now (1942)、Abram Games、Mrs. Miniver one-sheet (1942)"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q16",
+    "group": "Q",
+    "name": "好莱坞片厂柔光黑白",
+    "handle": "NO.16 · 1943《卡萨布兰卡》",
+    "img": "lemo/q/16",
+    "video": "lemo/q/16.mp4",
+    "loop": true,
+    "fit": "2D · 黑白",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "影片本身的样子：Arthur Edeson 的片厂黑白，画成精修剧照：带眼神光的柔焦特写、百叶窗投影、烟雾里的光柱。扮里克的 Clawd 是唯一的颜色。",
+    "palette": [
+    "#6D6D6D",
+    "#0A0A0A",
+    "#DEC8B7",
+    "#B59384"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1943 年奥斯卡最佳影片《卡萨布兰卡》（Casablanca）"
+    ],
+    [
+    "画法组合",
+    "喷枪精修剧照人像 + Arthur Edeson 片厂布光 + 柔光镜与银盐颗粒"
+    ],
+    [
+    "风格提示词",
+    "40 年代好莱坞片厂黑白，画成精修剧照。形体是边缘干净的喷枪明暗块。人脸用短光位：主光照亮离镜头远的那半边脸，靠近镜头的脸颊落在暗部，留一块伦勃朗三角光；每只眼两个眼神光。条状影子借手边的东西（百叶窗、栏杆、树枝），斜落在物面上；光柱只在烟雾飘过处显形。明暗：三到四成画面是深黑，白色面积小而发光；外景天空中暗灰。调色：轻柔光溢出、S 曲线、细颗粒（±3%）、柔暗角、轻微闪烁；雾只在局部。只有故事围绕的那个主角的身体或衣服保留颜色（如 #D97757），皮肤和灯光都是灰阶。镜头：长运镜，推向一张脸，再拉远退进雾里。对标摄影师 Arthur Edeson（《卡萨布兰卡》，Michael Curtiz，1942）。避免：平光、整片灰雾、僵硬的胸像。"
+    ],
+    [
+    "导演",
+    "Clawd 扮里克：咖啡馆里是领结和香槟碟杯，机场上是软呢帽和竖起的风衣领。咖啡馆是一条不断的运镜，收在它举杯（\"Here's looking at you, kid\"）；正中那一拍是全段唯一的硬切，跳到机场，一个回头加一次长拉远收尾。"
+    ],
+    [
+    "参考",
+    "Michael Curtiz, 1942、Arthur Edeson (cinematography)、Casablanca one-sheet (1942)"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q18",
+    "group": "Q",
+    "name": "打字机字符画",
+    "handle": "NO.18 · 1945《失去的周末》",
+    "img": "lemo/q/18",
+    "video": "lemo/q/18.mp4",
+    "loop": true,
+    "fit": "2D · 黑白",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "画面是打出来的：等宽字符落在 pica 网格上，灰阶靠字符疏密和叠打，色带墨色不匀。唐抱着打字机去当铺，于是整条街由打字机打出；Clawd 用橙色色带打。",
+    "palette": [
+    "#EBE6DA",
+    "#1D1C21",
+    "#D4704F"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1945 年奥斯卡最佳影片《失去的周末》（The Lost Weekend）"
+    ],
+    [
+    "画法组合",
+    "叠打的打字机字符画 + Paul Smith、Flora Stacey + John F. Seitz 硬光黑白"
+    ],
+    [
+    "风格提示词",
+    "所有画面都用打字机字符打出来：等宽粗体字逐个敲，落在固定网格上，格宽约画幅宽 1/150、格高是格宽两倍。85%–95% 的格子都要打字，只有最亮的光留纸白。灰阶靠字键分级（浅 . : -，中 = + o，深 X # M），暗部约占三成，用 M# 这样的叠打。形体靠边界清楚的字块和剪影读出。每种材质重复自己的字键（如竖向结构 I H，砖缝 _|，水 ~）。招牌或说明要打得能读。色带墨色不匀：半边缺墨，几个键总是偏高或偏低。纸 #EBE6DA，墨 #1D1C21；只有故事围绕的那个主角用红橙色带 #D4704F 打，至少占画面高度三分之一，影子仍是黑的。硬侧光投出边缘清楚的密集长影。画面在第一秒内打完，然后停住。对标 Paul Smith 的打字机画。避免：稀疏空白、看不出形的横向字条。"
+    ],
+    [
+    "导演",
+    "Clawd 扮唐·伯南：字符打出的软呢帽，提着想拿去当掉的打字机，四条腿逐帧交替迈步。街道像被打字机打出来一样在它身边出现；接着两个快速硬切，近景和 CLOSED 牌，把「当铺关门」交代完。表演 1.8 倍速。"
+    ],
+    [
+    "参考",
+    "Billy Wilder, 1945、John F. Seitz (cinematography)、The Lost Weekend one-sheet (1945)、Paul Smith (typewriter art)、Flora Stacey"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q19",
+    "group": "Q",
+    "name": "画报新闻摄影半调跨页",
+    "handle": "NO.19 · 1946《黄金时代》",
+    "img": "lemo/q/19",
+    "video": "lemo/q/19.mp4",
+    "loop": true,
+    "fit": "2.5D · 黑白",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "1946 年画报的新闻摄影跨页：铜版纸上的粗黑网点、中缝折痕、叠印的图片说明。深焦里拆光的 B-17 排到地平线；Clawd 单独印在专色橙版上，是唯一的颜色。",
+    "palette": [
+    "#1A1A1A",
+    "#ECE6D8",
+    "#D97757"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1946 年奥斯卡最佳影片《黄金时代》（The Best Years of Our Lives）"
+    ],
+    [
+    "画法组合",
+    "45° 粗网点半调 + Gregg Toland 深焦 + 1946 年画报跨页版式 + 专色橙版"
+    ],
+    [
+    "风格提示词",
+    "每一帧当成 1946 年画报的新闻摄影跨页。先把场景按照片渲染成灰调（3D 或手绘都行）：低角度太阳、长影子、深焦，近处和地平线一样清楚。照片满版跨过两页，竖向中缝折痕从中间穿过，带一点阴影。再印成 45° 黑色网点，间距约画幅宽 1/250，米白铜版纸 #ECE6D8，墨 #1A1A1A，略有扩墨。从第一镜起，在安静的区域叠印一小块黑色标题和图说。只有故事围绕的那个主角走专色橙版（如 #D97757），换一个网角，错版 2–3 像素，黑版只留在它最深的暗部；主角至少占画面高度四分之一。镜头：走进全景，推进一个细节，再拉远，照片缩成一本摊开的杂志。对标摄影师 Gregg Toland、《生活》杂志战后摄影专题。避免：中缝切过主角，网点粗到照片碎掉。"
+    ],
+    [
+    "导演",
+    "Clawd 扮弗雷德：上尉的船形帽和 B-3 飞行夹克的羊毛领。它沿着轰炸机走廊走，踩着拍子停下抬头；切进它望着的机头舱，再一路拉远，原来整个画面是 1946 年杂志上的一页。两个硬切，最后一镜是一次连续的拉远。"
+    ],
+    [
+    "参考",
+    "William Wyler, 1946、Gregg Toland (cinematography)、Life magazine post-war photo essays、The Best Years of Our Lives one-sheet (1946)"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q20",
+    "group": "Q",
+    "name": "40 年代杂志铅笔插画",
+    "handle": "NO.20 · 1947《君子协定》",
+    "img": "lemo/q/20",
+    "video": "lemo/q/20.mp4",
+    "loop": true,
+    "fit": "2D · 黑白",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "40 年代杂志插画式的石墨铅笔：先打构图线，再一遍遍平行排线，擦抹暗部、橡皮提亮。画面围绕酒店前台一次客气的拒绝逐步画出，只有 Clawd 是彩色铅笔。",
+    "palette": [
+    "#F2EEE5",
+    "#2C2B2E",
+    "#D97757"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1947 年奥斯卡最佳影片《君子协定》（Gentleman's Agreement）"
+    ],
+    [
+    "画法组合",
+    "石墨排线与擦抹 + Al Parker、Robert Fawcett + 彩色铅笔主体"
+    ],
+    [
+    "风格提示词",
+    "用石墨铅笔画成 40 年代杂志插画，画得完整、有控制。画面在前 1–1.5 秒内画成，然后停住：先淡淡的透视线和头部椭圆，再画两头轻中间重、转角出头的轮廓（宽约画幅宽 1/600），然后一到四遍近乎平行的排线（遍数越多越暗），间距约画幅宽 1/300，顺着形体走，再擦抹出平滑的过渡，用橡皮提亮。完成的画面几乎铺满：环境和背景都画充分，以中灰为主，深色约占一成半，只有最外一圈约十分之一淡成没画完的边角。纸 #F2EEE5 带轻齿纹，铅色 #2C2B2E。只有故事围绕的那个主角的衣服用彩铅（如 #D97757），皮肤仍是铅笔灰。戏在脸上。镜头：缓缓拉远，再切特写。对标插画家 Al Parker、Robert Fawcett。避免：交叉网格、潦草速写感、大片空白纸面。"
+    ],
+    [
+    "导演",
+    "Clawd 扮记者菲尔：插 PRESS 卡的软呢帽、采访本和铅笔，站在前台不动。第一镜是画面在它身边被画出来；接着两个硬切给旁观者，经理客气的拒绝和女士斜过来的目光，意思全在这两张脸上。拍点落在剪切上。表演 1.8 倍速。"
+    ],
+    [
+    "参考",
+    "Elia Kazan, 1947、Gentleman's Agreement one-sheet (1947)、Al Parker、Robert Fawcett"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q21",
+    "group": "Q",
+    "name": "黑白 3D 雾中城堡",
+    "handle": "NO.21 · 1948《王子复仇记》",
+    "img": "lemo/q/21",
+    "video": "lemo/q/21.mp4",
+    "loop": true,
+    "fit": "3D · 黑白",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "实时 3D 的艾尔西诺，高反差深焦黑白：体积雾、湿石头、碎成蕾丝白沫的海浪、银盐颗粒。照奥利维耶片中的城堡、雾中城垛和礁石来拍；Clawd 是唯一的颜色。",
+    "palette": [
+    "#505050",
+    "#F5F5F7",
+    "#A1A1A3",
+    "#131111"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1948 年奥斯卡最佳影片《王子复仇记》（Hamlet）"
+    ],
+    [
+    "画法组合",
+    "three.js 3D + 体积雾 + Desmond Dickinson 深焦黑白 + Roger Furse 光秃的罗马式布景"
+    ],
+    [
+    "风格提示词",
+    "真 3D 场景，40 年代末的深焦黑白。建筑是裸露的砌体，逐块砌出，带倒角和错缝（场景本有这类建筑时才用罗马式半圆拱）；湿的表面发黑发亮。阴天柔光，没有硬投影：深色实体衬着银灰天空。高度雾贴着画面下三分之一，成片里远景是 60%–70% 灰，中景清晰；云后亮天透出淡淡光柱。有水时：多层涌浪、蕾丝般的白沫、礁石上的水雾。后期：环境光遮蔽、轻辉光、高反差银色调色（有真黑，白不过曝），颗粒 ±3%，轻微闪烁。只有故事围绕的那个主角保留颜色（如 #D97757），所有光源都是灰的。镜头：慢慢漂近，沿高处横移，低机位仰拍主角。对标 Laurence Olivier《哈姆雷特》（1948）。避免：晴天硬影子、雾糊成一片白、贴图平铺。"
+    ],
+    [
+    "导演",
+    "Clawd 扮哈姆雷特：约里克的骷髅，海报上的白色蕾丝袖口、腰带和短剑。三个硬切走过这部片的三个画面：悬崖上的城堡、雾里的鬼魂、独白的礁石；最后一镜里骷髅踩着拍子举起来。表演 1.8 倍速。"
+    ],
+    [
+    "参考",
+    "Laurence Olivier, 1948、Desmond Dickinson (cinematography)、Roger Furse (production design)、Hamlet one-sheet (1948)"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q22",
+    "group": "Q",
+    "name": "南方竞选木活字海报",
+    "handle": "NO.22 · 1949《国王班底》",
+    "img": "lemo/q/22",
+    "video": "lemo/q/22.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "南方竞选海报的木活字凸版：红、蓝、黑三色油墨印在米黄纸上，实地有木纹，供墨不匀，版间错位，肖像走半调网点。这是斯塔克的竞选集会，Clawd 用第四版橙墨印。",
+    "palette": [
+    "#EEE3C7",
+    "#20488C",
+    "#C82C28",
+    "#1E1B1E"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1949 年奥斯卡最佳影片《国王班底》（All the King's Men）"
+    ],
+    [
+    "画法组合",
+    "木活字凸版印刷 + Hatch Show Print + 麻胶版画人物 + 半调网点肖像"
+    ],
+    [
+    "风格提示词",
+    "每帧都是木活字和刻版印的凸版海报。米黄纸 #EEE3C7 上印三色：蓝 #20488C 管天空、水和大块暗部，红 #C82C28 管暖色面和条纹，黑 #1E1B1E 管轮廓和字；只有故事围绕的那个主角多加一块专色（如 #D97757）。每色一版，错位 2–4 像素；实地挖空下层，只有网点处叠印。实地有木纹、缺墨针孔，边缘挤墨。中间调走粗网点（约画幅宽 1/200），各版网角不同，不超过画面三分之一。人物像麻胶版画：粗黑轮廓、刻刀白线、月牙阴影。画面约七成是图；一两行粗木活字短句写在图里的横幅和招牌上，带错位投影，字高约画面十分之一，用用户语言。镜头：小推，横移，重拍上特写一震（无音乐每 2 秒）。对标 Hatch Show Print。避免：碎灰调代替大块实地、套色精准得像电脑。"
+    ],
+    [
+    "导演",
+    "Clawd 扮威利·斯塔克：往后推的软呢帽、拉松的红蓝领带，一只手里卷着讲稿。全景里拳头举到一半，中间一镜是人群的回应，特写里它踩着拍子一拳举到顶、再挥一次，镜头在出拳时轻轻一震。全部硬切。"
+    ],
+    [
+    "参考",
+    "Robert Rossen, 1949、Burnett Guffey (cinematography)、All the King's Men one-sheet (1949)、Hatch Show Print、Huey Long campaign posters"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q24",
+    "group": "Q",
+    "name": "杜飞水彩芭蕾",
+    "handle": "NO.24 · 1951《一个美国人在巴黎》",
+    "img": "lemo/q/24",
+    "video": "lemo/q/24.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "拉乌尔·杜飞的水彩：快速的蓝黑墨线，底下是钴蓝、柠檬黄、玫瑰红的透明色块，线和色永远对不齐。影片结尾的芭蕾布景就是照杜飞画的，协和广场和舞者都用他的画法。",
+    "palette": [
+    "#2258CE",
+    "#FCE02E",
+    "#EC3A7C",
+    "#1E1E3A"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1951 年奥斯卡最佳影片《一个美国人在巴黎》（An American in Paris）"
+    ],
+    [
+    "画法组合",
+    "松动墨线 + 错开的色块 + 拉乌尔·杜飞 + 明奈利的芭蕾布景 + 冷压水彩纸"
+    ],
+    [
+    "风格提示词",
+    "用拉乌尔·杜飞的水彩画法：先上色、后画线，两者永远对不齐。透明色块铺满大部分画面，带湿边、积色边和颗粒，比物体大一到四成，朝同一方向滑开约画幅宽 1/30：钴蓝 #2258CE 管天空和水，柠檬黄 #FCE02E 管光和地面，玫瑰红 #EC3A7C 管暖色面。重叠可混出紫或绿，绝不脏成棕，主角的色块别压在蓝上。再用蓝黑墨 #1E1E3A 快速细线把整个场景画满（线宽约画幅宽 1/700），有提按和甩尾：建筑、窗、人物、小配景；直边单独一笔、角上出头；树冠和云画成一串小圈。留白两到三成，皮肤是纸白。故事围绕的那个主角有自己的一块色（如 #D97757）。人物轻快有弹性。镜头：小推，踩拍子切（没有音乐约每 2 秒）。避免：颜色叠脏、线描死色块、线条稀疏。"
+    ],
+    [
+    "导演",
+    "Clawd 扮海报上的杰瑞：往后歪的钴蓝软帽（吉恩·凯利那顶）、玫瑰红小领巾、甩出颜料带的画笔。三个镜头里它每一拍都在跳，舞步本身就是剪辑节奏：广场、和丽丝的近景、插满旗的街道。表演 1.8 倍速。"
+    ],
+    [
+    "参考",
+    "Vincente Minnelli, 1951、Preston Ames and Irene Sharaff (ballet design)、Raoul Dufy, La Fée Électricité、Raoul Dufy, La Rue pavoisée、An American in Paris one-sheet (1951)"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q25",
+    "group": "Q",
+    "name": "Strobridge 马戏团彩色石印",
+    "handle": "NO.25 · 1952《戏王之王》",
+    "img": "lemo/q/25",
+    "video": "lemo/q/25.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "Strobridge 马戏团彩色石印：铬黄、朱红、钴蓝平涂，粗黑轮廓，带网点、错版和石版颗粒。德米尔的大帐篷画成三圈海报，Clawd 扮塞巴斯蒂安做空中接人。",
+    "palette": [
+    "#F4C416",
+    "#D62C24",
+    "#1E4EA0",
+    "#181210"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1952 年奥斯卡最佳影片《戏王之王》（The Greatest Show on Earth）"
+    ],
+    [
+    "画法组合",
+    "四色彩色石印 + Strobridge 马戏团海报 + 平涂油墨 + 粗黑轮廓"
+    ],
+    [
+    "风格提示词",
+    "19 世纪末马戏团彩色石印，仿 Strobridge 石印公司。平涂油墨加粗黑轮廓（约画幅宽 1/300）；阴影是月牙形加深，加排线；光从左上来。四块石版：铬黄 #F4C416、朱红 #D62C24、钴蓝 #1E4EA0、黑 #181210，印在暖奶油纸 #EBD9B4 上；叠印和浅网只能得到橙、绿、棕、土黄、浅蓝、灰。实地平印，只有天空、皮肤、地面这类渐变处挂网（网点约画幅宽 1/250），各版网角不同，错位 1–3 像素，带石版颗粒。故事围绕的那个主角用黄实地叠朱红实地，得到平的橙（如 #D97757）。构图用夸张透视：放射线汇向主要动作，几件事同时发生；有人群时画成许多可辨的小人，只有一个人物也成立。镜头：上摇，横移，在动作中切到高潮。避免：四色以外的颜色、只有圆点的人群、挂网挂成粉色的主角。"
+    ],
+    [
+    "导演",
+    "Clawd 扮伟大的塞巴斯蒂安：金色扇贝边的亮片斗篷，倒挂在秋千上。上摇找到秋千杠上的它，中间的大象横移让游行一直往前走，最后在动作中切到接人那一下，时间卡在秋千荡到右边、和海报构图一致的位置，它把手臂甩向观众。"
+    ],
+    [
+    "参考",
+    "Cecil B. DeMille, 1952、The Greatest Show on Earth one-sheet (1952)、Strobridge Lithographing Co. circus posters"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q26",
+    "group": "Q",
+    "name": "高调海滩黑白银幕",
+    "handle": "NO.26 · 1953《乱世忠魂》",
+    "img": "lemo/q/26",
+    "video": "lemo/q/26.mp4",
+    "loop": true,
+    "fit": "2D · 黑白",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "1953 年的高调黑白：硬朗阳光、压暗的天空、泛白的浪沫、映着天的湿沙，银盐颗粒和光晕。拍哈洛纳海湾浪里那一吻；坐在熔岩上吹军号的 Clawd 是唯一的颜色。",
+    "palette": [
+    "#AAAAAA",
+    "#212020",
+    "#F5F5F5",
+    "#5D5D5D"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1953 年奥斯卡最佳影片《乱世忠魂》（From Here to Eternity）"
+    ],
+    [
+    "画法组合",
+    "1953 年高调黑白摄影 + Burnett Guffey + 银盐颗粒与光晕"
+    ],
+    [
+    "风格提示词",
+    "50 年代初高调的黑白外景摄影，用 2D 画出照片感：不描线、不平涂，只用柔和渐变加细腻纹理（沙粒、岩石麻点、布纹）。明暗：约七成画面亮于中灰；天空浅中灰，只比亮云暗一档；深黑很少。默认正午硬朗的太阳，影子短而清楚；其他光线下仍保持浅天空和明亮结构。水、浪沫或雾在最亮处冲白，留住蕾丝细节；湿的表面映着天空。按印片收尾：柔和 S 曲线、略软的镜头、高光晕、每帧刷新的细颗粒（±4%）、轻暗角、轻微闪烁。只有故事围绕的那个主角整个人保留颜色（如 #D97757），明暗也有照片感。镜头：从天空下摇，平视紧框，再慢慢拉远。对标摄影师 Burnett Guffey（《乱世忠魂》）。避免：低调暗沉、死白一片、卡通平涂。"
+    ],
+    [
+    "导演",
+    "Clawd 扮普鲁伊特：橄榄色船形帽，拿着海报上那支军号。天空一镜往下摇进海湾，中间一镜海浪盖过那一吻，切到全景时 Clawd 踩着拍子把军号举到嘴边，像是在为这场戏吹号。"
+    ],
+    [
+    "参考",
+    "Fred Zinnemann, 1953、Burnett Guffey (cinematography)、From Here to Eternity one-sheet (1953)"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q27",
+    "group": "Q",
+    "name": "本·沙恩社会现实主义",
+    "handle": "NO.27 · 1954《码头风云》",
+    "img": "lemo/q/27",
+    "video": "lemo/q/27.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "本·沙恩的社会现实主义：颤抖的转印墨线，下面是错开的平涂蛋彩色块，大手长脸的工人，颜色克制在灰蓝、砖红、赭黄。沙恩画的就是码头工人和工会，正是这部片的世界。",
+    "palette": [
+    "#768492",
+    "#9E4834",
+    "#C89852",
+    "#1F1A1A"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1954 年奥斯卡最佳影片《码头风云》（On the Waterfront）"
+    ],
+    [
+    "画法组合",
+    "颤抖的转印墨线 + 平涂蛋彩色块 + 本·沙恩 + 50 年代美国社会现实主义"
+    ],
+    [
+    "风格提示词",
+    "仿本·沙恩的社会写实蛋彩画。墨线（宽约画幅宽 1/500）会颤：细抖叠着慢摆，一个轮廓分两三笔、不闭合，偶有转印鬼线（旁边多一道偏移的淡线）。颜色是平涂蛋彩块，比墨线偏 2–4 像素，边缘毛糙，每块约三分之一面积带干笔拖痕，拖痕一笔宽（约画幅宽 1/100），不随色块放大；明暗只用同色深一档的硬边平色。配色按用途：灰蓝 #768492 管天空和冷色区，砖红 #9E4834、赭黄 #C89852 管房屋、土地和衣服，墨 #1F1A1A，底板暖白 #F0E9DA；皮肤浅赭；其他颜色由这几色加深或加灰。故事围绕的那个主角的主要衣服用唯一的暖色（如 #D97757）。人物头大手大、长脸重下巴，衣服下垂。镜头：短推，上摇，收在近景。避免：平滑渐变、干净闭合的轮廓、鲜亮讨喜的颜色。"
+    ],
+    [
+    "导演",
+    "Clawd 扮特里：深藏青针织帽、红黑格子的领子和袖口，手上停着一只鸽子。从码头上争抢的手硬切到安静的屋顶，两个镜头就把这部片的两个世界摆在一起；中间一镜鸽群飞起，近景停在 Clawd 和鸽子身上。表演 1.8 倍速。"
+    ],
+    [
+    "参考",
+    "Elia Kazan, 1954、Boris Kaufman (cinematography)、On the Waterfront one-sheet (1954)、Ben Shahn, Handball (1939)、Ben Shahn, Welders (1943)"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q28",
+    "group": "Q",
+    "name": "50 年代电视显像管录像",
+    "handle": "NO.28 · 1955《君子好逑》",
+    "img": "lemo/q/28",
+    "video": "lemo/q/28.mp4",
+    "loop": true,
+    "fit": "2D · 黑白荧屏",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "1955 年的电视录像，在布朗克斯暖色客厅的电视里播：扫描线、荧光晕、圆角凸屏、雪花，只有 Clawd 有颜色。原作是直播电视剧，所以当电视拍。",
+    "palette": [
+    "#91663F",
+    "#E4E0D6",
+    "#21160C",
+    "#C9A06C"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1955 年奥斯卡最佳影片《君子好逑》（Marty）"
+    ],
+    [
+    "画法组合",
+    "kinescope 黑白录像 + 圆角显像管与扫描线 + 暖色 50 年代客厅插画"
+    ],
+    [
+    "风格提示词",
+    "把场景做成 50 年代木壳电视里播放的 kinescope 录像。屏幕里：黑白，冷色荧光调（白位约 #DCE6EA），画面发软（半分辨率再放大），有光晕、重影、撕裂带、缓慢滚动的暗带、少量雪花、抬起的黑位、闪烁和颗粒；只有故事围绕的那个主角保留颜色（如 #D97757），同样带这些瑕疵。显像管：圆角、四边外鼓，约 330 条扫描线，玻璃反光。屏幕外是暖色扁平插画风的客厅（赭黄墙纸、木家具、台灯），台灯打暖光，屏幕在附近墙面投出明显的冷蓝光。招牌镜头：电视占画面约六成，先停约 2 秒，再用 4–5 秒推进玻璃，直到节目铺满画面、扫描线还在，然后用演播室式稳定中景拍戏。对标导演 Delbert Mann 的 Philco 电视剧场直播剧。避免：雪花盖住画面、客厅沉闷平光。"
+    ],
+    [
+    "导演",
+    "Clawd 扮马蒂：白色屠夫纸帽和一条条纹领带，害羞地靠在柱子边。推进玻璃把我们从客厅带进节目；双人镜头里它鼓起勇气穿过舞池，最后一个硬切落在邀舞上：它伸出手，克拉拉的笑随后才来。"
+    ],
+    [
+    "参考",
+    "Delbert Mann, 1955、Philco-Goodyear Television Playhouse, Marty (1953)、Marty one-sheet (1955)"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q31",
+    "group": "Q",
+    "name": "罗特列克美好年代石印",
+    "handle": "NO.31 · 1958《金粉世界》",
+    "img": "lemo/q/31",
+    "video": "lemo/q/31.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "图卢兹-罗特列克式彩色石印：大块平涂、飞白轮廓、用喷溅墨点代替网点、讽刺漫画式面孔。琪琪的高光时刻是走进马克西姆餐厅、全巴黎回头盯着她，正是罗特列克画过的巴黎。",
+    "palette": [
+    "#F1C232",
+    "#E0602C",
+    "#6E7036",
+    "#1D1A16"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1958 年奥斯卡最佳影片《金粉世界》（Gigi）"
+    ],
+    [
+    "画法组合",
+    "彩色石印海报 + 图卢兹-罗特列克 + 牙刷喷墨点（crachis） + Cecil Beaton 服装"
+    ],
+    [
+    "风格提示词",
+    "罗特列克式美好年代彩色石印。大块平涂色版，边缘略手抖；人物和主要形体用饱蘸的笔刷勾轮廓，起笔钝、中段鼓、收尾分叉飞白，粗约画面宽的 1/250。牙刷弹的墨点只在背光面、投影和光晕处：1920×1080 下点径一到三像素，稀疏，合计不到画面一成半，颜色取底色深一档。大面用成组的同向干笔条纹。色板：黄 #F1C232、橙红 #E0602C、橄榄绿 #6E7036、黑 #1D1A16，底是带石版颗粒的奶油纸 #EFE3C3；另加灰暗的瓶绿和淡紫，肤色是橙红兑纸色。人物是夸张的讽刺侧脸，画出五官；前景放一个被画框裁掉的大人物。光平而匀，阴影也是平涂色版。镜头：浅视差，慢慢横摇过场景，落到中景。避免：慕夏式光环、平滑渐变、规整网点、满屏黑点。"
+    ],
+    [
+    "导演",
+    "Clawd 扮加斯东：高礼帽、白领结、手杖，琪琪挽着它。两人一直往里走，满屋的目光跟着转。三刀卡在拍子上：进门全景、横摇众人瞪眼、再回到两人，琪琪对镜头眨眼收尾。"
+    ],
+    [
+    "参考",
+    "Vincente Minnelli, 1958、Henri de Toulouse-Lautrec, Moulin Rouge: La Goulue (1891)、Toulouse-Lautrec, Divan Japonais (1893)、Cecil Beaton (costumes)、1958 MGM poster"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q32",
+    "group": "Q",
+    "name": "3D 大竞技场战车赛 · 65mm 史诗",
+    "handle": "NO.32 · 1959《宾虚》",
+    "img": "lemo/q/32",
+    "video": "lemo/q/32.mp4",
+    "loop": true,
+    "fit": "3D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "程序生成的 3D 大竞技场，宽银幕史诗光感：沙漠烈日、沙尘、大理石和金色，特艺七彩调色加 65mm 颗粒。战车赛是全片最有名的段落，就直接拍比赛，头顶是海报上的金色巨神。",
+    "palette": [
+    "#916838",
+    "#F6D9A6",
+    "#9D9C96",
+    "#48270D"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1959 年奥斯卡最佳影片《宾虚》（Ben-Hur）"
+    ],
+    [
+    "画法组合",
+    "程序生成 3D（three.js） + MGM Camera 65 宽银幕 + 特艺七彩印片调色 + 第二摄制组动作调度"
+    ],
+    [
+    "风格提示词",
+    "1959 年 65mm 宽银幕史诗，用 3D 搭。默认是硬朗的高太阳（约 50°），影子短而利，天空钴蓝、到地平线渐成沙白；太阳低时影子仍硬但拉长，天空转琥珀色。大理石、镀金、红花岗岩和沙色石头，做出线脚和槽柱，不能是光秃方盒。暖色尘雾约两成混进中景颜色。调色像 Technicolor 拷贝：暖、饱和、略高反差，不过曝不加辉光；细颗粒（±3%）、轻微片门晃动。核心是规模：背景布满宏伟建筑、雕像和重复元素，绝不空。唯一的主角（比如橙 #D97757）是画面里最饱和的东西；重复动作（步伐、轮、桨）节奏随速度。招牌镜头：全画幅等效 35 到 50mm，低机位贴着运动的主角跟拍；其次是大全景、正俯、近景、仰拍。避免：干净的 CG 光、空荡粗糙的布景、过曝。"
+    ],
+    [
+    "导演",
+    "Clawd 扮犹大·宾虚：额上一条亚麻头带，一手握缰一手举鞭，驾四匹白马。五秒六个镜头，照 1959 年第二摄制组的拍法走一遍：起跑、弯道、跟拍、车轮、近景、海报构图。每个机位都跟着战车在动，节奏不掉。"
+    ],
+    [
+    "参考",
+    "William Wyler, 1959、Yakima Canutt & Andrew Marton (chariot race)、Robert Surtees (cinematography)、1959 MGM poster"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q34",
+    "group": "Q",
+    "name": "特艺七彩 3D 舞台",
+    "handle": "NO.34 · 1961《西区故事》",
+    "img": "lemo/q/34",
+    "video": "lemo/q/34.mp4",
+    "loop": true,
+    "fit": "3D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "红橙特艺七彩晚霞下的上西区 3D 街区，饱和、舞台化：红砖、之字形消防梯、屋顶水塔、能摆姿势的舞者人偶。重演电影的俯拍开场、Jets 打响指和海报上那一跃。",
+    "palette": [
+    "#7F280B",
+    "#0A0202",
+    "#E44A01",
+    "#CB7A3A"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1961 年奥斯卡最佳影片《西区故事》（West Side Story）"
+    ],
+    [
+    "画法组合",
+    "程序生成 3D（three.js） + 特艺七彩晚霞调色 + Boris Leven 布景 + 1961 海报：红天、黑消防梯"
+    ],
+    [
+    "风格提示词",
+    "Technicolor 3D 舞台布景，像 60 年代棚拍歌舞片。几何简化，每个面都细节密集（窗洞窗台、檐口、栏杆、梯子、绳线）；表面是有质感的砖、灰泥或岩石，不能素面。剧场布光：低角度暖阳斜扫表面拉出长影；冷补光约为主光四分之一。手绘天空以橙红 #E0481E 为主，云带镶金边，只在最上沿带一点紫；远处融进暖雾。唯一的主角用饱和橙 #D97757，至少占画面高六分之一，背后衬深色砖墙或加一圈黑边，不能化进天空。人物是木偶式假人。暖而饱和的调色，细颗粒（±3%）。招牌镜头：衬着橙色天空的低角度仰拍；其次一个连续镜头从高处降进布景、再贴地推进。避免：写实脏旧、紫粉天空、素面墙、动作跳变。"
+    ],
+    [
+    "导演",
+    "Clawd 混进 Jets 帮，没有戏服，靠场景认片。响指卡在鼓点上；腾跃是一条干净的抛物线，从下蹲到落地缓冲一气呵成。开场俯拍呼应上一部的桌阵网格；结尾划亮的火柴在画面正中，正是下一部日出的位置，做匹配剪辑。"
+    ],
+    [
+    "参考",
+    "Robert Wise & Jerome Robbins, 1961、Boris Leven (production design)、Saul Bass (end titles)、1961 original poster"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q35",
+    "group": "Q",
+    "name": "Terpning 史诗海报水粉",
+    "handle": "NO.35 · 1962《阿拉伯的劳伦斯》",
+    "img": "lemo/q/35",
+    "video": "lemo/q/35.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "看得见笔触方向的史诗海报水粉，冷暖对比强烈：琥珀色沙漠对钴蓝天空。《阿拉伯的劳伦斯》原海报就是 Howard Terpning 用这种画法画的。",
+    "palette": [
+    "#1F4D97",
+    "#A9C3D6",
+    "#EEC27A",
+    "#B56A33"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1962 年奥斯卡最佳影片《阿拉伯的劳伦斯》（Lawrence of Arabia）"
+    ],
+    [
+    "画法组合",
+    "水粉加油彩海报画 + Howard Terpning 1962 海报 + Freddie Young 70mm 沙漠光"
+    ],
+    [
+    "风格提示词",
+    "60 年代手绘史诗电影海报，水粉打底、油彩提亮。先把形体画扎实再上色：铺不透明中间调底色，再用顺形体走的笔触（大面宽约画面宽的 1/80 到 1/50，脸和手用小笔），边缘柔和衔接；每个形体分亮、中、暗三级；干笔只用在尘土、布料和远处人物上；最后在受光边缘压锐利的暖奶油色高光。冷暖对比：钴蓝天空 #1F4D97 过渡到浅蓝 #A9C3D6，低垂的太阳周围转暖；地面 #EEC27A（任何地形），皮肤、泥土和衣服用赭红 #B56A33，远处阴影用紫 #6C6394。主角居中最大，一个斜向动作，布料飘起；身后可以有更小更松的人物退远。轻画板颗粒、暖暗角、雾气。运动：起伏、缓推到仰角近景、甩镜出画。避免：又碎又匀的刮擦线、平涂数码色、只有冷色。"
+    ],
+    [
+    "导演",
+    "Clawd 扮劳伦斯：白袍、白头巾、金色头箍，骑骆驼举弯刀。开场就是影史最有名的匹配剪辑：上一部的火柴火苗变成沙漠日出。整段冲锋恒定 1.5 倍速，弯刀卡拍举起、刀尖一闪，最后甩镜头出画，接《汤姆·琼斯》。"
+    ],
+    [
+    "参考",
+    "David Lean, 1962、Howard Terpning (1962 poster)、Freddie Young (70mm cinematography)"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q36",
+    "group": "Q",
+    "name": "手工上色讽刺铜版画",
+    "handle": "NO.36 · 1963《汤姆·琼斯》",
+    "img": "lemo/q/36",
+    "video": "lemo/q/36.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "乔治王时代的讽刺版画：霍加斯式粗细变化的刻线和有方向的排线，上面刷罗兰森式鲜艳的手工淡彩，稍稍出线，再加一个对白气泡。电影本身就在模仿霍加斯笔下的 18 世纪英国。",
+    "palette": [
+    "#B3262E",
+    "#D8A93A",
+    "#F0C4A4",
+    "#6D8AA6"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1963 年奥斯卡最佳影片《汤姆·琼斯》（Tom Jones）"
+    ],
+    [
+    "画法组合",
+    "霍加斯铜版线刻 + 罗兰森/吉尔雷式手工上色 + 讽刺画对白气泡"
+    ],
+    [
+    "风格提示词",
+    "乔治王时代讽刺版画：先刻铜版，印完再手工上色。墨只有棕黑色的线：雕刀轮廓约画面宽的 1/400，起伏鼓胀，背光一侧更粗；排线顺形体走、铺满每个面（线距约画面宽的 1/250），只在暗部交叉，平面用直尺排线。颜色几乎铺满整幅，清透但饱满：水色溢出墨线几像素，用酒红 #B3262E、黄铜 #D8A93A、肉色 #F0C4A4、石板蓝 #6D8AA6，大面用暖赭和棕褐。浅棕褐帘纹纸，淡霉点，版框印痕，刻线边框。按 William Hogarth 的方式布置：大鼻子的漫画人物，主体身边是旁观者或搞笑的道具、动物；一个手写斜体对话气泡，用用户的语言。镜头：全幅停两秒，急推，横滑到另一处细节，再给近景。避免：机械均匀的排线、大片空白纸、颜色严丝合缝填在线里、颜色发脏。"
+    ],
+    [
+    "导演",
+    "Clawd 扮汤姆·琼斯：金边三角帽、脸上一个口红唇印、手拿鸡腿。不用正反打，用一次横滑：从隔桌的双人镜头滑到沃特斯夫人眨眼、冒出对白气泡。再切近景：心形眼、陶醉一晃，摘下三角帽扣向镜头，画面全黑，下一部从黑里开场。"
+    ],
+    [
+    "参考",
+    "Tony Richardson, 1963、William Hogarth, A Rake's Progress / Marriage A-la-Mode、Thomas Rowlandson、James Gillray"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q37",
+    "group": "Q",
+    "name": "Bob Peak 时装插画",
+    "handle": "NO.37 · 1964《窈窕淑女》",
+    "img": "lemo/q/37",
+    "video": "lemo/q/37.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "快速、带飞白的墨线，配粉色和品红水彩晕染、甩点，四周化进白纸。1964 年原海报就是 Bob Peak 的墨线加粉彩；场景是 Cecil Beaton 设计的黑白阿斯科特。",
+    "palette": [
+    "#FBF7F1",
+    "#EE84B2",
+    "#CE3076",
+    "#F4B2CC"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1964 年奥斯卡最佳影片《窈窕淑女》（My Fair Lady）"
+    ],
+    [
+    "画法组合",
+    "快速墨线 + 粉色与品红水彩 + Bob Peak 1964 海报 + Cecil Beaton 阿斯科特服装"
+    ],
+    [
+    "风格提示词",
+    "仿 Bob Peak 的 60 年代时装插画。墨线很快：转弯处变粗、直线处变细，后段飞白，收笔一甩；粗细在画面宽的 1/600 到 1/250 之间，小弯处变细。深色衣服、帽子和条纹用实心墨块；脸留白纸 #FBF7F1。水彩是松散柔边的色池，干后边缘积色更深：粉 #EE84B2 做主色，品红 #CE3076 做热点，加玫瑰粉 #F4B2CC 和一点梅紫 #80285C；次要人物和阴影用暖灰；带方向的甩点。场景只用几根线和这几种水彩带过。横排人物是核心：修长侧身，九到十个头高，横向重复（主角加暖灰人物或重影），黑白图案压在粉色上；水彩盖住画面六到八成。镜头：沿人物慢横移；转场借图形遮罩。避免：轮廓粗细一样、平涂数码色、多边形硬边色块、空白页上孤零零一个人。"
+    ],
+    [
+    "导演",
+    "Clawd 扮伊莉莎：巨大的白帽（条纹缎带、玫瑰、白鸵鸟羽），领口和裙边一圈蕾丝。开场从上一部的黑画面里掀起帽檐，结尾收进人群望远镜的两个圆圈，下一部《音乐之声》就在这两个圆里开场。三个镜头，节奏不急。"
+    ],
+    [
+    "参考",
+    "George Cukor, 1964、Bob Peak (1964 poster)、Cecil Beaton (costume designs)"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q38",
+    "group": "Q",
+    "name": "绘本感 3D 阿尔卑斯航拍",
+    "handle": "NO.38 · 1965《音乐之声》",
+    "img": "lemo/q/38",
+    "video": "lemo/q/38.mp4",
+    "loop": true,
+    "fit": "3D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "绘本感的 3D 程序阿尔卑斯：饱和的翠绿、钴蓝、雪白，雕塑感的山脊，棉花团积云，风吹过草地的草浪。重演开场的直升机航拍，最后落到山顶转圈的玛丽亚。",
+    "palette": [
+    "#436911",
+    "#EAE8E6",
+    "#4589DA",
+    "#BD653F"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1965 年奥斯卡最佳影片《音乐之声》（The Sound of Music）"
+    ],
+    [
+    "画法组合",
+    "程序生成 3D 地形（three.js） + 托德宽银幕色彩 + Ted McCord 直升机开场 + 宫崎骏的草原"
+    ],
+    [
+    "风格提示词",
+    "绘本感的 3D 风景，60 年代宽银幕的饱和色，形体圆润光滑有雕塑感，不写实也不做低多边形。默认光：太阳高挂、略在镜头身后，大地满色：翠绿草地 #3FA33A、钴蓝天空 #2F6FD0、干净的白雪白云。风化山脊圆润，雪线顺坡，岩层暖灰赭，有云影。空气透视只加在最远的山脊，约两成半淡紫。积云是受光的白色棉花团。前景是齐膝密草和野花，随阵风弯伏。太阳低时只拉长影子、让云边变暖；其他场景也用这些颜色。一个连续镜头：前两秒高空飞越，再两秒降到草坡，之后贴草低机位环绕主体（每秒约 20°，主体约占画面高四分之一）。对标摄影师 Ted McCord（《音乐之声》，1965）和宫崎骏的草地。避免：泛紫、针尖山峰、写实灰岩、不动的草。"
+    ],
+    [
+    "导演",
+    "Clawd 扮玛丽亚：头顶一朵雪绒花和一个小头巾结，照海报一手拎条纹毯包、一手拎吉他琴盒。转圈是一条贯穿三个镜头的连续曲线，每一刀都切在转到一半的时候；最后一拍双臂高举。"
+    ],
+    [
+    "参考",
+    "Robert Wise, 1965、Ted McCord (cinematography)、Howard Terpning (1965 poster)、Hayao Miyazaki (meadows)"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q39",
+    "group": "Q",
+    "name": "霍尔拜因都铎肖像油画",
+    "handle": "NO.39 · 1966《日月精忠》",
+    "img": "lemo/q/39",
+    "video": "lemo/q/39.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "古典大师油画肖像：平滑罩染塑形、一根根画出的毛领、天鹅绒高光、逐环刻画的金链，再加旧光油和龟裂纹。霍尔拜因 1527 年亲手画过托马斯·莫尔，这里用的就是他的构图。",
+    "palette": [
+    "#1F4A26",
+    "#141113",
+    "#6E0C15",
+    "#B0801E"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1966 年奥斯卡最佳影片《日月精忠》（A Man for All Seasons）"
+    ],
+    [
+    "画法组合",
+    "古典油画罩染 + 霍尔拜因《托马斯·莫尔爵士像》（1527） + 烛光都铎室内"
+    ],
+    [
+    "风格提示词",
+    "仿小汉斯·霍尔拜因的北方文艺复兴油画肖像。一层层画：带色底、顺明暗的笔触、柔和罩染、最后细笔；成品光滑，背景和布料隐约见笔触。每种材质各有画法：毛皮一根根画，天鹅绒褶子亮脊锐利，金属每件两个高光点，呢料和皮革画出柔和绒面。任何主体都画成穿自己衣服的正式半身像；它的场景从窗口露出，或由手里一件东西交代。色板：深绿帘幕 #1F4A26，黑 #141113、天鹅绒红 #6E0C15、金 #B0801E、毛皮棕 #3E2818；皮肤暖色、体积完整。柔光从左上来。招牌镜头：衬着绿帘的半身像；其次是材质特写，再慢慢拉远到暖色光池照亮的暗房间。收尾叠暖色光油和轻龟裂。避免：平涂、数码硬边、均匀亮光、没有体积的脸。"
+    ],
+    [
+    "导演",
+    "Clawd 扮托马斯·莫尔：都铎扁帽、黑袍毛领、红天鹅绒袖子、SS 金链，手拿封了红蜡的信。接在转圈的草坡之后，这里是静：从大特写切到肖像只有一刀，之后一路拉远；蜡烛将熄，暗下来的画面接上下一部的夜。"
+    ],
+    [
+    "参考",
+    "Fred Zinnemann, 1966、Hans Holbein the Younger, Sir Thomas More (1527)、Holbein, The Ambassadors (1533)、Ted Moore (cinematography)"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q41",
+    "group": "Q",
+    "name": "维多利亚玩具纸剧场",
+    "handle": "NO.41 · 1968《雾都孤儿》",
+    "img": "lemo/q/41",
+    "video": "lemo/q/41.mp4",
+    "loop": true,
+    "fit": "2.5D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "维多利亚玩具纸剧场：手工上色的石印卡纸人物留着剪刀白边，景片分层插在滑杆上，镀金台口下的烛光脚灯把影子投上景片。《雾都孤儿》是歌舞片，正好搬上维多利亚家庭小舞台。",
+    "palette": [
+    "#C8262C",
+    "#E0AB36",
+    "#2F5A9A",
+    "#F4ECD6"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1968 年奥斯卡最佳影片《雾都孤儿》（Oliver!）"
+    ],
+    [
+    "画法组合",
+    "Pollock's 玩具剧场 + 手工上色石印纸偶 + 剪卡与脚灯投影 + Cruikshank 漫画人物"
+    ],
+    [
+    "风格提示词",
+    "维多利亚玩具纸剧场（Pollock's 式）。一切都是印出来的卡纸：黑色石印轮廓约画面宽的 1/400，每张剪纸一侧有稀疏蜡笔排线；手工上色是沉稳旧色：深红 #C8262C 和暗金 #E0AB36 用在台口和帷幔（金色不能是亮黄），蓝 #2F5A9A 给服装；布景、天空、水和肤色用发灰的棕、灰和奶油卡纸 #F4ECD6。每个人物和景片留一圈剪刀白边（约画面宽的 1/200）。景片是平行的 2.5D 层，层间视差，层内无透视。烛光脚灯把剪纸影子放大约一倍半投到后面景片上，柔边，随烛火闪动。镀金台口、红帷幔和画出来的包厢观众框住舞台，台口宽占画面八到九成。镜头：慢推、横移，近景微震；结尾拉远露出暗房间。避免：鲜艳矢量色、真 3D 纵深、柔和摄影光、没有剪边的人物。"
+    ],
+    [
+    "导演",
+    "Clawd 扮奥利弗：插在自己滑杆上的纸偶，手里举着空碗。全景、舞台、近景三种景别拉开层次：上前一步，卡拍举起空碗，班布尔一吼，它缩了一下，碗还是举着。"
+    ],
+    [
+    "参考",
+    "Carol Reed, 1968、Benjamin Pollock (toy theatre sheets)、George Cruikshank、Pollock's Toy Museum"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q43",
+    "group": "Q",
+    "name": "二战战争债券石印海报",
+    "handle": "NO.43 · 1970《巴顿将军》",
+    "img": "lemo/q/43",
+    "video": "lemo/q/43.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "仿 1940 年代美军战争债券海报的石印画法：分级平涂的褶皱、深色轮廓、网点阴影、泛黄的纸。对应《巴顿将军》开场：小小的将军站在一面占满舞台的巨幅国旗前训话。",
+    "palette": [
+    "#C2342C",
+    "#213261",
+    "#5F5C31",
+    "#B7975E"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1970 年奥斯卡最佳影片《巴顿将军》（Patton）"
+    ],
+    [
+    "画法组合",
+    "石印海报 + 1942–45 美军征兵与战争债券海报 + 45° 网点、套色错位"
+    ],
+    [
+    "风格提示词",
+    "1940 年代美国战争债券石印海报。平涂油墨：红 #C2342C、海军蓝 #213261、橄榄绿 #5F5C31、卡其 #B7975E，印在米白 #E6D5B3 的纸上，有纤维、霉点和磨边。每个形体三档：留纸、平涂、油墨加网点，压成硬边色阶。棕黑轮廓线约画面宽的 1/500，最后压上；阴影是粗的 45° 网点带（点径约画面宽的 1/150），带蜡笔颗粒；色版错开约画面宽的 1/600。默认像舞台：对称正面，小主体站在占满大半画面的巨大图形前（旗帜、徽章、放射光芒），灯光是硬边浅色块或留纸；户外也一样，光落成地上的硬边浅斑。文字可有可无，用用户的语言。镜头慢推，配一次干脆的拉出。对标 1942–45 年美国战争债券海报。避免：喷枪渐变、套色完全对齐、网点细到像一片灰。"
+    ],
+    [
+    "导演",
+    "Clawd 扮巴顿：四星钢盔、勋表和奖章、象牙柄左轮、马鞭。它在条纹下走到位，切进近景时啪地敬礼，停住，放下，马鞭拍进手心、一点头，像训话开始。两次硬切，最后的拉镜头让它在巨旗前缩成一个小点。"
+    ],
+    [
+    "参考",
+    "Franklin J. Schaffner, Patton (1970)、Patton one-sheet (1970)、J. C. Leyendecker、US war-bond and recruiting posters, 1942–45"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q44",
+    "group": "Q",
+    "name": "高架铁下追车 · 16mm 颗粒 3D",
+    "handle": "NO.44 · 1971《法国贩毒网》",
+    "img": "lemo/q/44",
+    "video": "lemo/q/44.mp4",
+    "loop": true,
+    "fit": "3D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "整条布鲁克林高架铁下的大街用 3D 建出来，再调成粗颗粒 16mm：冷灰、暗部偏青、高反差、片门抖动。这部片最有名的就是高架铁下的追车，3D 才拍得出那种速度。",
+    "palette": [
+    "#7A7C7A",
+    "#1E2A2C",
+    "#6E4A34",
+    "#D97757"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1971 年奥斯卡最佳影片《法国贩毒网》（The French Connection）"
+    ],
+    [
+    "画法组合",
+    "three.js 3D 街景 + 16mm 纪录片颗粒 + 暗部偏青的冷灰印片调色"
+    ],
+    [
+    "风格提示词",
+    "70 年代初粗粝的纪实感，放在细致的 3D 世界里，按增感冲洗的 16mm 收尾。调色：低饱和、高反差；中性冷灰 #7A7C7A、带青的暗部 #1E2A2C，砖、木头、车辆保持暖棕 #6E4A34，至少占四分之一画面，绝不整体泛蓝；唯一的主角（比如橙 #D97757）保持饱和。默认阴天，天空亮到近白，任何时段都一样；阳光穿过头顶格栅（轨道、桥、栈桥）落成硬边条纹。颗粒成团，约画面宽的 1/700，亮度 ±8%；片门晃动、闪烁、灰尘，亮处偶有淡重影。杂物多且符合地点。手持机位跟着动作走：18 到 25mm 低机位向前冲，重复物体频闪掠过；回看主体的跟拍机位；墙角广角。对标 William Friedkin《法国贩毒网》（1971）和摄影师 Owen Roizman。避免：干净的 CG 反光、整体泛蓝、空荡的方块场景、颗粒糊成一片。"
+    ],
+    [
+    "导演",
+    "Clawd 扮“大力水手”道尔：猪肉派帽、怒眼、双手握方向盘。追车的场景时间比屏幕时间跑得快得多，加速看起来就是车更快。三个硬切：路口甩尾 → 保险杠狂冲 → 驾驶员，中间不停。"
+    ],
+    [
+    "参考",
+    "William Friedkin, The French Connection (1971)、Owen Roizman (cinematography)、The French Connection one-sheet (1971)"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q45",
+    "group": "Q",
+    "name": "伦勃朗顶光明暗油画",
+    "handle": "NO.45 · 1972《教父》",
+    "img": "lemo/q/45",
+    "video": "lemo/q/45.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "深琥珀和赭褐的油画，只有顶光落下的地方是暖的：暗部是透明的薄罩染，受光边缘是厚涂。重现戈登·威利斯在“I believe in America”那间书房里的顶光。",
+    "palette": [
+    "#24150B",
+    "#070403",
+    "#8F5D2A",
+    "#E2B673"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1972 年奥斯卡最佳影片《教父》（The Godfather）"
+    ],
+    [
+    "画法组合",
+    "明暗油画 + 戈登·威利斯的顶光 + 伦勃朗、卡拉瓦乔式罩染"
+    ],
+    [
+    "风格提示词",
+    "伦勃朗、卡拉瓦乔式明暗油画，只有一盏顶光。约七成画面是看得出形体的暖暗部，大多是赭褐 #24150B，近黑 #070403 只在最深的角落。琥珀 #8F5D2A 中间调约两成；朝上的面亮到 #E2B673。主角整个站在光池里，受光部分至少占画面高的四分之一；眉骨把眼睛压进阴影。一处饱和的红 #9C1A1A。暗部薄而平滑地罩染，亮部是带亮笔脊的厚涂，笔触约画面宽的 1/100；过渡柔和，不用刮擦线条。琥珀光油，重暗角，细画布纹（±3%）。背景可有一处暖色亮口（窗、门洞、发亮的天边）；画内的小灯只是一小团光，不算第二个主光。镜头慢拉、慢推。对标 Francis Ford Coppola《教父》（1972），摄影师 Gordon Willis。避免：提亮暗部、平光、人脸跳出来、暗到看不清。"
+    ],
+    [
+    "导演",
+    "Clawd 扮唐·柯里昂：黑领结、翼领、红玫瑰、白袖口，一只手压在猫背上。12 拍全按 1 倍速，保留威利斯那种耐心的镜头；抚猫一下约 4 秒，中间眨一次眼。全部硬切，最后一镜让原海报的提线手降到它头上。"
+    ],
+    [
+    "参考",
+    "Francis Ford Coppola, The Godfather (1972)、Gordon Willis (cinematography)、Rembrandt, The Night Watch、Caravaggio、S. Neil Fujita, The Godfather poster logo"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q46",
+    "group": "Q",
+    "name": "《星期六晚邮报》插画",
+    "handle": "NO.46 · 1973《骗中骗》",
+    "img": "lemo/q/46",
+    "video": "lemo/q/46.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "Leyendecker、Rockwell 一路的杂志插画：块面受光、平行笔触、利落的深色轮廓。片中章节卡就仿《星期六晚邮报》封面，1936 年的下注厅也照这个画。",
+    "palette": [
+    "#E2C492",
+    "#764626",
+    "#28322C",
+    "#E2B046"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1973 年奥斯卡最佳影片《骗中骗》（The Sting）"
+    ],
+    [
+    "画法组合",
+    "《星期六晚邮报》封面插画 + Leyendecker 式块面塑形 + Jaroslav Gebr 的章节卡"
+    ],
+    [
+    "风格提示词",
+    "30 年代《星期六晚邮报》封面插画。写实人物，比例准确、表情生动，用块面塑造（受光、背光、下方暖色反光），块面里填顺着形体、长短不一的笔触，宽约画面宽的 1/150，柔和衔接，不成条纹。深色轮廓在背光一侧加粗，画面宽的 1/800 到 1/300。暖色主光从左上来。配色：灰泥 #E2C492、橡木 #764626、石板 #28322C、黄铜 #E2B046、墨 #341E18；橡木和墨色暗部约占三分之一画面；天空灰泥偏石板，水是浅石板，皮肤灰泥加黄铜。轻颗粒画板（±3%）加暖暗角。默认一点透视，时代细节，薄雾，故事有就加次要人物。每个人物只画一遍，整体移动（呼吸、摇摆、沿路径滑行）。镜头：一次长而平滑的推进。对标 J. C. Leyendecker、Norman Rockwell。避免：僵硬剪纸人物、粗细一样的轮廓、发脏的颜色。"
+    ],
+    [
+    "导演",
+    "Clawd 扮胡克：浅色礼帽、红领结、背带。整段不切，只有一个推镜头。推到位时它打出骗子们的暗号（手指贴鼻侧），接着压帽檐、冲镜头眨眼，像把观众拉进骗局。"
+    ],
+    [
+    "参考",
+    "George Roy Hill, The Sting (1973)、Jaroslav Gebr (chapter cards)、Richard Amsel (poster)、J. C. Leyendecker、Norman Rockwell"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q47",
+    "group": "Q",
+    "name": "手工上色棕褐老照片",
+    "handle": "NO.47 · 1974《教父2》",
+    "img": "lemo/q/47",
+    "video": "lemo/q/47.mp4",
+    "loop": true,
+    "fit": "2.5D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "世纪之交的调色银盐照片，手工刷色：棕褐调、柔焦、银盐颗粒、霉斑、裂角，局部淡淡的红、蓝、铜绿。画的是 1901 年少年维托抵达埃利斯岛，像 Lewis Hine 的照片。",
+    "palette": [
+    "#281A12",
+    "#987048",
+    "#EEE0C2",
+    "#D97757"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1974 年奥斯卡最佳影片《教父2》（The Godfather Part II）"
+    ],
+    [
+    "画法组合",
+    "调色银盐照片 + Lewis Hine 的埃利斯岛照片 + 手工刷色 + 光线步进的 3D 人物"
+    ],
+    [
+    "风格提示词",
+    "1900 年前后手工上色的棕褐银盐照片。先做受光的立体形体，柔光从左上来，再“印”出来：柔焦带轻微光晕，颗粒在中间调最重（±5%）；棕褐调从 #281A12 经 #987048 到 #EEE0C2 完整铺开，至少五分之一画面落到最深一端，任何光线下都一样。人物比例真实（头约七分之一身高），明暗柔和。透明颜料松松地刷，溢出边缘：唯一的主角最重（比如橙红 #D97757，不透明度六到八成），一两件道具轻点；颜色进暗部就被吞掉。做旧要轻：暗角、边缘银化（靠边暗部泛灰蓝金属光）、几个小霉点、细划痕，最多一个裂角。构图正面、纪实，人物静立面对镜头。镜头缓慢横摇扫过人脸。对标 Lewis Hine、Augustus Sherman 的埃利斯岛照片。避免：积木人物、数码填色、低反差雾灰、大片霉斑。"
+    ],
+    [
+    "导演",
+    "Clawd 扮少年维托：灰色粗花呢鸭舌帽，脖子上挂着纸名牌，夹在大人中间显得很小。平均 1.3 倍速，自由女神那一镜是 1 倍。三个硬切：人群 → 雕像（主观）→ 反应；最后的表演点是低头看自己的新名字，再抬头望向新的国家。"
+    ],
+    [
+    "参考",
+    "Francis Ford Coppola, The Godfather Part II (1974)、Gordon Willis (cinematography)、Lewis Hine, Ellis Island photographs、Augustus Sherman, Ellis Island portraits"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q48",
+    "group": "Q",
+    "name": "霍珀式美国写实油画",
+    "handle": "NO.48 · 1975《飞越疯人院》",
+    "img": "lemo/q/48",
+    "video": "lemo/q/48.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "仿爱德华·霍珀的安静写实：大块平整的淡绿墙面、低角度晨光投下的硬边平行四边形、彼此隔开的人。正合《飞越疯人院》的病房：日光灯下的秩序，被一次出逃打破。",
+    "palette": [
+    "#9EB8A0",
+    "#5E7C66",
+    "#7E8876",
+    "#ECE6D2"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1975 年奥斯卡最佳影片《飞越疯人院》（One Flew Over the Cuckoo's Nest）"
+    ],
+    [
+    "画法组合",
+    "爱德华·霍珀式写实 + 硬边斜射窗光 + 平整油彩块面加拖笔"
+    ],
+    [
+    "风格提示词",
+    "爱德华·霍珀式美国写实绘画。大块克制、偏浅的平面色：机构绿 #9EB8A0 和 #5E7C66、灰绿地面 #7E8876、奶油 #ECE6D2，看得见画布纹（±3%），每块拖几笔长笔触，宽约画面宽的 1/80，亮或暗百分之五到十。低角度阳光从一侧射来，在墙和地上投下硬边暖色平行四边形 #FCE6AC，压着窗框或栏杆的清晰影子，室内户外都一样。天空浅奶油绿，皮肤是提暖的奶油色，衣服用压暗的绿。人物由三四块边缘柔和的明暗色块叠成，不勾轮廓，比例写实；几个人时分开站。大部分时间静止，然后一件不到一秒的突发：甩镜或一阵强光。招牌镜头：一点透视的静止室内，地上有光块。对标霍珀《Office in a Small City》（1953）。避免：粗轮廓、矢量人物、深而饱和的墙、模糊光斑。"
+    ],
+    [
+    "导演",
+    "Clawd 戴着麦克墨菲的黑色针织帽和格子领，演的是片尾那一下：把水疗台砸出窗外。屏幕时间等于场景时间：蹲下用力、举起、1.0 秒扔出、1.3 秒撞窗，闪光加碎玻璃飞向镜头，然后欢呼。用带运动模糊的甩镜代替剪切。"
+    ],
+    [
+    "参考",
+    "Miloš Forman, One Flew Over the Cuckoo's Nest (1975)、Edward Hopper, Office in a Small City; Morning Sun、Edward Hopper, Nighthawks、Haskell Wexler and Bill Butler (cinematography)"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q49",
+    "group": "Q",
+    "name": "费城台阶日出 3D · 35mm 调色",
+    "handle": "NO.49 · 1976《洛奇》",
+    "img": "lemo/q/49",
+    "video": "lemo/q/49.mp4",
+    "loop": true,
+    "fit": "3D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "清晨的费城整个做成 3D，从肉库到博物馆 72 级台阶，调成 70 年代 35mm：冷蓝天、低低的金色太阳、长影子、薄雾、细颗粒。跑上台阶和顶上的环绕升镜是这部片的记忆点。",
+    "palette": [
+    "#F0A060",
+    "#7FA3CF",
+    "#E6B2AE"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1976 年奥斯卡最佳影片《洛奇》（Rocky）"
+    ],
+    [
+    "画法组合",
+    "three.js 3D 城市 + 70 年代 35mm 胶片调色 + 斯坦尼康跟拍与环绕升镜"
+    ],
+    [
+    "风格提示词",
+    "70 年代 35mm 写实，放在细致的 3D 世界里，默认日出（日落同理）。太阳离地平线五到十度，暖橙 #F0A060，从侧面或前侧方照亮主角，让受光的身体和拉过地面的长影看得清；不要完全逆光。天空冷蓝 #7FA3CF，云底染粉 #E6B2AE；雾朝太阳一侧发金、背光一侧发蓝紫。调色：细颗粒（±3%），暗部偏冷、高光偏暖，不过曝；只有太阳入画时才有光晕和鬼影。镜头：低机位斯坦尼康从背后跟着主角爬上一段坡或台阶，到最高处接一个连续环绕，边转边升边退，六到八秒，转到受光的脸，直到整个地方在下面铺开。对标 John G. Avildsen《洛奇》（1976）、斯坦尼康操作者 Garrett Brown。避免：正午平光、没细节的剪影、高潮时机位不动、塑料感反光。"
+    ],
+    [
+    "导演",
+    "Clawd 扮洛奇：灰色卫衣兜帽戴起，肩上搭一条白毛巾。训练蒙太奇三个快切，约 1.7 倍速；上台阶以后回到 1 倍。硬切进斯坦尼康跟跑，之后不再切：跑到顶直接接环绕升镜，举臂一跳正好落在镜头开始升起的时候。"
+    ],
+    [
+    "参考",
+    "John G. Avildsen, Rocky (1976)、Garrett Brown (Steadicam)、James Crabe (cinematography)、Philadelphia Museum of Art, east façade"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q50",
+    "group": "Q",
+    "name": "《纽约客》单格漫画 · 墨线淡彩",
+    "handle": "NO.50 · 1977《安妮·霍尔》",
+    "img": "lemo/q/50",
+    "video": "lemo/q/50.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "《纽约客》单格漫画：灵动的钢笔墨线、几块克制的淡彩、大量白纸，画下面一行手写图说。伍迪·艾伦的喜剧和这本杂志是一个调子，龙虾那场戏正好是一格笑话漫画。",
+    "palette": [
+    "#9698A0",
+    "#78A0BE",
+    "#E2CCA0",
+    "#C45C32"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1977 年奥斯卡最佳影片《安妮·霍尔》（Annie Hall）"
+    ],
+    [
+    "画法组合",
+    "《纽约客》单格漫画 + 钢笔墨线 + 淡水彩 + 手写图说"
+    ],
+    [
+    "风格提示词",
+    "《纽约客》单格漫画，满版出血，不画格框。蘸水笔墨线直线处细到约画面宽的 1/1000，转弯处粗到约 1/300，收笔一甩；方盒子几笔分开画，角上交叉出头。淡水彩带积色边，铺在大部分物体上，溢出墨线不超过画面宽的 1/150：灰 #9698A0、海蓝 #78A0BE、沙色 #E2CCA0、铁锈 #C45C32，底是冷压纸 #FBF8F1，四边化成白。人物夸张、有表情、画出五官，周围有日常道具，留白但不空荡。画面下方一行手写说明，用用户的语言，字高约画面高的 1/30，逐字写出：一句冷面幽默。画面不动，活物微微颤动。镜头：轻微漂移和推近；画面可一分为二，左右并排两幅。对标 James Thurber、William Steig、桑贝。避免：浓重饱和的颜色、粗细一样的矢量线、白纸中间漂着一个小格子。"
+    ],
+    [
+    "导演",
+    "Clawd 扮安妮：黛安·基顿那顶宽檐帽、松垮的条纹领带和马甲，手里一台 35mm 相机。约 1.8 倍速，跳起来那一下接近 1 倍：两次闪光拍照，龙虾爬到脚边，吓得一跳，落地笑开。全部硬切，最后用分屏饭桌做一个图形化的出口。"
+    ],
+    [
+    "参考",
+    "Woody Allen, Annie Hall (1977)、James Thurber、William Steig、Jean-Jacques Sempé、Annie Hall one-sheet (1977)"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q51",
+    "group": "Q",
+    "name": "安德鲁·怀斯蛋彩",
+    "handle": "NO.51 · 1978《猎鹿人》",
+    "img": "lemo/q/51",
+    "video": "lemo/q/51.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "仿安德鲁·怀斯的蛋彩：干燥细密的交叉短笔，低饱和的草黄、赭褐、灰绿，草叶一根根画出来，天空苍白。怀斯是宾州画家，“一枪”猎鹿就在宾州钢铁小镇上方的山里。",
+    "palette": [
+    "#D9D5C6",
+    "#CDB27A",
+    "#6A5234",
+    "#8E938C"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1978 年奥斯卡最佳影片《猎鹿人》（The Deer Hunter）"
+    ],
+    [
+    "画法组合",
+    "石膏底蛋彩 + 安德鲁·怀斯 + 细密交叉短笔"
+    ],
+    [
+    "风格提示词",
+    "安德鲁·怀斯式石膏底板蛋彩画。干、哑光、极细：颜色全靠密密的交叉短笔叠出来，每笔长约画面宽的 1/400，细如发丝。低饱和配色：苍白阴天 #D9D5C6、草黄 #CDB27A、赭褐 #6A5234、灰绿远山 #8E938C、铁锈色 #8A4E32；水、石、衣服和皮肤都从这几色调出。强调色只给唯一的主角（比如一顶红帽）；画里的光源只是一个淡淡的小点，不带光晕。地面（默认枯草，其他地面同理）先铺大块深浅，再叠细笔、暗色草团，最后是被风梳过的单根草叶；岩石和房屋用短笔顺着各面排。空间空旷孤独，主体小而偏离中心。默认阴天软光，其他时段也保持苍白、不要暖光。镜头缓慢漂移、安静推近；圆形遮罩可作剪切点。避免：湿水彩晕染、饱和色、厚重发亮的笔触。"
+    ],
+    [
+    "导演",
+    "Clawd 扮麦克：红色羊毛猎帽、带瞄准镜的猎枪。河谷 → 瞄准镜 → 鹿眼 → 猎人，四个硬切，平均约 1.24 倍速，安静、稳。表演点是那一枪没开：枪放下，闭眼，呼出一口气，再抬头看那头鹿。"
+    ],
+    [
+    "参考",
+    "Michael Cimino, The Deer Hunter (1978)、Vilmos Zsigmond (cinematography)、Andrew Wyeth, Christina's World (1948)、Andrew Wyeth, Winter 1946"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q54",
+    "group": "Q",
+    "name": "1924 巴黎奥运石印海报",
+    "handle": "NO.54 · 1981《烈火战车》",
+    "img": "lemo/q/54",
+    "video": "lemo/q/54.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "仿 Jean Droit 1924 巴黎奥运海报的四色石印：古典人体、有限油墨、成团的石版颗粒、参差套色。《烈火战车》讲的是 1924 年奥运，海滩长跑像那张海报活了过来。",
+    "palette": [
+    "#245A8C",
+    "#D49640",
+    "#40271B",
+    "#E47E62"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1981 年奥斯卡最佳影片《烈火战车》（Chariots of Fire）"
+    ],
+    [
+    "画法组合",
+    "四版石印 + Jean Droit 的 1924 奥运海报 + 古典解剖人体"
+    ],
+    [
+    "风格提示词",
+    "20 年代石版印刷海报，四色：海蓝 #245A8C、赭黄 #D49640、深棕 #40271B、暖红 #E47E62，印在泛旧的奶油纸 #F1E7D1 上，每色错位约画面宽的 1/700。所有色调都由油墨颗粒组成，不平涂：颗粒约画面宽的 1/1000，聚成软团，浅色区覆盖两到四成，中间调五到八成，实色几乎满版、留针孔；空白纸上不能有零散孤点。分工：蓝给天空、水和冷阴影；赭黄给地面和皮肤；深棕给轮廓、暗部和衣服；红少量点缀。明暗安静偏浅。人物古典：受光侧赭黄，四肢顺一道深棕明暗交界线，头约身高八分之一；多人排成横列。动作慢，靠水花、尘土、头发、布料带出。镜头：长焦正面、贴地低机位；可加衬线字标题横带。对标 Jean Droit 的 1924 年巴黎奥运海报。避免：粗噪点、象形小人、矢量平涂。"
+    ],
+    [
+    "导演",
+    "Clawd 跑在队伍里：白头带、胸前别着 98 号码布。跑步按 1 倍速，看起来就是原片的慢镜头。四个硬切：面孔、脚、利德尔仰头的跑姿、侧面整队；最后一镜印上海报字框，把这场戏变成 1924 年的海报。"
+    ],
+    [
+    "参考",
+    "Hugh Hudson, Chariots of Fire (1981)、Jean Droit, Jeux de la VIIIe Olympiade, Paris 1924 (poster)、Chariots of Fire one-sheet (1981)、Vangelis (score)"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q55",
+    "group": "Q",
+    "name": "拉贾斯坦手工木刻印花布",
+    "handle": "NO.55 · 1982《甘地传》",
+    "img": "lemo/q/55",
+    "video": "lemo/q/55.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "棉布上的手工木刻印花：靛蓝、茜草红、姜黄加黑色雕版轮廓，版缝处套色错位，染料顺着经纬渗开。手纺土布是甘地的象征，所以食盐进军就印成一块布。",
+    "palette": [
+    "#EEE5CF",
+    "#2A3A68",
+    "#AA322A",
+    "#DEA42C"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1982 年奥斯卡最佳影片《甘地传》（Gandhi）"
+    ],
+    [
+    "画法组合",
+    "Bagru 泥防染靛蓝 + Sanganer 木版印花边 + 拉贾斯坦细密画侧脸"
+    ],
+    [
+    "风格提示词",
+    "拉贾斯坦手工木刻印花布（Bagru、Sanganer）。本色棉布 #EEE5CF 是主底，占画面一半以上，也是皮肤色；靛蓝 #2A3A68 给水面或天空色带和纹样；茜草红 #AA322A 给边框、衣服和主角；姜黄 #DEA42C 给小纹样；黑色雕版 #281E1C 印轮廓。按雕版一块块盖（每块约画面高的 1/8），错位二到四像素，大色带也在版缝处轻微跳变；染料顺经纬微渗，上色不匀。泥防染冰裂纹只在靛蓝里，细而稀疏。轮廓像刻出来的，略毛糙，粗约画面宽的 1/300。平铺成横幅，外框是佩斯利和花藤；海浪是扇贝纹；人物取侧面，细密画式的脸，描黑的眼尾。镜头沿横幅横摇、推近；借转动的纹样转场。避免：矢量硬边、套色完全对齐、没有五官的人、满屏冰裂纹、靛蓝铺满画面。"
+    ],
+    [
+    "导演",
+    "Clawd 扮甘地：圆框钢丝眼镜、土布披巾的边、竹杖、一把盐。全程 1.1 倍速，不做慢放。从队伍硬切到动作：弯腰、捧盐、举起，再转向队伍举得更高。最后用纺车转动的轮子做转场收尾。"
+    ],
+    [
+    "参考",
+    "Richard Attenborough, Gandhi (1982)、Gandhi one-sheet (1982)、Bagru dabu and Sanganer block prints、Rajasthani miniature painting"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q56",
+    "group": "Q",
+    "name": "家庭相册宝丽来",
+    "handle": "NO.56 · 1983《母女情深》",
+    "img": "lemo/q/56",
+    "video": "lemo/q/56.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "摊开的家庭相册，里面是褪色的宝丽来和柯达快照：发青的黑、奶油色高光、白边。其中一张宝丽来活过来，变成海滩飞车的追拍照片。《母女情深》讲的是母女三十年。",
+    "palette": [
+    "#89795B",
+    "#DAD3BD",
+    "#38231A",
+    "#B4A78B"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1983 年奥斯卡最佳影片《母女情深》（Terms of Endearment）"
+    ],
+    [
+    "画法组合",
+    "SX-70 与宝丽来 600 相片 + 柯达彩色快照 + 70–80 年代磁性相册 + 追拍拖影"
+    ],
+    [
+    "风格提示词",
+    "70 到 80 年代的生活快照，摊开在相册里。照片已褪色：黑色抬成偏青的灰（约 #2F3A3A），高光柔和发奶油色，略暖、略过曝，偏软，细颗粒（±4%），饱和度约正常的六成。宝丽来白边、照相馆四连拍条、圆珠笔手写说明（用用户的语言）。相册铺满画面，奶油色页面，从正上方看，光柔和均匀，淡淡塑料膜反光。照片里有东西在动就用追拍：背景横向拖糊，主体清晰；静止主体用浅景深。人物像拍的不像画的：比例真实、明暗柔和、轻微虚焦、脸不大。镜头：俯拍推进一张照片直到铺满（约三秒），切进活起来的场景、颜色恢复，再拉出。对标宝丽来 SX-70 和柯达彩色照片。避免：平面卡通造型、干净的现代色彩、光束、饱和的照片。"
+    ],
+    [
+    "导演",
+    "Clawd 扮退役宇航员加勒特，戴金色飞行员墨镜，身边坐着大笑的奥罗拉。整体约 1.8 倍速。推进相册以后直接切进照片里，褪色的调子回暖成新鲜的颜色；颜色回来时它举起双臂，最后的近景落在张开双臂的样子上。"
+    ],
+    [
+    "参考",
+    "James L. Brooks, Terms of Endearment (1983)、Terms of Endearment one-sheet (1983)、Polaroid SX-70 and Kodacolor snapshots、1970s magnetic-page photo albums"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q57",
+    "group": "Q",
+    "name": "洛可可剪影 · 烛光金色歌剧院",
+    "handle": "NO.57 · 1984《莫扎特传》",
+    "img": "lemo/q/57",
+    "video": "lemo/q/57.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "黑纸剪成的侧面人像镶着金边，坐满马蹄形的金色包厢和红丝绒，对着星空布景的舞台。《莫扎特传》的高光是首演之夜，一个画面装下乐池、舞台、观众和暗处的萨列里。",
+    "palette": [
+    "#0B0705",
+    "#F7E3A0",
+    "#B88A2E",
+    "#6E0F14"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1984 年奥斯卡最佳影片《莫扎特传》（Amadeus）"
+    ],
+    [
+    "画法组合",
+    "18 世纪剪影肖像 + 洛可可金色浮雕 + 烛光泛光 + 申克尔的星空布景"
+    ],
+    [
+    "风格提示词",
+    "18 世纪剪纸剪影，放在烛光照亮的洛可可室内。每个人物是实心黑侧影 #0B0705，各有自己的剪纸细节（发型、鼻子、蕾丝镂空、物件），朝最近烛火的一侧描 2–3px（按 1920×1080）亮金边 #F7E3A0，顺衣褶勾几根细金线。金色浮雕 #B88A2E 和红丝绒 #6E0F14 像包厢一样框住画面；户外题材画成舞台上被照亮的布景，剪纸人物站在布景前。红与金占画面大半，夜蓝 #0C1A3A 只用于远处天空。只有主角侧影里的脸是画出来、有颜色的。烛火轻微跳动（亮度±5%），暖光晕约五个火苗宽，薄烟、暗角、细颗粒。招牌镜头：前景剪影框住远处亮着的舞台，慢横移再推进。对标剪影 Edouart、Miers，摄影师 Miroslav Ondříček（《莫扎特传》，1984）。避免：没有剪纸细节的黑块；复制粘贴的侧影；蓝色墙面；频闪的烛火。"
+    ],
+    [
+    "导演",
+    "Clawd 扮莫扎特：白色扑粉假发配粉色发带、蕾丝领巾，指挥棒跟着音乐打拍子。一个运镜从乐池升到舞台，正好落在夜后的高音上，然后硬切到暗处看着的萨列里。1:1 时间，不放慢。"
+    ],
+    [
+    "参考",
+    "Miloš Forman, Amadeus (1984)、Miroslav Ondříček (cinematography)、Karl Friedrich Schinkel, Queen of the Night set (1815)、Augustin Edouart、John Miers"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q58",
+    "group": "Q",
+    "name": "3D 双翼机飞越东非裂谷",
+    "handle": "NO.58 · 1985《走出非洲》",
+    "img": "lemo/q/58",
+    "video": "lemo/q/58.mp4",
+    "loop": true,
+    "fit": "3D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "实时 3D 的低空飞行：铬黄色双翼机掠过苏打湖，上万只火烈鸟惊起，琥珀色薄雾光。这部片最被记住的就是丹尼斯带凯伦飞越肯尼亚，和她向后座伸出的那只手。",
+    "palette": [
+    "#AF9978",
+    "#523913",
+    "#EAD3AA",
+    "#965B14"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1985 年奥斯卡最佳影片《走出非洲》（Out of Africa）"
+    ],
+    [
+    "画法组合",
+    "three.js 实时 3D + David Watkin 的航拍 + 暖调胶片调色 + 实例化的火烈鸟群"
+    ],
+    [
+    "风格提示词",
+    "实时 3D，像 80 年代宽银幕实景摄影：模型按真实比例、细节到位（如支柱、拉线、铆钉）；地形平滑，不要低多边形碎面。默认光：从镜头看，低斜的太阳在主角身后（逆光），奶油色淡天空，琥珀薄雾，远山分三四层渐淡，赭黄大地上长长的柔影。整体明亮：七成画面在中高调，阴影暖灰不深褐；近白不超过五分之一。胶片曲线、低饱和、细颗粒、轻暗角。上千只实例化的鸟或动物（如粉 #F3B3AE 配深红 #DF3F55），主角经过时一波波错开起飞或散开。招牌镜头：越过移动中主角的肩膀看远景；其次是离地 10–20 米的追拍和一个对着太阳的逆光镜头。对标摄影师 David Watkin（《走出非洲》，1985）。避免：冷而干净的 CG 日光；发暗的棕褐调；整齐划一的鸟群。"
+    ],
+    [
+    "导演",
+    "Clawd 坐在凯伦的前座：皮飞行帽、黄铜护目镜、白丝巾。两个外景镜头硬切，交代火烈鸟湖上的速度和空间；最后的座舱镜头留给片中那个动作：Clawd 转身向后伸手，丹尼斯握住，落在最后几拍。飞行时间是屏幕时间的 1.5–1.6 倍。"
+    ],
+    [
+    "参考",
+    "Sydney Pollack, Out of Africa (1985)、David Watkin (cinematography)、Out of Africa (1985) poster、de Havilland DH.60G Gipsy Moth G-ABAK"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q61",
+    "group": "Q",
+    "name": "80 年代喷枪插画 + 雷蒙的计数",
+    "handle": "NO.61 · 1988《雨人》",
+    "img": "lemo/q/61",
+    "video": "lemo/q/61.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "平滑的喷枪渐变、硬边遮罩、镀铬高光和粉绿霓虹，叠一层细细的青色计数标注。80 年代画风配上雷蒙眼里的世界：82、82、82，共 246 根牙签，还有牌桌算牌。",
+    "palette": [
+    "#79BDA6",
+    "#F58CB5",
+    "#C9467F",
+    "#56E6FF"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1988 年奥斯卡最佳影片《雨人》（Rain Man）"
+    ],
+    [
+    "画法组合",
+    "80 年代喷枪插画 + Patrick Nagel 式人物 + 空山基式镀铬 + 工程图标注"
+    ],
+    [
+    "风格提示词",
+    "80 年代喷枪插画，叠一层工程制图标注。每个形是硬边遮罩里喷出的平滑渐变，边缘 1–2px（按 1920×1080）细飞沫。明亮高调：薄荷绿 #79BDA6 的墙或天空、奶油白，霓虹粉 #F58CB5 和品红 #C9467F 点缀，地面铺黑白棋盘格；紫色和夜色不超过两成，其他时段仍是薄荷绿奶油底，晚霞用粉色画。人物学 Patrick Nagel：苍白平整的皮肤、少而利落的线、成块深色头发，粉与薄荷绿轮廓光，但保留本人的年龄衣着。金属玻璃学空山基镀铬：天空色带、硬地平线、十字星光。最上层是细青色标注 #56E6FF、白字 #D9FBFF（字高约画面 1/40）：圆点引线、虚线圈组、尺寸线；像《雨人》的雷蒙，等宽数字数故事里要数的东西，圈一组滚一次。慢推或慢拉。避免：合成波式的条纹太阳；UI 框；发糊的边。"
+    ],
+    [
+    "导演",
+    "Clawd 扮雷蒙：扣到顶的格子领、胸袋里插着几支笔和一支铅笔。剪辑跟着计数走：开头几拍圈出三堆牙签，246 出来时它歪头，然后硬切到拉斯维加斯，每张牌落下都跳出一个计数标记。场景以 1.1 倍速播放。"
+    ],
+    [
+    "参考",
+    "Barry Levinson, Rain Man (1988)、John Seale (cinematography)、Patrick Nagel、Hajime Sorayama"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q62",
+    "group": "Q",
+    "name": "洛克威尔式油画插画",
+    "handle": "NO.62 · 1989《为黛西小姐开车》",
+    "img": "lemo/q/62",
+    "video": "lemo/q/62.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "扎实温暖的洛克威尔写实：边缘干净、笔触可见，午后阳光穿过橡树，邻居各忙各的。这部片就是 50 年代亚特兰大一辆车里的两个人，本身就像一张《星期六晚邮报》封面。",
+    "palette": [
+    "#E6DCC2",
+    "#9A4A38",
+    "#1F3A24"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1989 年奥斯卡最佳影片《为黛西小姐开车》（Driving Miss Daisy）"
+    ],
+    [
+    "画法组合",
+    "诺曼·洛克威尔油画插画 + 《星期六晚邮报》封面 + 3D 建模的车再铺油画笔触"
+    ],
+    [
+    "风格提示词",
+    "洛克威尔式 50 年代美国杂志封面油画。人物接近写实：头约占身高 1/7，脸和手用三四块明暗面塑出、不靠描线，表情读得出。塑形平滑，笔触隐约：宽约画面 1/150，顺形体走，每笔与底色只差±5%。默认光：左上方暖色午后阳光，地上有清楚的投影和树影，阴影冷蓝灰；别的光也保持暖主光冷阴影。中等饱和：奶油天空 #E6DCC2、砖红 #9A4A38、叶绿、瓶绿 #1F3A24、柔和肤色。光面映出环境。背景有小故事：有人处路人各忙各的，主角独处就靠物件。轻画布纹、暖光油、柔和暗角。镜头：有纵深的四分之三全景缓推，越切越近，落在手或脸上。对标洛克威尔 1940–50 年代《星期六晚邮报》封面。避免：卡通脸；重纹理滤镜；无笔触的数码平涂；空背景。"
+    ],
+    [
+    "导演",
+    "Clawd 扮霍克，戴藏青色司机帽。三个硬切从车外到车里再到后视镜，一个比一个近；结果留到最后：镜子里黛西小姐的板脸在最后几拍慢慢松成微笑。场景时间平均是屏幕时间的 1.8 倍左右，车仍然开得从容。"
+    ],
+    [
+    "参考",
+    "Bruce Beresford, Driving Miss Daisy (1989)、Driving Miss Daisy (1989) poster、Norman Rockwell, Saturday Evening Post covers"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q63",
+    "group": "Q",
+    "name": "邓巴日记 · 铅笔 + 透明水彩",
+    "handle": "NO.63 · 1990《与狼共舞》",
+    "img": "lemo/q/63",
+    "video": "lemo/q/63.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "一个军人的野外日记：轻重有变化的铅笔线、透明水彩、泛黄的布浆纸、墨水手写和页边的铅笔批注。邓巴在片中一直写画日记，所以草原是从他的速写里活过来的。",
+    "palette": [
+    "#3A363A",
+    "#C88F76",
+    "#DEBE87",
+    "#F0E4C8"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1990 年奥斯卡最佳影片《与狼共舞》（Dances with Wolves）"
+    ],
+    [
+    "画法组合",
+    "铅笔底稿 + 透明水彩 + 铁胆墨水手写 + Bodmer、Catlin 的野外水彩"
+    ],
+    [
+    "风格提示词",
+    "一本活过来的 19 世纪野外日记：看得见铅笔线的满幅透明水彩。铅笔底稿 #3A363A 有轻重和断笔，暗部轻排线，透过颜色仍读得出。水彩边缘湿软，有回流花、积色深边和颗粒（不要平涂多边形），铺满约八成画面，浓郁偏暖。默认魔幻时刻：灰玫瑰色天空 #C88F76 往上转淡紫，玫瑰色条云，低太阳，赭金大地 #DEBE87，远处紫，长投影；朝太阳的边缘点几笔不透明浅金。泛黄布浆纸 #F0E4C8，淡水渍霉斑，纸色透出来。铁胆墨水 #34221C 写小字草书标注和箭头。招牌动作只在开头约两秒：先只有铅笔，镜头推进时颜色从远到近一块块铺上；之后每帧满彩。对标 Karl Bodmer、George Catlin 的野外速写。避免：灰脏或发白的淡彩；均匀数码描边；开头后仍只有铅笔。"
+    ],
+    [
+    "导演",
+    "Clawd 扮邓巴：带金色帽绳的黑色骑兵宽檐帽，一手日记本、一手铅笔。推近页面和上色是同一个动作；切到活过来的草原落在乐句中间，抬帽致意落在最后几拍。1:1 时间。"
+    ],
+    [
+    "参考",
+    "Kevin Costner, Dances with Wolves (1990)、Dean Semler (cinematography)、Dances with Wolves (1990) poster、Karl Bodmer、George Catlin"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q65",
+    "group": "Q",
+    "name": "雷明顿西部油画 · 晚霞与雨夜",
+    "handle": "NO.65 · 1992《不可饶恕》",
+    "img": "lemo/q/65",
+    "video": "lemo/q/65.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "两种调子的厚涂西部油画：雷明顿金红晚霞下的平原，和他晚年被暖黄窗光点亮的蓝绿夜景。《不可饶恕》以夕阳下坟前的剪影开场和收尾，决战发生在雨夜的小镇。",
+    "palette": [
+    "#17333A",
+    "#9CC4BC",
+    "#FFCC6A",
+    "#1E1C16"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1992 年奥斯卡最佳影片《不可饶恕》（Unforgiven）"
+    ],
+    [
+    "画法组合",
+    "雷明顿的暖色平原 + 雷明顿晚年的夜景 + 厚涂油彩 + 开场字幕的剪影"
+    ],
+    [
+    "风格提示词",
+    "弗雷德里克·雷明顿式西部油画。主调是晚霞，天黑透之前都用：橙到深红的金红天空用长横笔触，太阳压在地平线上，大地和人物是暗暖剪影，向阳一侧一道细暖轮廓光。第二种调子只在天黑透后用：蓝绿夜景（天 #17333A，月光边 #9CC4BC），暖黄窗光 #FFCC6A 铺在深色地面 #1E1C16 上，加雨。先画清楚的大形，再上笔触：每笔宽约画面宽度 1/80、长为宽的三到六倍，颜料饱满、笔端松散；每笔与底色明暗只差±6%，顺着各个面走。画布纹要轻。地平线低，天空占五到六成，人物小到中等。镜头：从剪影大全景慢推到人物。对标雷明顿晚年夜景画、摄影师 Jack N. Green（《不可饶恕》，1992）。避免：平滑渐变；硬边色带；打碎形体的满屏笔触；暖场景人物发灰；大幅横摇。"
+    ],
+    [
+    "导演",
+    "Clawd 扮威廉·芒尼：黑色宽檐帽、长雨衣立领、一支步枪。开场剪影到坟前是一个镜头，推到位时它正好抬头；唯一的一刀硬切到雨夜，Clawd 骑马进镇。1:1 时间，不放慢。"
+    ],
+    [
+    "参考",
+    "Clint Eastwood, Unforgiven (1992)、Jack N. Green (cinematography)、Unforgiven (1992) poster (Bill Gold)、Frederic Remington, nocturnes"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q66",
+    "group": "Q",
+    "name": "黑白胶片 · 唯一的红大衣",
+    "handle": "NO.66 · 1993《辛德勒的名单》",
+    "img": "lemo/q/66",
+    "video": "lemo/q/66.mp4",
+    "loop": true,
+    "fit": "2D · 黑白",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "冷灰、高反差的黑白，粗颗粒，高光晕开；只有小女孩的红大衣和 Clawd 的橙色有颜色。这正是斯皮尔伯格的手法：红大衣和安息日烛火是全片仅有的彩色。",
+    "palette": [
+    "#D97757",
+    "#A3241F",
+    "#C9463C"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1993 年奥斯卡最佳影片《辛德勒的名单》（Schindler's List）"
+    ],
+    [
+    "画法组合",
+    "高反差黑白胶片 + 粗颗粒银盐 + 局部留色 + Janusz Kamiński"
+    ],
+    [
+    "风格提示词",
+    "黑白电影质感：冷中性灰，强 S 曲线（黑接近 #111，白接近 #EEE），高光在雾里泛光晕，略软的老镜头，逐帧变化的银盐颗粒（±6%），轻微闪烁，偶有灰尘，暗角。全画面是灰的，只有故事围绕的那个主角是饱和色，以衣服为主（如陶土橙 #D97757）；可再有一个红色故事道具（#A3241F–#C9463C）。灯和火保持灰色，除非“火苗先灰后转暖”是剧情节点。长焦压缩空间，前景虚焦树枝；有人群时，体型、衣色和步态人人不同。默认阴天中间调，暗部不死黑。招牌镜头：长焦俯看许多走动的小人，带色的那个在其中；没有人群就让主角很小地落在大片灰里。对标摄影师 Janusz Kamiński（《辛德勒的名单》，1993）。避免：棕褐或偏蓝调色；无颗粒的干净灰；超过两样有颜色的东西。"
+    ],
+    [
+    "导演",
+    "Clawd 扮辛德勒：灰色软呢帽、手握缰绳，坐在马上往下看。四个硬切跟着他的目光走：山坡、长焦主观镜头、街面，最后收在蜡烛上，每个镜头约一拍半。全程克制：人只是在走，不出现任何暴力。"
+    ],
+    [
+    "参考",
+    "Steven Spielberg, Schindler's List (1993)、Janusz Kamiński (cinematography)、Schindler's List (1993) poster"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q68",
+    "group": "Q",
+    "name": "泥金手抄本 · 贴金细密画",
+    "handle": "NO.68 · 1995《勇敢的心》",
+    "img": "lemo/q/68",
+    "video": "lemo/q/68.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "一页中世纪手抄本：带冲压点的磨光金箔、青金石蓝、朱红、哥特体字，中间一幅窗口似的战役细密画。《勇敢的心》是苏格兰传奇，片尾那声 FREEDOM 做成泥金首字母。",
+    "palette": [
+    "#ECDCB4",
+    "#2A1A10",
+    "#27469A",
+    "#C43A20"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1995 年奥斯卡最佳影片《勇敢的心》（Braveheart）"
+    ],
+    [
+    "画法组合",
+    "《凯尔经》编结纹 + 哥特细密画（摩根圣经） + 《鲁特雷尔诗篇》页边画 + 磨光金箔"
+    ],
+    [
+    "风格提示词",
+    "一页泥金装饰手抄本，取局部或双页填满画面。羊皮纸 #ECDCB4、褐色墨线 #2A1A10、青金石蓝 #27469A、朱红 #C43A20，加抛光金箔：石膏底隆起，有打孔小圆点花，一道烛光高光只在金上慢慢扫过。细密画背景多为金箔（夜景用青金石底加金星），金至少占画面一成。哥特式人物平涂加墨线。凯尔特编结纹、常春藤边框、页边怪诞小兽；正文写故事（拉丁文或用户的语言），宽头笔哥特体，红蓝行尾线，一个大金首字母。版式：细密画如一扇窗，约占半页，旁为文字栏；窗后分层，推进出视差；人物可破框。左上暖烛光，褐色暗角，淡颜料颗粒。对标《凯尔经》、摩根圣经、勒特雷尔诗篇。避免：平涂黄色代替金箔；现代字体；人脸上的高光。"
+    ],
+    [
+    "导演",
+    "Clawd 扮华莱士：双手大剑、格子呢披带、额头一道蓝色 woad。四个硬切：首字母、整页、桥、交锋。冲锋在中段越来越猛，最后一个镜头里头顶的卷轴展开 freedom。场景时间约为屏幕时间的 1.8 倍。"
+    ],
+    [
+    "参考",
+    "Mel Gibson, Braveheart (1995)、Braveheart (1995) poster、Book of Kells、Morgan Bible (Maciejowski Bible)、Luttrell Psalter"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q69",
+    "group": "Q",
+    "name": "探险家剪贴本水彩",
+    "handle": "NO.69 · 1996《英国病人》",
+    "img": "lemo/q/69",
+    "video": "lemo/q/69.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "贴在旧书里的水彩速写，夹着地图、照片、便条和压花，整体是海报的琥珀褐。艾玛殊那本塞满画和笔记的希罗多德是全片的框架，镜头就穿过一张水彩进入游泳者洞穴。",
+    "palette": [
+    "#E8D6B0",
+    "#6B4A2E",
+    "#D08A3C",
+    "#9C6A86"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1996 年奥斯卡最佳影片《英国病人》（The English Patient）"
+    ],
+    [
+    "画法组合",
+    "透明水彩 + 钢笔笔记和手写 + 剪贴拼贴：胶带、照片、地图 + 琥珀褐调色"
+    ],
+    [
+    "风格提示词",
+    "旅人的剪贴本铺满画面，从边到边挤满 6–10 样互相压叠的东西，有的伸出画框：胶带贴的水彩画（主画面，约占四成）、手绘地图、深褐老照片、印刷页、手写便条、压花；每样带柔影和泛黄胶带。水彩画：湿中湿铺色，受光面暖赭，暗面是硬边紫玫瑰色，钢笔勾轮廓，积色边，明暗对比清楚。配色：琥珀纸 #E8D6B0、深褐 #6B4A2E、赭 #D08A3C、紫玫瑰 #9C6A86、墨 #2A1E16。画里：暗前景里一个暖光源（火把、灯）投下光池，外面是明亮的天。琥珀调色只轻压书页，画里保持干净不发脏；暗角约两成，纸纹淡。招牌动作：推进一张画，直到书页边缘从两侧滑出、人已在画里。对标摄影师 John Seale（《英国病人》，1996）。避免：平滑数码渐变；稀疏整齐的版面；书页还框着画时横摇。"
+    ],
+    [
+    "导演",
+    "Clawd 扮艾玛殊：亚麻沙漠头巾，巾尾飘着，一手希罗多德、一手火把。推进画里的镜头本身就是转场；之后两个硬切都留在洞里，先壁画，再 Clawd。场景时间约为屏幕时间的 1.8 倍。"
+    ],
+    [
+    "参考",
+    "Anthony Minghella, The English Patient (1996)、John Seale (cinematography)、The English Patient (1996) poster、Cave of Swimmers, Wadi Sura"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q70",
+    "group": "Q",
+    "name": "蓝图显影成 3D 实景",
+    "handle": "NO.70 · 1997《泰坦尼克号》",
+    "img": "lemo/q/70",
+    "video": "lemo/q/70.mp4",
+    "loop": true,
+    "fit": "3D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "普鲁士蓝晒图纸上的白线立起来、长出透视，再显影成夕阳下全彩的 3D 船，一路入夜。船本身就是这部片的标志，所以船厂图纸和实景用的是同一艘模型。",
+    "palette": [
+    "#12306B",
+    "#244D8F",
+    "#F2B860",
+    "#3A2530"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1997 年奥斯卡最佳影片《泰坦尼克号》（Titanic）"
+    ],
+    [
+    "画法组合",
+    "船厂总布置蓝图 + 按真实尺寸建模的 three.js 船 + Russell Carpenter 的色彩 + 一镜到底"
+    ],
+    [
+    "风格提示词",
+    "一张工程蓝图变成偏写实的 3D。蓝图只占开头 1–2 秒、不超过全片 15%：普鲁士蓝晒图纸（#12306B 到 #244D8F）上的白色棱线，线宽约画面 1/800，被挡的线画虚线，人物和地形用等高线；曝光不匀，有折痕、手写标注和图签。滑动变焦让立面图立成透视，再从主角往外显出全彩，显影边是带暖光的软边，幽灵线一秒内淡掉。之后是风格主体：黄金时刻的真实 3D，低太阳，暖琥珀高光 #F2B860，深暖阴影 #3A2530，水面阳光碎金，薄雾，浅景深，轻泛光，细颗粒；再到蓝调时刻和夜晚，暖灯亮起。一个不间断运镜：推近、立起在蓝图段，之后低掠主角、升起环绕、下降平分余下时间。对标摄影师 Russell Carpenter（《泰坦尼克号》，1997）。避免：在图上停太久；硬切；平而干净的 CG 光。"
+    ],
+    [
+    "导演",
+    "Clawd 扮杰克，围一条藏青羊毛围巾。16 拍一个镜头不切：1.5 秒蓝图展开完，2.4 秒显影完，Clawd 在罗丝身旁张开双臂；从夕阳到夜晚是运镜中的延时，冰山在最后两秒出现，Clawd 转身报警落在最后几拍。"
+    ],
+    [
+    "参考",
+    "James Cameron, Titanic (1997)、Russell Carpenter (cinematography)、Titanic (1997) poster、Harland & Wolff general-arrangement drawings"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q71",
+    "group": "Q",
+    "name": "希利亚德伊丽莎白细密画",
+    "handle": "NO.71 · 1998《莎翁情史》",
+    "img": "lemo/q/71",
+    "video": "lemo/q/71.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "学尼古拉斯·希利亚德的伊丽莎白时代宫廷细密画：羊皮纸上的不透明水彩、群青底、贝壳金题字、白色野蔷薇。影片发生在莎士比亚的伦敦，细密画正是那个宫廷自己的肖像形式。",
+    "palette": [
+    "#203E92",
+    "#D6B05C",
+    "#A8202C",
+    "#F6F2E8"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1998 年奥斯卡最佳影片《莎翁情史》（Shakespeare in Love）"
+    ],
+    [
+    "画法组合",
+    "宫廷细密肖像（limning） + 羊皮纸上的不透明水彩 + 贝壳金 + 深红锦缎静物"
+    ],
+    [
+    "风格提示词",
+    "伊丽莎白时代宫廷细密画，学尼古拉斯·希利亚德：暖色羊皮纸上平涂不透明水彩，暗面极细排线（线宽约画面宽度的 1/1000），受光边点铅白，红褐轮廓线。配色：群青底 #203E92、贝壳金 #D6B05C（细颗粒金点加几处抛光高光）、胭脂红 #A8202C、铅白 #F6F2E8、铜绿 #346C40。招牌画面：主体画在金边椭圆挂坠里，挂坠平放在锈红色锦缎上；一丛开满白花的野蔷薇铺满主体身后和四周，上沿一圈金色罗马大写短铭文。椭圆底色始终是群青，风景和天空放进去时画成平涂色带。大场景可离开挂坠，画法不变。镜头慢推、轻微下摇，只有花、布料和手势在动。对标希利亚德《玫瑰丛中的青年》（约 1587）。避免：喷枪渐变；厚油画笔触；平黄色的金。"
+    ],
+    [
+    "导演",
+    "Clawd 扮莎士比亚：浆硬的轮状皱领、金耳环，细密画里拿羽毛笔，舞台上换成白玫瑰。四个镜头硬切，从私人的细密画一路走到公众的剧院，最后一拍女王慢慢点头，收住这一段。"
+    ],
+    [
+    "参考",
+    "John Madden, 1998、Nicholas Hilliard, Young Man Among Roses (c.1587)、Shakespeare in Love 1998 poster (red damask, amber light)"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q72",
+    "group": "Q",
+    "name": "郊区对称电影画面 + DV 录像",
+    "handle": "NO.72 · 1999《美国丽人》",
+    "img": "lemo/q/72",
+    "video": "lemo/q/72.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "两种画面剪在一起：先是干净饱和、正面对称的郊区住宅（红门、红玫瑰），再切到带 REC 界面的低清 DV 录像。对应影片里莱斯特体面的郊区和里基拍下的那段塑料袋录像。",
+    "palette": [
+    "#A19C8F",
+    "#322E22",
+    "#F3F4EE",
+    "#912F25"
+    ],
+    "spec": [
+    [
+    "原片",
+    "1999 年奥斯卡最佳影片《美国丽人》（American Beauty）"
+    ],
+    [
+    "画法组合",
+    "Conrad Hall 式正面对称构图 + 玫瑰花瓣幻想 + 90 年代 DV 摄像机录像"
+    ],
+    [
+    "风格提示词",
+    "两种画面。主画面约七成：干净饱和的插画，正面对称，主角居中，身后是它的家或场景；形状有两三层柔和明暗，细节密（灌木、花丛、由许多小叶簇堆成的树冠）。默认明亮日光；其他光线下也要亮（日落偏金），不发暗。红门 #C3141F 一类红色点缀，白线脚，饱和的绿，橙红秋树；暖调、轻暗角、细颗粒。过渡：卷曲的红花瓣或落叶（约画宽 1/60）越积越密，一秒风暴扫过镜头藏住剪切。副画面约三成：同一世界的 90 年代 DV 家庭录像，发软、低清、色彩渗边、马赛克块、隔行线、噪点、曝光一呼一吸、暗部偏绿，屏显 REC、电量、日期。每帧只用一种。镜头缓推。对标摄影师 Conrad L. Hall（《美国丽人》，1999）。避免：干净画面带录像瑕疵；真实品牌屏显；扁平矢量形。"
+    ],
+    [
+    "导演",
+    "Clawd 扮莱斯特：白衬衫领尖、藏青底酒红斜纹领带，手里一枝红玫瑰。一个推镜头从房子推到近景，花瓣一路加密；到 1.3 秒，切到录像的那一刀藏在扫过镜头的花瓣里，幻想直接流进里基的录像带，看不出剪辑点。"
+    ],
+    [
+    "参考",
+    "Sam Mendes, 1999、Conrad L. Hall (cinematography)、American Beauty 1999 poster (the rose)"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q73",
+    "group": "Q",
+    "name": "罗马地面马赛克",
+    "handle": "NO.73 · 2000《角斗士》",
+    "img": "lemo/q/73",
+    "video": "lemo/q/73.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "整幅画用方形石子和玻璃嵌片铺成：轮廓边的石子顺着形体排，平面处一行行直排，金箔玻璃片会闪。影片本身就在罗马，所以斗兽场和极乐麦田都做成罗马地面马赛克。",
+    "palette": [
+    "#E2B24C",
+    "#5B4332",
+    "#8E3C2B",
+    "#E9DDC4"
+    ],
+    "spec": [
+    [
+    "原片",
+    "2000 年奥斯卡最佳影片《角斗士》（Gladiator）"
+    ],
+    [
+    "画法组合",
+    "顺形排列的石子（opus vermiculatum） + 金箔玻璃嵌片 + Zliten 角斗士马赛克"
+    ],
+    [
+    "风格提示词",
+    "罗马地面马赛克。先画平涂底稿，再铺小方石子，每粒约画面宽度的 1/150：轮廓边的石子顺着边排两三圈（opus vermiculatum），其余一行行横排；人物外面包一圈深色石子轮廓。颜色只用天然石头和玻璃，沉稳偏暖：焦金 #E2B24C、赭褐 #5B4332、陶红 #8E3C2B、暖大理石 #E9DDC4，帝王紫玻璃只做一处点缀；天空和水用浅灰蓝、奶油色石头，不要饱和的色带。每粒切口略不规则，左上受光，往 1–2px 宽的深色灰缝投小影；金箔玻璃片在光源处慢慢闪。人物正面、略僵，像庞贝马赛克；背景是大片褪色的细碎石子。镜头只短推短拉，动的是细节：手势、人群、草木、光柱。对标《亚历山大马赛克》、Zliten 马赛克。避免：整齐网格变像素画；石子太大；平滑渐变；灰缝太亮。"
+    ],
+    [
+    "导演",
+    "Clawd 扮麦克西姆斯：一只青铜肩甲、一把罗马短剑。开场是大拇指朝下；硬切到斗兽场，观众在 Clawd 四周站起来；最后一刀离开打斗，落到极乐世界安静的麦田。三个硬切，每个一秒左右。"
+    ],
+    [
+    "参考",
+    "Ridley Scott, 2000、John Mathieson (cinematography)、Alexander Mosaic, Pompeii、Zliten mosaic"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q75",
+    "group": "Q",
+    "name": "福斯舞台：红黑聚光剪影",
+    "handle": "NO.75 · 2002《芝加哥》",
+    "img": "lemo/q/75",
+    "video": "lemo/q/75.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "黑色舞台被硬边聚光切开：六间牢房里是勾红边的女囚剪影，背后霓虹 C，亮片和烟雾，Clawd 在白色追光里。这是电影版的「Cell Block Tango」，用海报的红黑。",
+    "palette": [
+    "#D0202A",
+    "#FF5A3C",
+    "#FFD9A0",
+    "#FFF1D6"
+    ],
+    "spec": [
+    [
+    "原片",
+    "2002 年奥斯卡最佳影片《芝加哥》（Chicago）"
+    ],
+    [
+    "画法组合",
+    "鲍勃·福斯的舞台调度 + 勾红边的逆光剪影 + 霓虹与亮片 + 2002 年海报的红黑"
+    ],
+    [
+    "风格提示词",
+    "鲍勃·福斯式百老汇歌舞舞台。黑底，但约四成画面发信号红 #D0202A：一排带栏杆的暗色格间，每格在烟雾里从背后打红光，中心最亮、向四周暗到黑，再加红幕；硬边聚光穿过烟雾。舞者是实心黑剪影，身形饱满、有服装轮廓，外面一圈 2–3px 红色边光。一个大霓虹字形（字母或图形），橙红 #FF5A3C，白热芯、微闪，要放在黑底上才读得出；黑色亮漆地板倒映它；台边一排跑马灯泡 #FFD9A0。主角站在暖白追光 #FFF1D6 里，是唯一被照亮、保留自身颜色的人。点缀：亮片、白手套。动作踩爵士拍子；灯格一间间啪地亮。镜头推进，收在追光里。对标 Rob Marshall《芝加哥》（2002）。避免：平涂匀光；多余颜色；剪影没有边光。"
+    ],
+    [
+    "导演",
+    "Clawd 戴福斯式圆顶礼帽（帽带一圈亮片）、白手套，拿黑手杖。第一个镜头里牢房跟着拍子一间间亮；快切一个女囚；然后 Clawd 独占追光，以 jazz hands 收尾。表演按真实速度走，不加速。"
+    ],
+    [
+    "参考",
+    "Rob Marshall, 2002、Dion Beebe (cinematography)、Bob Fosse, Chicago (1975 stage)、Chicago 2002 poster"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q76",
+    "group": "Q",
+    "name": "艾伦·李式水彩 + 托尔金地图",
+    "handle": "NO.76 · 2003《指环王：王者无敌》",
+    "img": "lemo/q/76",
+    "video": "lemo/q/76.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "柔和的水彩加铅笔风景，空气透视很深，再加一张羊皮纸上的墨线地图。电影的概念画就是艾伦·李和约翰·豪画的，所以这段旅程按三部曲最初被画出来的样子来讲。",
+    "palette": [
+    "#E9DCC0",
+    "#3A2418",
+    "#E07A2E",
+    "#B23A1E"
+    ],
+    "spec": [
+    [
+    "原片",
+    "2003 年奥斯卡最佳影片《指环王：王者无敌》（The Lord of the Rings: The Return of the King）"
+    ],
+    [
+    "画法组合",
+    "水彩加铅笔的概念插画 + 托尔金式羊皮纸地图 + 艾伦·李与约翰·豪"
+    ],
+    [
+    "风格提示词",
+    "奇幻概念设计式的水彩加铅笔，暖色纸。透明水彩要看得出颗粒（细碎颜料斑点，亮度起伏 ±6%），几朵回流花，水迹边缘积色更深；每条轮廓和山脊都有一道深褐铅笔线（约画面宽度的 1/800），暗面短排线。空气透视要强：3–5 层后退，越远越淡越冷。光就是主题：每场一个强光源（低太阳、火、灯、熔岩般的光）穿透雾气，余烬色光晕约占画面四分之一，约一半画面压在深褐和紫色暗部里。配色：羊皮纸 #E9DCC0、深褐 #3A2418、余烬橙 #E07A2E、炽红 #B23A1E 只用在光源核心、远景淡紫 #B8A8C8。旅程题材可插一段托尔金式地图，但不当主画面。镜头：长横摇扫过大地，缓推到主角。对标 Alan Lee、John Howe。避免：平滑的数码渐变；平涂矢量形；发白发灰的画面。"
+    ],
+    [
+    "导演",
+    "Clawd 扮佛罗多：灰绿色斗篷领、罗瑞恩叶子胸针、链子上的魔戒。作为这十年的重点片给了 12 拍：地图交代整条路，烽火带着镜头扫过山脉，眼睛是一拍短促的威胁，最后举起魔戒收住。镜头之间硬切，每个镜头内部是长运动。"
+    ],
+    [
+    "参考",
+    "Peter Jackson, 2003、Andrew Lesnie (cinematography)、Alan Lee、John Howe、J.R.R. Tolkien's maps of Middle-earth"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q78",
+    "group": "Q",
+    "name": "洛杉矶夜景光轨 + 飘雪",
+    "handle": "NO.78 · 2005《撞车》",
+    "img": "lemo/q/78",
+    "video": "lemo/q/78.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "用代码画的精修夜景照片：高架上白色和红色的车灯光轨、钠灯橙对霓虹青、湿路面反光、焦外光斑，还有只在光里才看得见的雪。《撞车》的结尾正是洛杉矶难得的一场雪。",
+    "palette": [
+    "#F2A24A",
+    "#3FD0D8",
+    "#FFF4E0",
+    "#E0303A"
+    ],
+    "spec": [
+    [
+    "原片",
+    "2005 年奥斯卡最佳影片《撞车》（Crash）"
+    ],
+    [
+    "画法组合",
+    "长曝光夜景摄影 + 钠灯橙配霓虹青 + 变形宽银幕光条与胶片颗粒"
+    ],
+    [
+    "风格提示词",
+    "长曝光夜景街拍。钠灯暖橙 #F2A24A 铺满建筑、招牌和湿地面（约一半画面在暖光里），对着青色霓虹 #3FD0D8，偶有红蓝警灯；黑色略偏青，不能发灰。构图分层：前景人行道有人，中景亮着的店面招牌，上三分之一横过道路或桥（不在城市就用主体所在地一条有路灯的路）。车灯沿这些路拉成细而连续的光带（约画宽 1/150），白 #FFF4E0 与红 #E0303A，带光晕和发烫的芯。雪分三层，短而柔的拖影，只在光锥里可见。收尾：两级泛光、蓝色横向光条、边缘焦外光斑、暗角、动态颗粒。主角清楚地站在画面中部一盏灯的光锥里，只有车流拖影。镜头：一个连续运镜，俯仰、横摇加转焦。对标摄影师 J. Michael Muro（《撞车》，2004）。避免：雪到处一样亮；大片空黑；光带断成点。"
+    ],
+    [
+    "导演",
+    "Clawd 围一条手织的深青色围巾，站在路灯下仰头看雪。v6 把原来的三个镜头改成一个连续运镜，快速移动的几段带运动模糊：先光轨，再车祸，最后是 Clawd。镜头到它那里时雪变大，接雪的动作落在快结束的地方。"
+    ],
+    [
+    "参考",
+    "Paul Haggis, 2004、J. Michael Muro (cinematography)、Crash 2005 poster、Four Level Interchange long-exposure photography"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q80",
+    "group": "Q",
+    "name": "3D 西德州荒原黄昏（迪金斯光）",
+    "handle": "NO.80 · 2007《老无所依》",
+    "img": "lemo/q/80",
+    "video": "lemo/q/80.mp4",
+    "loop": true,
+    "fit": "3D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "实时 3D 的西德州黄昏荒原：太阳压在地平线上，长影子朝着镜头，低饱和的土黄和灰绿，细颗粒。照着迪金斯为科恩兄弟拍的光，和海报上逆光里提着箱子的人。",
+    "palette": [
+    "#201608",
+    "#FCBB77",
+    "#A07753",
+    "#7F3A1F"
+    ],
+    "spec": [
+    [
+    "原片",
+    "2007 年奥斯卡最佳影片《老无所依》（No Country for Old Men）"
+    ],
+    [
+    "画法组合",
+    "实时 3D（three.js） + 罗杰·迪金斯的黄昏光 + 低饱和胶片调色"
+    ],
+    [
+    "风格提示词",
+    "偏写实的 3D 黄昏旷野（three.js）。天空很大，约占画面六成，地平线处尘土赭色 #D8A060，往上渐到淡奶油色，几缕细长云被下方照亮。太阳高出地平线 1–2°，仍能投影，光沿远处坡脊烧成一线亮边。低饱和：成百丛灰绿小灌木退向地平线，碎石和干草散在暗暖色泥土 #2A2622 上（默认干旱荒地，换别的地貌也保留稀疏成丛的植被）。主角逆光站在中景，约占画面高度三分之一，长影子朝镜头拉来。按天空曝光：太阳可以过曝，光晕不超过画面十分之一。调色：中性色调映射、暖高光、细颗粒、暗角。招牌镜头：基本固定，低机位广角（约 35mm）。对标摄影师 Roger Deakins（《老无所依》，2007）。避免：饱和的橙色晚霞；大片发白眩光；光秃的地面；忙乱的运镜。"
+    ],
+    [
+    "导演",
+    "Clawd 扮勒维林：浅褐色毡质牛仔帽、一只皮质文件箱。三个固定机位硬切：日落时提箱走路，中间是「猜吧」的硬币，最后夜里车灯压过来，危险到了。光线把时间从黄昏带到天黑。"
+    ],
+    [
+    "参考",
+    "Joel and Ethan Coen, 2007、Roger Deakins (cinematography)、No Country for Old Men 2007 poster"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q81",
+    "group": "Q",
+    "name": "答题节目演播室 + 孟买橙青",
+    "handle": "NO.81 · 2008《贫民窟的百万富翁》",
+    "img": "lemo/q/81",
+    "video": "lemo/q/81.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "蓝紫色加金色高光的电视演播室，摇头灯光束、镜头光斑；然后切到饱和橙青色的孟买屋顶。影片本身就在答题节目的最后一题和贾马尔出身的贫民窟之间来回切。",
+    "palette": [
+    "#5A3FD0",
+    "#F0A020",
+    "#E2206B",
+    "#0F7C7A"
+    ],
+    "spec": [
+    [
+    "原片",
+    "2008 年奥斯卡最佳影片《贫民窟的百万富翁》（Slumdog Millionaire）"
+    ],
+    [
+    "画法组合",
+    "电视答题节目的灯光 + 蓝紫光束与镜头光斑 + Anthony Dod Mantle 的橙青色调"
+    ],
+    [
+    "风格提示词",
+    "两种画面。主画面约占七成：光鲜的插画式答题演播室，明亮饱满，略俯的四分之三视角：底光玻璃圆台和一圈圈蓝光环，背后坐满观众，摇头灯在烟雾里打出蓝紫光束 #5A3FD0，大屏上长六角形答案框，一个锁成琥珀色 #F0A020；加泛光和横向光斑；越紧张四周越暗，最多暗到一半，不全黑。人物圆润干净，柔和明暗。第二种画面约占三成，整屏硬切：主题所在地方的黄金时刻景象，饱和橙青，密而热闹（比如铁皮屋顶、晾衣绳、人群）。点缀：洋红 #E2206B、青 #0F7C7A、橘黄 #F06A14。镜头推向大屏和座位，光束收到一人身上；其余慢摇。对标摄影师 Anthony Dod Mantle（《贫民窟的百万富翁》，2008）。避免：真实节目 logo；大片漆黑的演播室；平均打光；灰暗空荡的场景。"
+    ],
+    [
+    "导演",
+    "Clawd 扮贾马尔：浅蓝细格衬衫领加一只领夹麦。答案从第一帧就锁定；第二个镜头把全场压暗、收到热座上，答案变绿时放开；然后硬切到孟买屋顶，画面一下打开到整座城市。"
+    ],
+    [
+    "参考",
+    "Danny Boyle, 2008、Anthony Dod Mantle (cinematography)、Slumdog Millionaire 2008 poster"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q82",
+    "group": "Q",
+    "name": "拆弹教范线图",
+    "handle": "NO.82 · 2009《拆弹部队》",
+    "img": "lemo/q/82",
+    "video": "lemo/q/82.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "一页美军拆弹手册：均匀黑线、排线阴影、点描沙土、带圈编号和引线、IED 分解图，只有一点橄榄绿和沙色。《拆弹部队》讲高压下的程序，手册图就是画出来的程序。",
+    "palette": [
+    "#EFEADB",
+    "#1B1A16",
+    "#6C6D42",
+    "#D9C79C"
+    ],
+    "spec": [
+    [
+    "原片",
+    "2009 年奥斯卡最佳影片《拆弹部队》（The Hurt Locker）"
+    ],
+    [
+    "画法组合",
+    "军用技术手册线图 + 爆炸分解图 + 打字机字标注 + 橄榄绿与沙色平涂"
+    ],
+    [
+    "风格提示词",
+    "军用技术手册插图。暖米白纸 #EFEADB 上一层很淡的工程网格，统一黑墨 #1B1A16（轮廓线宽约画面宽度的 1/700，排线更细），明暗只靠排线，地面用点刻，只在两三成的画面上平涂橄榄绿 #6C6D42 和沙色 #D9C79C；灯光画成放射线，不画光晕。主图：题材场景的一点透视画面，占页面大半，里面有人物和器物；四周是题材关键器物沿点划线轴展开的爆炸图、引线上的带圈数字、零件表、WARNING 和 CAUTION 框、打字机字体的标注（用观众的语言）和 FIG 编号，一块黑底章节卡。动画一拍二：零件滑开、工具动作、人物走路。镜头先看整页，再切到放大插图式的细节。对标美军技术手册，Kathryn Bigelow《拆弹部队》（2008）。避免：渐变明暗；颜色太多；花哨字体；空荡的页面。"
+    ],
+    [
+    "导演",
+    "Clawd 戴橄榄绿拆弹头盔、面罩掀起，手拿剪线钳，站在六枚半埋的 155mm 炮弹中间。四个镜头从整页一路收紧到剪断：漫长的走路、面罩里的脸、Clawd 的眼睛、剪线。咔的一声落在这段快结束的地方。"
+    ],
+    [
+    "参考",
+    "Kathryn Bigelow, 2008、Barry Ackroyd (cinematography)、The Hurt Locker 2008 poster、US Army EOD technical manuals"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q83",
+    "group": "Q",
+    "name": "斑驳墙 + 金色广播间",
+    "handle": "NO.83 · 2010《国王的演讲》",
+    "img": "lemo/q/83",
+    "video": "lemo/q/83.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "墙面肌理很重的油画质感室内：罗格诊室那面冷灰绿的多层斑驳墙，再到琥珀金的软包广播间、弹簧吊着的话筒和细细的金色声波。照着 Eve Stewart 设计的墙和海报的金黄。",
+    "palette": [
+    "#98622A",
+    "#22160C",
+    "#D5A864",
+    "#663719"
+    ],
+    "spec": [
+    [
+    "原片",
+    "2010 年奥斯卡最佳影片《国王的演讲》（The King's Speech）"
+    ],
+    [
+    "画法组合",
+    "数字油画笔触 + 层层剥落的漆墙 + 30 年代广播间 + 金色声波细线"
+    ],
+    [
+    "风格提示词",
+    "墙面就是画面的油画质感室内（户外题材搬进相关的有窗屋子）。主调：菱形钉扣软包墙，金 #C9A050 压在深褐 #3A2610 上，扣子带黄铜高光，声源（比如吊着的话筒）后面一团暖金光。副调用于安静的场景：冷灰绿墙面，局部磨穿露出蓝、粉、赭和灰泥，有潮线和细裂纹；剥落块不规则，最多占墙面三分之一。形状边缘干净，只罩一层淡淡的笔触纹理（笔触约画宽 1/120，亮度起伏 ±5%）；脸和小物件画清楚。声音画成 4–8 条细金色示波线，扩过墙面，先带尖刺，后来平滑。人物偏到角落，留大片墙。镜头慢推，插一个声源特写。对标摄影师 Danny Cohen、美术指导 Eve Stewart（《国王的演讲》，2010）。避免：居中对称；粗糙点戳笔触；地图般的剥落；霓虹般亮的声波。"
+    ],
+    [
+    "导演",
+    "Clawd 扮乔治六世：小王冠、翼领和深色领带，诊室里夹着烟，广播间里拿着打字稿。三个镜头硬切讲完治疗：缩在角落，声波从口吃变流畅，然后罗格打着拍子，演讲播出去。"
+    ],
+    [
+    "参考",
+    "Tom Hooper, 2010、Danny Cohen (cinematography)、Eve Stewart (production design)、The King's Speech 2010 poster"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q86",
+    "group": "Q",
+    "name": "显影中的银版老照片",
+    "handle": "NO.86 · 2013《为奴十二年》",
+    "img": "lemo/q/86",
+    "video": "lemo/q/86.mp4",
+    "loop": true,
+    "fit": "2D · 黑白",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "铜框丝绒盒里的 1850 年代银版照片，从空白显影：椅子上靠着小提琴，Clawd 低头站在旁边。这是所罗门·诺瑟普那个年代的照相术，只用一件物件讲这部片，不画人。",
+    "palette": [
+    "#8A6A2C",
+    "#1C1A18",
+    "#ECEBE6",
+    "#D97757"
+    ],
+    "spec": [
+    [
+    "原片",
+    "2013 年奥斯卡最佳影片《为奴十二年》（12 Years a Slave）"
+    ],
+    [
+    "画法组合",
+    "1850 年代带盒银版照片 + 手工上色锡版照片 + 影楼静物"
+    ],
+    [
+    "风格提示词",
+    "1850 年代盒装银版照片在显影。招牌镜头：银版宽度占画面约 85%，外圈是带珠串的黄铜衬框 #8a6a2c、圆角矩形开口，红丝绒和皮盒只露在边上。银版是灰阶银色，从近黑 #1c1a18 到浅银 #ecebe6；蓝紫到琥珀的氧化晕只在开口边缘窄窄一圈。抛光旋纹、发丝划痕和斑点都要轻（亮度 ±4%）。左上方柔和窗光，主体静止摆姿，背后素色布景，户外地点画在布景上。一镜到底：前 1 秒左右镜头从打开的盒子推到招牌景别，然后停住；影像从空白的镜面灰开始，暗部先出，显影前沿从左扫到右，约 3 秒显完。只有故事围绕的那个主角手工上色：一层半透明平涂（如 #D97757），透出底下的明暗；灯保持灰色。避免：棕褐色、银版太小、快切。"
+    ],
+    [
+    "导演",
+    "没有戏服，也不画人：Clawd 站在所罗门的小提琴旁，慢慢低头。整段只有三种动：影像显影、一次慢推、低头，2.5 秒一刀不剪。"
+    ],
+    [
+    "参考",
+    "Steve McQueen, 12 Years a Slave (2013)、1850s cased daguerreotypes and ambrotypes、Solomon Northup, Twelve Years a Slave (1853)"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q87",
+    "group": "Q",
+    "name": "3D 后台走廊长镜头",
+    "handle": "NO.87 · 2014《鸟人》",
+    "img": "lemo/q/87",
+    "video": "lemo/q/87.mp4",
+    "loop": true,
+    "fit": "3D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "细致的 3D 百老汇剧院后台，用手持长镜头拍：暖钨丝灯对冷日光灯，最后冲进时代广场的强光。《鸟人》最出名的就是假装一镜到底，所以这段的风格就是那条运镜。",
+    "palette": [
+    "#6E2A22",
+    "#CDB98E",
+    "#FF2A1A"
+    ],
+    "spec": [
+    [
+    "原片",
+    "2014 年奥斯卡最佳影片《鸟人》（Birdman）"
+    ],
+    [
+    "画法组合",
+    "实时 3D（three.js） + 卢贝兹基手持长镜头 + 钨丝灯与日光灯 + 数字电影细颗粒"
+    ],
+    [
+    "风格提示词",
+    "实时 3D，仿摄影师埃马努埃尔·卢贝兹基（《鸟人》，2014），一条不断的手持长镜头。主体在窄而旧的通道里（默认后台走廊；户外题材放进最近的室内）：下三分之一是掉漆的血红搪瓷墙裙 #6e2a22，上面是带水渍的烟黄石膏墙 #cdb98e，头顶水管和桥架，墙上有门和告示。光只来自画内灯具，每两三米一盏：铁笼钨丝灯（暖）、一根在闪的日光灯（冷）、一盏红色出口灯 #ff2a1a；远处门外发亮。中等曝光：灯旁墙亮，灯间不低于中灰，地面看得清。广角 18–24 毫米，低频晃动约 ±1°，柔和环境光遮蔽、轻辉光、细颗粒（±3%）。运镜 20–40 秒，次序不限：倒退领路，甩向一侧的门洞，让主体擦过镜头，再转身跟上。避免：锁死机位、空白墙面、重复纹理、压得太黑。"
+    ],
+    [
+    "导演",
+    "Clawd 扮里根，戴一顶石板蓝的鸟人头盔，金色鸟喙、两侧羽翼。走廊是一条很快的手持运镜，鼓手的摇摆鼓点就在画面里；推开后门那一下卡在拍点上，切到时代广场，Clawd 停下抬头看。"
+    ],
+    [
+    "参考",
+    "Alejandro G. Iñárritu, Birdman (2014)、Emmanuel Lubezki (cinematography)、Kevin Thompson (production design)、Antonio Sánchez (drum score)"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q88",
+    "group": "Q",
+    "name": "缩微胶片阅读机 · 报纸网点",
+    "handle": "NO.88 · 2015《聚焦》",
+    "img": "lemo/q/88",
+    "video": "lemo/q/88.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "印成报纸网点的画面，放到缩微胶片阅读机的灰绿屏幕上：扫描线、滚动的扫描光带、玻璃上的灰尘。片中记者就在这种档案里挖出真相，换镜头也做成胶片横移。",
+    "palette": [
+    "#1B2320",
+    "#0C110F",
+    "#A0DCAF",
+    "#D97757"
+    ],
+    "spec": [
+    [
+    "原片",
+    "2015 年奥斯卡最佳影片《聚焦》（Spotlight）"
+    ],
+    [
+    "画法组合",
+    "图书馆缩微胶片阅读机 + 2001 年报纸 CMYK 网点 + 磷光绿单色"
+    ],
+    [
+    "风格提示词",
+    "2001 年报纸彩色网点，放在图书馆缩微胶片阅读机上看。招牌镜头：图片本身铺满画面，不要报头和文字栏；图里的线条和字（招牌、标签）保持实线。四色网点角度 15°、75°、0°、45°，网点约为画面宽度的 1/250，套色错 1 像素。整体转成低反差荧光绿单色，网点依然清楚可见：片基 #1b2320，帧间隙 #0c110f，高光不亮过 #a0dcaf。只有故事的主角整个人保留原色（如 #D97757），照样带网点，反差一样低；光源一律变绿。每 3 像素一条扫描线，每 4 秒滚过一道淡扫描带，一块柔和灯斑，玻璃上有灰和一根头发，圆角遮光罩只轻压外圈约 5%，一行小等宽胶片编号。换场把胶片横向滑过暗色帧间隙（0.5 秒）；镜头内慢推。避免：报纸版面、颜色外漏、硬切。"
+    ],
+    [
+    "导演",
+    "Clawd 扮 Spotlight 小组的记者：挂绳工作证、速记本，后面换成荧光笔。三帧缩微胶片，衔接不用硬切，而是阅读机里胶片的横向滑动，最后一拍落在头版上。"
+    ],
+    [
+    "参考",
+    "Tom McCarthy, Spotlight (2015)、Masanobu Takayanagi (cinematography)、The Boston Globe front page, 6 January 2002、Library microfiche readers"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q89",
+    "group": "Q",
+    "name": "月光蓝调油画肖像",
+    "handle": "NO.89 · 2016《月光男孩》",
+    "img": "lemo/q/89",
+    "video": "lemo/q/89.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "饱满的青绿、品红和月光蓝油画肖像，雕出来的头像再用顺着形体的笔触重新画一遍。直接照着片名那句「月光下，黑人男孩看起来是蓝色的」来画。",
+    "palette": [
+    "#32377A",
+    "#128A91",
+    "#7A2F86",
+    "#07071C"
+    ],
+    "spec": [
+    [
+    "原片",
+    "2016 年奥斯卡最佳影片《月光男孩》（Moonlight）"
+    ],
+    [
+    "画法组合",
+    "油画肖像笔触 + 青绿 / 品红 / 蓝紫双色调 + 半水上半水下的机位"
+    ],
+    [
+    "风格提示词",
+    "夜色油画肖像。平滑实心体积上，顺着形体用两遍短笔触重画，笔触反差小（明度 ±8%）：海、天、衣服用宽笔，约为画面宽度的 1/60；脸用细笔 1/150，保持平滑。按用途分色：天、海、远处陆地用中等明度的蓝紫 #32377a，约占画面六成；受月光的面和沙地提亮成淡薰衣草蓝；青绿 #128a91 用在水里和受光一侧；轮廓光用品红 #7a2f86；最深暗部 #07071c。任何肤色顶面都受蓝光、带湿亮高光，眼睛睁开有光。默认夜晚，唯一主光是满月，水面铺出碎光；品红只是远处光源的柔和轮廓光；其他小光源只是一小点青白光。颗粒 ±3%。招牌镜头：人物平静，约占画高三分之二。慢推。参照巴里·詹金斯《月光男孩》（2016）。避免：粗块笔触、石膏像小黑眼、发闷的近黑画面。"
+    ],
+    [
+    "导演",
+    "Clawd 扮小喀戎，不穿戏服：先在游泳课上被托在水面，再站在三张脸之间，最后坐在凯文身边的沙滩上。三个章节三个镜头硬切；海里和海滩两个镜头都慢慢推近，让安静延续下去。"
+    ],
+    [
+    "参考",
+    "Barry Jenkins, Moonlight (2016)、James Laxton (cinematography)、Moonlight (2016) three-face poster"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q90",
+    "group": "Q",
+    "name": "3D 水下青绿焦散",
+    "handle": "NO.90 · 2017《水形物语》",
+    "img": "lemo/q/90",
+    "video": "lemo/q/90.mp4",
+    "loop": true,
+    "fit": "3D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "实时 3D 的被淹浴室和实验室水箱，整片浸在青绿里：流动的焦散、从上方落下的光束、气泡和几盏暖色灯。德尔·托罗这部片就泡在这种水里，所以整段在水中拍。",
+    "palette": [
+    "#041414",
+    "#5FB3A6",
+    "#0C2A24"
+    ],
+    "spec": [
+    [
+    "原片",
+    "2017 年奥斯卡最佳影片《水形物语》（The Shape of Water）"
+    ],
+    [
+    "画法组合",
+    "实时 3D（three.js） + 投射焦散与体积光束 + Dan Laustsen 的青绿配暖金调色"
+    ],
+    [
+    "风格提示词",
+    "实时 3D，全在水下（陆上题材就沉进淹水的屋子或水下遗迹），泡在青绿里：背景 #041414，半球光上方 #5fb3a6、下方 #0c2a24，青绿雾，红色随距离最先消失。水面上方一个强光源投下流动焦散：近处表面上的亮格子约为画面宽度的 1/20，滑过地面、墙面和主体。光柱向下散开，画面四边保持暗。气泡、微粒、从下仰看的波纹水面。暖金色给一到三处实际灯光，至少一处要大（亮窗或灯，约为画面宽度的 1/10），加青色生物荧光。平滑着色，环境光遮蔽、浅景深、适度辉光、颗粒（±3%）。招牌镜头：低机位仰拍，主体约占画面高度一半，偏在光源一侧；慢推。参照吉尔莫·德尔·托罗《水形物语》（2017）。避免：平板的水、焦散画成天上的条纹、暖色点缀太小。"
+    ],
+    [
+    "导演",
+    "Clawd 扮埃莉莎，头上一条深红丝绒发带和蝴蝶结，后面手里拿一个白煮蛋。2.5 秒四刀，节奏稳定在 1.25 倍：光束下的拥抱、贴着的脸、水箱，最后是两只手，接触处亮起青光作为收尾的一拍。"
+    ],
+    [
+    "参考",
+    "Guillermo del Toro, The Shape of Water (2017)、Dan Laustsen (cinematography)、Paul D. Austerberry (production design)、The Shape of Water (2017) poster"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q91",
+    "group": "Q",
+    "name": "60 年代亚麻纹明信片",
+    "handle": "NO.91 · 2018《绿皮书》",
+    "img": "lemo/q/91",
+    "video": "lemo/q/91.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "一张「南方问候」亚麻纹明信片活了过来：布纹纸、喷枪上的饱和色、镀铬上的星形闪光。影片是 1962 年穿越美国南方的公路旅行，走的正是这种明信片上的路。",
+    "palette": [
+    "#3FA0DC",
+    "#4FAE57",
+    "#F08CB0",
+    "#2FB5B8"
+    ],
+    "spec": [
+    [
+    "原片",
+    "2018 年奥斯卡最佳影片《绿皮书》（Green Book）"
+    ],
+    [
+    "画法组合",
+    "Curt Teich 亚麻纹明信片 + 「Greetings from」大字母 + 喷枪手工上色 + 胶印套色错位"
+    ],
+    [
+    "风格提示词",
+    "五六十年代亚麻纹明信片，柯特·泰希出版社那一路。平纹布纹卡纸：油墨只落在凸起的经纬上，形成约为画面宽度 1/300 的细格纹，凹处露白点。手工分色的饱和色，喷枪柔和过渡：天蓝 #3fa0dc、草绿 #4fae57、粉红 #f08cb0，主体物或水面用青绿 #2fb5b8，奶油卡纸 #f6e4b8 作底色和白边。主体物要大，正侧面，约占卡片高度一半。亮面加四角星闪光；套色错位 1–2 像素。藏青立体大字带白描边，横在卡片上三分之一，写地名或片名（没有就按题材编一个），每个字母里嵌一小幅风景，上方配红飘带。开场明信片放在桌上，推进到满屏后画面活过来（水在动、人在走），再侧向横移。避免：没有布纹的渐变、发灰的颜色、照片式透视。"
+    ],
+    [
+    "导演",
+    "Clawd 扮托尼：油亮的黑色大背头、浅蓝短袖口、一支点着的烟，一手握方向盘。推进明信片的运镜直接带进公路，不切；唯一的一刀落在音乐厅，雪利博士弹琴，Clawd 在侧幕边看。"
+    ],
+    [
+    "参考",
+    "Peter Farrelly, Green Book (2018)、Sean Porter (cinematography)、Curt Teich & Co. linen postcards (1931–59)、The Negro Motorist Green Book (1962)"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q93",
+    "group": "Q",
+    "name": "魔幻时刻色粉画",
+    "handle": "NO.93 · 2020《无依之地》",
+    "img": "lemo/q/93",
+    "video": "lemo/q/93.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "灰紫色纸上的粉质色粉笔触，一片开阔的平原和一辆旧房车，天空从金黄变成玫瑰色再到紫色。《无依之地》就活在黄昏那条又长又空的地平线上，色粉让它安静、柔和。",
+    "palette": [
+    "#7D7079",
+    "#F6CF7A",
+    "#C9738A",
+    "#4B3F78"
+    ],
+    "spec": [
+    [
+    "原片",
+    "2020 年奥斯卡最佳影片《无依之地》（Nomadland）"
+    ],
+    [
+    "画法组合",
+    "有色纸上的软色粉 + 魔幻时刻的黄昏配色 + 纸面颗粒肌理"
+    ],
+    [
+    "风格提示词",
+    "灰紫色纸 #7d7079 上的软色粉画，纸的齿纹处处透出来，成细密颗粒（亮度 ±8%）。天空揉开抹平，只有几条细长的横向云带。质感集中在地面：干草赭色（金黄往纸的灰色压暗），上面铺满直立的细草笔，每笔宽约为画面宽度的 1/400、长约 1/40，明度起伏 ±15%，前景密，往地平线渐稀。物体用柔和的斜向排笔，边缘软而碎。按用途分色：地平线金黄 #f6cf7a，下层天空玫瑰 #c9738a，高空、云带和远处陆地用紫 #4b3f78，暗部用暮蓝 #2b2d5c。地平线长，在画面中线附近，下面是原野或水面；主体和身边的东西中等大小，放在下半幅。天色从金黄转玫瑰再转紫，越暗暖灯越亮。一个缓慢横移带轻推的镜头。避免：油画厚涂感、锐利数码边、光秃平滑的地面。"
+    ],
+    [
+    "导演",
+    "Clawd 扮弗恩，不拿道具，只有走、坐、看三个动作。整段一刀不剪：走路慢慢停在毯子上，坐下，再抬眼望向地平线；天色暗下来，露营灯和房车门口的光越来越暖。"
+    ],
+    [
+    "参考",
+    "Chloé Zhao, Nomadland (2020)、Joshua James Richards (cinematography)"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q94",
+    "group": "Q",
+    "name": "鲸牙骨雕（Scrimshaw）",
+    "handle": "NO.94 · 2021《健听女孩》",
+    "img": "lemo/q/94",
+    "video": "lemo/q/94.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "橡木桌上一颗抛光的抹香鲸牙，刻着细密的黑线，点缀红、蓝、黄：格洛斯特的渔船、收网的一家人、船头唱歌的鲁比。这是影片所在的新英格兰海岸自己的民间工艺。",
+    "palette": [
+    "#17110C",
+    "#9A2A22",
+    "#2B4A78",
+    "#E9B526"
+    ],
+    "spec": [
+    [
+    "原片",
+    "2021 年奥斯卡最佳影片《健听女孩》（CODA）"
+    ],
+    [
+    "画法组合",
+    "19 世纪捕鲸水手鲸骨雕 + 刻刀排线与点刻 + 桌面静物产品布光"
+    ],
+    [
+    "风格提示词",
+    "19 世纪水手在抛光鲸牙上的针刻画。招牌镜头：宽而扁的鲸牙横躺在橡木桌上，占画面宽约 85%、高约 70%，墨水瓶和折刀在边上。用近黑墨 #17110c 刻：细针排线（线宽约画面宽的 1/800，线距约 1/500）、粗细起伏的轮廓线和点刻。刻线覆盖牙面约七成：海、主体和陆地密，天空轻排线；海是成排的程式化波浪。主角要大（约占牙面高三分之一）并上色；此外红 #9a2a22、蓝 #2b4a78、黄 #e9b526 只作点缀。暖象牙底、淡生长纹、抛光划痕、牙尖蜜黄。民间朴拙构图：绳纹边框、飘带题词、放射光芒的太阳、主体世界的图案。弧度靠边缘明暗和一道窗户反光，画面不变形。先拍整颗牙，推进后慢慢横移，波浪随之动起来。避免：粗线、实色填涂、细长的牛角形。"
+    ],
+    [
+    "导演",
+    "Clawd 扮鲁比，戴一顶黄色防水渔夫帽，站在船头的鱼箱上。只有一刀：从物件切进刻画，然后一次轻轻的横移，把视线从父亲的手语带到歌声上，五线谱跟着歌声展开。"
+    ],
+    [
+    "参考",
+    "Siân Heder, CODA (2021)、CODA (2021) poster、New Bedford Whaling Museum scrimshaw collection"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q95",
+    "group": "Q",
+    "name": "光线步进多元宇宙跳切",
+    "handle": "NO.95 · 2022《瞬息全宇宙》",
+    "img": "lemo/q/95",
+    "video": "lemo/q/95.mp4",
+    "loop": true,
+    "fit": "3D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "四个宇宙四种画法，全部实时光线步进：冷绿的国税局、广告光下的热狗手指钢琴、贴大眼睛石头的寂静峡谷、变成黑洞的万物贝果。像电影里一样，靠大眼睛贴纸在宇宙间跳转。",
+    "palette": [
+    "#E5322D",
+    "#F7C928",
+    "#1FA39A",
+    "#2A6FC0"
+    ],
+    "spec": [
+    [
+    "原片",
+    "2022 年奥斯卡最佳影片《瞬息全宇宙》（Everything Everywhere All at Once）"
+    ],
+    [
+    "画法组合",
+    "GLSL 光线步进的多个宇宙 + 一个宇宙一种画法（写实办公室、超现实宇宙、风景、广告） + 大眼睛彩虹曼陀罗"
+    ],
+    [
+    "风格提示词",
+    "实时光线步进 3D 的多元宇宙蒙太奇：主体在三到四个宇宙之间跳转，各有画法，都从主体自己的世界变出来，例如：冷绿日光灯下的写实工作场所，陈设很满；带引力透镜光环的超现实宇宙；配白字幕的安静旷野远景；糖果粉背景、粉青轮廓光的广告产品照。每个停 2–4 秒，各自调色。贯穿始终的衔接物：主体身上的一只活动眼贴纸，约占画高十分之一。跳转 0.5–0.8 秒：推进这只眼睛，拖影、RGB 分离，再炸开一圈彩虹色块环（#e5322d、#f7c928、#1fa39a、#2a6fc0、#e0478f），环上嵌满活动眼和粉珠，扩到画高约八成后白闪。招牌画面：彩虹环围着主体绽开；第一次跳转在 1 秒左右。参照丹尼尔斯兄弟《瞬息全宇宙》（2022）。避免：宇宙都一个样、环太小太素。"
+    ],
+    [
+    "导演",
+    "Clawd 扮秀莲，额头贴大眼睛、腰挂腰包。每次跳宇宙都是先推进那只眼睛，再接拖影、RGB 分离和白闪，卡在切点上；每个宇宙一个不同的动作：站着、用脚踩琴键、陪石头坐着、被吸进贝果。最后回到起点，在曼陀罗里张开双臂。"
+    ],
+    [
+    "参考",
+    "Daniels, Everything Everywhere All at Once (2022)、Larkin Seiple (cinematography)、Jason Kisvarday (production design)、Everything Everywhere All at Once (2022) poster"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q96",
+    "group": "Q",
+    "name": "3D 粒子火球 · IMAX 颗粒",
+    "handle": "NO.96 · 2023《奥本海默》",
+    "img": "lemo/q/96",
+    "video": "lemo/q/96.mp4",
+    "loop": true,
+    "fit": "3D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "用实时 3D 重建黎明前的三位一体试验场：约 72 万粒子的火球、轨道和波组成的量子幻象，深蓝夜色对橙金火光，加 IMAX 式颗粒。《奥本海默》就围着这一道光展开。",
+    "palette": [
+    "#FF9A50",
+    "#FFD8A0",
+    "#2A3654",
+    "#16120E"
+    ],
+    "spec": [
+    [
+    "原片",
+    "2023 年奥斯卡最佳影片《奥本海默》（Oppenheimer）"
+    ],
+    [
+    "画法组合",
+    "实时 3D（three.js） + GPU 粒子模拟 + IMAX 65mm 印片调色 + 三位一体试验高速照片"
+    ],
+    [
+    "风格提示词",
+    "实时 3D 夜景，主角光是一场巨大的粒子事件：几十万粒子的火球（或照明弹、火山喷发、山火），形状随时间走：白闪（0.5 秒），1 秒成翻滚的斑驳穹顶，再卷成环，尘墙外扫。在主体正后方像光环，约占画面四成：核心白金，大部分是有纹理的亮橙金火团 #ff9a50，黑烟只做细暗纹和顶边，不超一成半。火光照亮全场：暖色 #ffd8a0 铺满地面和云底，主体有热轮廓光，脸上仍有半强度暖光；长影子朝镜头拖来，火星飘飞。其余是黎明前的深蓝 #2a3654 和暗土 #16120e。只让核心过曝。IMAX 拷贝调色：细颗粒（±3%）、暖色光晕溢出、暗角、轻微片门晃动。低机位广角，主体居中，慢推。参照克里斯托弗·诺兰《奥本海默》（2023）。避免：光滑的 CG 光球、被黑烟裹住的火。"
+    ],
+    [
+    "导演",
+    "Clawd 扮奥本海默：一顶浅驼色平顶软呢帽，手里一只冒烟的石楠烟斗。五个镜头硬切，垒出倒计时：铁塔、装置、幻象，白闪正好落在切进观察者的那一刀上；音乐不停，最后一秒火球在 Clawd 身后膨胀。"
+    ],
+    [
+    "参考",
+    "Christopher Nolan, Oppenheimer (2023)、Hoyte van Hoytema (IMAX cinematography)、Berlyn Brixner, Trinity test photographs (1945)、Oppenheimer (2023) poster"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q97",
+    "group": "Q",
+    "name": "雪夜霓虹",
+    "handle": "NO.97 · 2024《阿诺拉》",
+    "img": "lemo/q/97",
+    "video": "lemo/q/97.mp4",
+    "loop": true,
+    "fit": "2D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "粉、青、橙的霓虹灯管发着光，倒影拖在湿栈道上，落进飘雪里，加上辉光、虚焦光斑和颗粒。《阿诺拉》从布莱顿海滩的俄文霓虹走到维加斯的婚礼招牌，整段都用灯管照亮。",
+    "palette": [
+    "#FF4FA8",
+    "#4FDCFF",
+    "#FF9A2E",
+    "#3DFF9A"
+    ],
+    "spec": [
+    [
+    "原片",
+    "2024 年奥斯卡最佳影片《阿诺拉》（Anora）"
+    ],
+    [
+    "画法组合",
+    "霓虹灯管招牌 + 湿地面倒影与积雪 + 35mm 夜景摄影"
+    ],
+    [
+    "风格提示词",
+    "照片感的 2D 霓虹夜景。招牌是真实灯管：玻璃管、辉光、亮管、白热管芯，带卡子和深色跳线；轻微起伏，很少抖一下（5–10 秒一次）。粉 #ff4fa8、青 #4fdcff、橙 #ff9a2e、绿 #3dff9a，加暖色钠灯，压在深紫蓝夜色 #1e1838 上。霓虹放在主体世界里说得通的地方（店面、港口酒吧、主体自己那栋楼）。画面下四分之一留给湿地面：招牌拉成长长的竖向倒影，被木板缝、地砖缝或水纹打断；雪在下，边上积成雪堆，被溢光染色。主体脸上保留暖色主光（来自近处的灯、窗或它自己的灯），两侧各一条窄霓虹轮廓光；远处虚成光斑。辉光、暗角、颗粒（±3%）。每个短镜头 2–3 秒，同一地点换角度，各自慢推。参照肖恩·贝克《阿诺拉》（2024）。避免：平涂彩字式霓虹、干地面、频闪。"
+    ],
+    [
+    "导演",
+    "Clawd 扮阿诺拉：奶油色毛皮护耳帽、竖起的毛领、一只大圆耳环。四个短镜头卡着拍子走，每个都带一点推拉：烟花、和万尼亚在栈道上、婚礼招牌，最后是安静的车里和落雪。"
+    ],
+    [
+    "参考",
+    "Sean Baker, Anora (2024)、Drew Daniels (cinematography)、Anora (2024) poster"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    },
+    {
+    "code": "Q98",
+    "group": "Q",
+    "name": "3D 起伏公路追车 · 长焦压缩",
+    "handle": "NO.98 · 2025《一战再战》",
+    "img": "lemo/q/98",
+    "video": "lemo/q/98.mp4",
+    "loop": true,
+    "fit": "3D",
+    "ok": true,
+    "chip": "▶ 片段循环",
+    "desc": "实时 3D 的沙漠公路，像过山车一样一起一伏，三辆车翻着一道道坡追逐，用超长焦拍，带热浪、漂白的强光和细颗粒。复刻的是这部片最有名的段落：起伏公路追车。",
+    "palette": [
+    "#7FB0E0",
+    "#ECE4D2",
+    "#D2AE80",
+    "#FFF0D8"
+    ],
+    "spec": [
+    [
+    "原片",
+    "2025 年奥斯卡最佳影片《一战再战》（One Battle After Another）"
+    ],
+    [
+    "画法组合",
+    "实时 3D（three.js） + 超长焦压缩 + 热浪与路面蜃景 + VistaVision 细颗粒"
+    ],
+    [
+    "风格提示词",
+    "实时 3D，漂白般的沙漠日光。招牌镜头（3–5 秒）：一条笔直的路在连续起伏的坡谷上，水平视角 2–5°，让坡谷叠成波浪，行进的主体沉下去又冒出来；构图先保坡谷，天空最多留一条窄带。再接各 1–2 秒的坡顶低机位、车载或骑手机位。配色：天空 #7fb0e0，雾气 #ece4d2 只在最远的地平线，浅沙色 #d2ae80（不能发橙），硬朗阳光 #fff0d8 从高处侧打，主车是褪色海沫绿 #86b5ad。反差来自前景：开裂的深色沥青、清晰阴影、茂密的绿灌木、路边桩。默认正午，其他时段也保持硬光。热浪扭曲和路面蜃景随距离加重；落地扬尘；车过坡顶腾空、落地弹跳。大画幅细颗粒（±2%）。参照保罗·托马斯·安德森《一战再战》（2025）。避免：广角、发白发灰的画面、粘在路上的车。"
+    ],
+    [
+    "导演",
+    "Clawd 扮鲍勃：格子浴袍的翻领、推到头顶的金框墨镜，开着最前面那辆车。追车按真实速度走，五个机位在长焦的波浪和近处的瞬间之间交替；最后一个镜头停在 Clawd 举起的手臂上，这个姿势定住，好让终章接过去。"
+    ],
+    [
+    "参考",
+    "Paul Thomas Anderson, One Battle After Another (2025)、Michael Bauman (VistaVision cinematography)、One Battle After Another (2025) poster"
+    ]
+    ],
+    "credit": "样片与风格说明来自 LemoLab 的开源风格库 lemo-opuscar（MIT 协议），全部由 Claude Opus 5.5 写代码做成；本站转载，中文要点是摘译。",
+    "links": [
+    [
+    "看 OPUSCAR 98 整片 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/"
+    ],
+    [
+    "98 种风格清单 ↗",
+    "https://lemomo-ai.github.io/lemo-opuscar/opuscar98/#styles"
+    ]
+    ]
+    }
+    ];
+  STYLES = OWN.concat(STYLES, typeof LEMO === 'undefined' ? [] : LEMO);
 
   var root = document.documentElement;
   var state = { group: 'all', q: '', list: [], idx: -1 };
@@ -3775,7 +8880,7 @@ footer.foot strong { color: var(--ink); }
   function swatches(p) { return p.map(function (c) { return '<i style="background:' + c + '"></i>'; }).join(''); }
   function chipHTML(s) {
     return '<span class="chip">' + esc(s.fit) + '</span>' +
-      (s.own ? (s.chip === s.fit ? '' : '<span class="chip ok">' + esc(s.chip) + '</span>') : '<span class="chip ' + (s.ok ? 'ok">纯代码可做' : 'mix">需 AI 生图打底') + '</span>');
+      (s.own || s.chip ? (s.chip === s.fit ? '' : '<span class="chip ok">' + esc(s.chip) + '</span>') : '<span class="chip ' + (s.ok ? 'ok">纯代码可做' : 'mix">需 AI 生图打底') + '</span>');
   }
   function card(s) {
     return '<button type="button" class="card" data-open="' + esc(s.code) + '">' +
@@ -3858,6 +8963,8 @@ footer.foot strong { color: var(--ink); }
     document.getElementById('dlg-hex').innerHTML = s.palette.map(function (c) { return '<span><i style="background:' + c + '"></i>' + c + '</span>'; }).join('');
     document.getElementById('dlg-src').innerHTML = s.own
       ? '<span class="order">' + (s.group === 'P' ? '我们已经发过的风格' : s.group === 'K' ? '我们自己做的样片 · 借鉴知名频道的讲法和画风，画面与旁白全部原创，不含频道标志' : s.group === 'L' ? '我们自己做的动效样片 · 程序化绘制，无旁白，循环播放' : s.group === 'M' ? '我们自己做的日本动画风样片 · 程序化绘制，角色全部原创，不含任何现成动漫角色' : '我们自己做的样片 · 程序化绘制，角色原创，不含品牌标志') + '</span>'
+      : s.links ? s.links.map(function (l) { return '<a class="src" href="' + esc(l[1]) + '" target="_blank" rel="noopener">' + esc(l[0]) + '</a>'; }).join('') +
+          (s.credit ? '<span class="order credit">' + esc(s.credit) + '</span>' : '')
       : '<a class="src" href="' + esc(s.link) + '" target="_blank" rel="noopener">在 X 上看原片 ↗</a>';
     document.getElementById('dlg-order').textContent = (state.idx + 1) + ' / ' + list.length + ' · 方向键切换';
     document.querySelector('.dlg-scroll').scrollTop = 0;
